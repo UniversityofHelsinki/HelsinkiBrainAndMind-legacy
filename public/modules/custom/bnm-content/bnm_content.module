@@ -43,11 +43,9 @@ function bnm_content_entity_presave(EntityInterface $entity) {
   ) {
     if ($entity->getType() == 'research_group') {
       $title = '';
-      if ($entity->field_apartment_address->first()->getValue()['#markup']) {
-        $firstname = $entity->field_firstname->first()->getValue();
-        $lastname = $entity->field_lastname->first()->getValue();
-        $title = reset($firstname) . ' ' . reset($lastname);
-      }
+      $firstname = $entity->field_firstname->first()->getValue();
+      $lastname = $entity->field_lastname->first()->getValue();
+      $title = reset($firstname) . ' ' . reset($lastname);
       $entity->setTitle($title);
     }
   }
