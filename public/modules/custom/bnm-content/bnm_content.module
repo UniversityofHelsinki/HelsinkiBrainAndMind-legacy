@@ -1,0 +1,54 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+
+const FORMS_TO_HIDE_TITLE_FROM = [
+  'node_research_group_edit_form',
+  'node_research_group_form',
+];
+
+/**
+* Implements hook_form_BASE_FORM_ID_alter().
+*
+* {@inheritdoc}
+*/
+function bnm_content_form_alter(&$form, $form_state) {
+bnm_content_hide_node_title($form, $form_state);
+}
+
+/**
+* Hide node title from specified node forms.
+*
+* {@inheritDoc}
+*/
+function bnm_content_hide_node_title(&$form, $form_state) {
+  if (!in_array($form['#form_id'], FORMS_TO_HIDE_TITLE_FROM)) {
+    return;
+  }
+
+  if (isset($form['title'])) {
+    $form['title']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * Replace title with firstname and lastname fields from the form
+ */
+function bnm_content_entity_presave(EntityInterface $entity) {
+  if (
+    $entity instanceof EntityInterface &&
+    method_exists($entity, 'getType')
+  ) {
+    if ($entity->getType() == 'research_group') {
+      $title = '';
+      if ($entity->field_apartment_address->first()->getValue()['#markup']) {
+        $firstname = $entity->field_firstname->first()->getValue();
+        $lastname = $entity->field_lastname->first()->getValue();
+        $title = reset($firstname) . ' ' . reset($lastname);
+      }
+      $entity->setTitle($title);
+    }
+  }
+}
