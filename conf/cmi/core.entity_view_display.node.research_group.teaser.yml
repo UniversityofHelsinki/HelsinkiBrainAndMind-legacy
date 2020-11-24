@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.research_group.field_firstname
     - field.field.node.research_group.field_keywords
     - field.field.node.research_group.field_lastname
+    - field.field.node.research_group.field_links
     - field.field.node.research_group.field_main_affiliation
     - field.field.node.research_group.field_other_affiliations
     - field.field.node.research_group.field_research_group_name
@@ -41,6 +42,7 @@ hidden:
   field_firstname: true
   field_keywords: true
   field_lastname: true
+  field_links: true
   field_main_affiliation: true
   field_other_affiliations: true
   field_research_group_name: true

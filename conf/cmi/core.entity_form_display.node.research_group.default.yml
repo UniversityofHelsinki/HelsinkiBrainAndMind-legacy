@@ -9,11 +9,13 @@ dependencies:
     - field.field.node.research_group.field_firstname
     - field.field.node.research_group.field_keywords
     - field.field.node.research_group.field_lastname
+    - field.field.node.research_group.field_links
     - field.field.node.research_group.field_main_affiliation
     - field.field.node.research_group.field_other_affiliations
     - field.field.node.research_group.field_research_group_name
     - node.type.research_group
   module:
+    - link
     - path
     - text
 id: node.research_group.default
@@ -78,6 +80,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_links:
+    weight: 130
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
     region: content
   field_main_affiliation:
     weight: 125

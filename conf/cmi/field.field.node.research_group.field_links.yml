@@ -1,0 +1,23 @@
+uuid: fe2528a0-2fad-4faa-891d-2b48bb8a72e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_links
+    - node.type.research_group
+  module:
+    - link
+id: node.research_group.field_links
+field_name: field_links
+entity_type: node
+bundle: research_group
+label: Links
+description: 'The link text ought to be either “Group Page”, “Research Portal” or “Other”'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 2
+field_type: link
