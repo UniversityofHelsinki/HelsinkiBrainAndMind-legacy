@@ -17,7 +17,10 @@
         "druidfi/omen": "^0.2.0",
         "drupal/core-composer-scaffold": "^9.0",
         "drupal/core-recommended": "^9.0",
-        "drush/drush": "^10.3"
+        "drush/drush": "^10.3",
+        "drupal/gin": "^3.0",
+        "drupal/gin_login": "^1.0",
+        "drupal/gin_toolbar": "^1.0@beta"
     },
     "require-dev": {
         "drupal/core-dev": "^9.0"
