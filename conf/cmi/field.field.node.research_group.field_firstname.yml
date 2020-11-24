@@ -1,0 +1,19 @@
+uuid: ac62897f-f2c6-438e-88d6-92385cc4d25b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_firstname
+    - node.type.research_group
+id: node.research_group.field_firstname
+field_name: field_firstname
+entity_type: node
+bundle: research_group
+label: Firstname
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
