@@ -1,0 +1,8 @@
+uuid: bd3e7ceb-a3f9-43cd-83f8-aae81ad16b3d
+langcode: en
+status: true
+dependencies: {  }
+name: Affiliations
+vid: affiliations
+description: ''
+weight: 0
