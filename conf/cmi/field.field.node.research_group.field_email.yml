@@ -1,0 +1,19 @@
+uuid: 3fb1ae57-4c1a-422f-8fd1-880b835b1c77
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_email
+    - node.type.research_group
+id: node.research_group.field_email
+field_name: field_email
+entity_type: node
+bundle: research_group
+label: Email
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

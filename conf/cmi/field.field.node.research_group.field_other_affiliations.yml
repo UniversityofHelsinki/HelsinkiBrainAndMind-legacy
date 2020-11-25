@@ -1,0 +1,19 @@
+uuid: f117d32d-9f26-4e62-9833-140526c0cec6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_other_affiliations
+    - node.type.research_group
+id: node.research_group.field_other_affiliations
+field_name: field_other_affiliations
+entity_type: node
+bundle: research_group
+label: 'Other affiliations'
+description: 'Comma separated list of other affiliations.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

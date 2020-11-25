@@ -1,0 +1,48 @@
+uuid: 9e879236-99b2-4364-a05f-2abada5c99e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.research_group.body
+    - field.field.node.research_group.field_email
+    - field.field.node.research_group.field_faculty_unit
+    - field.field.node.research_group.field_firstname
+    - field.field.node.research_group.field_keywords
+    - field.field.node.research_group.field_lastname
+    - field.field.node.research_group.field_links
+    - field.field.node.research_group.field_main_affiliation
+    - field.field.node.research_group.field_other_affiliations
+    - field.field.node.research_group.field_research_group_name
+    - node.type.research_group
+  module:
+    - text
+    - user
+id: node.research_group.teaser
+targetEntityType: node
+bundle: research_group
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_email: true
+  field_faculty_unit: true
+  field_firstname: true
+  field_keywords: true
+  field_lastname: true
+  field_links: true
+  field_main_affiliation: true
+  field_other_affiliations: true
+  field_research_group_name: true
