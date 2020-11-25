@@ -17,6 +17,12 @@
         "druidfi/omen": "^0.2.0",
         "drupal/core-composer-scaffold": "^9.0",
         "drupal/core-recommended": "^9.0",
+        "drupal/gin": "^3.0",
+        "drupal/gin_login": "^1.0",
+        "drupal/gin_toolbar": "^1.0@beta",
+        "drupal/restui": "^1.18",
+        "drupal/search_api": "^1.18",
+        "drupal/search_api_autocomplete": "^1.4",
         "drush/drush": "^10.3"
     },
     "require-dev": {
