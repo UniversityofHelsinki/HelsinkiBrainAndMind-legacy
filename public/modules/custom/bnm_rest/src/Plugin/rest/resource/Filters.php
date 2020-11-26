@@ -4,9 +4,7 @@ namespace Drupal\bnm_rest\Plugin\rest\resource;
 
 use Drupal\taxonomy\Entity\Term;
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\taxonomy\TermStorage;
 use Drupal\taxonomy\TermStorageInterface;
-use Drush\Log\Logger;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -80,7 +78,6 @@ final class Filters extends ResourceBase {
    */
   public function get(Request $request) {
     $affiliates = $this->manager->loadTree('Affiliations', 0, NULL, TRUE);
-
     if (!$affiliates) {
       return new JsonResponse([]);
     }
@@ -94,8 +91,7 @@ final class Filters extends ResourceBase {
         'id' => $term->id(),
         'name' => $term->getName()
       ];
-      $item['children'] = empty($children) ? null : array_values(array_map(function($term) { return $term->id(); }, $children));
-
+      $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
       $items[] = $item;
     }
     return new JsonResponse($items);

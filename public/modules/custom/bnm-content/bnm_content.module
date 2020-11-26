@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains asu_rest.module.
+ * Contains bnm_content.module.
  */
 
 use Drupal\Core\Entity\EntityInterface;
