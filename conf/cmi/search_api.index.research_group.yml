@@ -1,0 +1,83 @@
+uuid: 0cdb01de-eccf-4144-89a3-7de69525622e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_faculty_unit
+    - field.storage.node.field_other_affiliations
+    - field.storage.node.field_research_group_name
+    - field.storage.node.field_main_affiliation
+    - search_api.server.default_server
+  module:
+    - taxonomy
+    - node
+    - search_api
+id: research_group
+name: 'Research group'
+description: ''
+read_only: false
+field_settings:
+  field_faculty_unit:
+    label: 'Faculty / unit'
+    datasource_id: 'entity:node'
+    property_path: field_faculty_unit
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_faculty_unit
+  field_other_affiliations:
+    label: 'Other affiliations'
+    datasource_id: 'entity:node'
+    property_path: field_other_affiliations
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_other_affiliations
+  field_research_group_name:
+    label: 'Research group name'
+    datasource_id: 'entity:node'
+    property_path: field_research_group_name
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_research_group_name
+  name:
+    label: 'Main affiliation'
+    datasource_id: 'entity:node'
+    property_path: 'field_main_affiliation:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_main_affiliation
+      module:
+        - taxonomy
+  title:
+    label: Name
+    datasource_id: 'entity:node'
+    property_path: title
+    type: string
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - research_group
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  entity_status: {  }
+  language_with_fallback: {  }
+  rendered_item: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: default_server
