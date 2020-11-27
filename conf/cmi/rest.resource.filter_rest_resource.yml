@@ -1,0 +1,17 @@
+uuid: e25bd3aa-cb11-4dca-9f33-7caf7c9f5753
+langcode: en
+status: true
+dependencies:
+  module:
+    - bnm_rest
+    - serialization
+    - user
+id: filter_rest_resource
+plugin_id: filter_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie

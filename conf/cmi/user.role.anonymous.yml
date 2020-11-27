@@ -10,5 +10,7 @@ weight: -10
 is_admin: false
 permissions:
   - 'access content'
+  - 'access site-wide contact form'
+  - 'restful get filter_rest_resource'
   - 'search content'
   - 'use text format restricted_html'
