@@ -1,0 +1,9 @@
+bnm_import.importer:
+  path: '/content-import'
+  defaults:
+    _title: 'Content import form'
+    _form: '\Drupal\bnm_import\Form\ImportForm'
+  requirements:
+    _permission: 'bnm import permission'
+  options:
+    _admin_route: TRUE

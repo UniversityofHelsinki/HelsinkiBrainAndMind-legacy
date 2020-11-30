@@ -1,0 +1,3 @@
+bnm import permission:
+  title: 'BNM import permission'
+  description: 'Gives import tool usage permission to the users.'
