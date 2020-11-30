@@ -12,7 +12,7 @@ class LinkType extends ImportType {
       throw new \Exception('Not a valid url');
     }
     $this->value = [
-      'url' => $data,
+      'uri' => $data,
       'title' => $field['title']
     ];
   }

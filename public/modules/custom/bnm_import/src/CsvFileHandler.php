@@ -9,6 +9,7 @@ use Drupal\bnm_import\ImportTypes\TextType;
 use Drupal\bnm_import\ImportTypes\TaxonomyType;
 use Drupal\bnm_import\ImportTypes\ImportType;
 use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Class to handle csv upload logic.
@@ -84,7 +85,6 @@ class CsvFileHandler {
           }
         }
       }
-      fclose($handle);
     }
 
     return $errors;
@@ -128,38 +128,47 @@ class CsvFileHandler {
           $data_object = $this->createValue($row[$header[$key]], $field);
 
           if ($field['type'] == 'taxonomy') {
-            foreach ($data_object as $term) {
-              if(!$existing_terms = taxonomy_term_load_multiple_by_name(ucfirst($term), $field['taxonomy_type'])){
+            foreach ($data_object->getValue() as $term) {
+              if($existing_terms = taxonomy_term_load_multiple_by_name(ucfirst($term), $field['taxonomy_type'])){
                 $node_terms[$field['taxonomy_type']] = $existing_terms;
               } else {
+                $name = trim($term);
                 $term = Term::create([
-                  'name' => ucfirst($term),
+                  'name' => ucfirst($name),
                   'vid' => $field['taxonomy_type'],
-                ])->save();
+                ]);
+                $term->save();
                 $node_terms[$field['taxonomy_type']][] = $term;
                 $terms[] = $term;
               }
-
             }
-          } else {
+          } else if($field['type'] == 'link'){
+            if($data_object->getValue()['uri']){
+              $node_fields[$field['field']][] = $data_object->getValue();
+            }
+          }
+          else {
             $node_fields[$field['field']] = $data_object->getValue();
           }
-
         }
 
         $node = Node::create($node_fields);
 
-        if ($terms['affiliations']) {
-          $node->set('field_article_images', ['target_id' => $terms['affiliations'][0]->id()]);
+        if ($node_terms['affiliations']) {
+          if(reset($node_terms['affiliations']) instanceof Term){
+            $node->set('field_main_affiliation', ['target_id' => reset($node_terms['affiliations'])->tid->value]);
+          } else {
+            $node->set('field_main_affiliation', ['target_id' => reset($node_terms['affiliations'])]);
+          }
         }
 
-        if ($terms['keywords']) {
-          foreach ($terms['keywords'] as $index => $keyword) {
-            if ($index == 0) {
-              $node->set('field_keywords', $keyword->id());
+        if ($node_terms['keywords']) {
+          foreach ($node_terms['keywords'] as $tid => $keyword) {
+            if ($tid == 0) {
+              $node->set('field_keywords', $keyword->tid->value);
             } else {
               $node->get('field_keywords')->appendItem([
-                'target_id' => $keyword->id(),
+                'target_id' => $keyword->tid->value,
               ]);
             }
           }
@@ -179,37 +188,6 @@ class CsvFileHandler {
       'terms' => $terms
     ];
 
-  }
-
-  private function createTerms()
-  {
-    $terms = [];
-
-    #Drupal\taxonomy\Entity\Term::
-
-    return $terms;
-  }
-
-
-  /**
-   * Get field definitions by field machine names in csv header.
-   *
-   * @param array $header
-   *   Array of machine names.
-   * @param array $field_definitions
-   *   Content type field definitions.
-   *
-   * @return array
-   *   Array of field types by machine name.
-   */
-  private function getFieldTypes(array $header, array $field_definitions) {
-    $field_types = [];
-    foreach ($header as $key => $title) {
-      if (isset($field_definitions[$title])) {
-        $field_types[] = $field_definitions[$title]->getType();
-      }
-    }
-    return $field_types;
   }
 
   /**
