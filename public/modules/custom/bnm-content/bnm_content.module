@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains bnm_content.module.
+ */
+
 use Drupal\Core\Entity\EntityInterface;
 
 const FORMS_TO_HIDE_TITLE_FROM = [

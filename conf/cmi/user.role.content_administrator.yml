@@ -1,0 +1,43 @@
+uuid: a8661d9d-0f12-418d-8834-9055de422d53
+langcode: en
+status: true
+dependencies: {  }
+id: content_administrator
+label: 'Content administrator'
+weight: -8
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access content'
+  - 'access content overview'
+  - 'access site in maintenance mode'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'administer taxonomy_term display'
+  - 'administer taxonomy_term fields'
+  - 'administer taxonomy_term form display'
+  - 'administer users'
+  - 'cancel account'
+  - 'change own username'
+  - 'create research_group content'
+  - 'create terms in affiliations'
+  - 'create terms in keywords'
+  - 'delete all revisions'
+  - 'delete any research_group content'
+  - 'delete own research_group content'
+  - 'delete research_group revisions'
+  - 'delete terms in affiliations'
+  - 'delete terms in keywords'
+  - 'edit any research_group content'
+  - 'edit own research_group content'
+  - 'edit terms in affiliations'
+  - 'edit terms in keywords'
+  - 'revert all revisions'
+  - 'revert research_group revisions'
+  - 'select account cancellation method'
+  - 'use text format full_html'
+  - 'use text format restricted_html'
+  - 'view all revisions'
+  - 'view own unpublished content'
+  - 'view research_group revisions'

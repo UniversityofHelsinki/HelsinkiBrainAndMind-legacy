@@ -46,3 +46,4 @@ hidden:
   field_main_affiliation: true
   field_other_affiliations: true
   field_research_group_name: true
+  search_api_excerpt: true

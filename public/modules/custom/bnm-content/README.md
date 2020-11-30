@@ -1,3 +1,3 @@
-#BNM content module
+#BNM rest module
 
-Module contains content realated modifications.
+Module contains content related modifications.
