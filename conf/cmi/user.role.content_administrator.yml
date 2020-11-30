@@ -18,6 +18,7 @@ permissions:
   - 'administer taxonomy_term fields'
   - 'administer taxonomy_term form display'
   - 'administer users'
+  - 'bnm import permission'
   - 'cancel account'
   - 'change own username'
   - 'create research_group content'
