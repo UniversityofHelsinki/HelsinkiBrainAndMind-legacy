@@ -1,0 +1,47 @@
+field_map:
+  required:
+    Email:
+      field: field_email
+      type: email
+    'First name':
+      field: field_firstname
+      type: string
+    'Last name':
+      field: field_lastname
+      type: string
+    Organisation:
+      field: field_main_affiliation
+      type: taxonomy
+      taxonomy_type: affiliations
+  optional:
+    Faculty:
+      field: field_faculty_unit
+      type: string
+    'Key words':
+      field: field_keywords
+      type: taxonomy
+      taxonomy_type: keywords
+    'Link 1 (Research group website)':
+      field: field_links
+      type: link
+      title: 'Research group website'
+    'Link 2 (research portal)':
+      field: field_links
+      type: link
+      title: 'Research portal'
+    'Link 3 (Clinical researcher website)':
+      field: field_links
+      type: link
+      title: 'Clinical researcher website'
+    'Link 4 (other website)':
+      field: field_links
+      type: link
+      title: 'Other website'
+    'Other affiliations':
+      field: field_other_affiliations
+      type: string
+    'Research group name':
+      field: field_research_group_name
+      type: string
+_core:
+  default_config_hash: 2NTx37XUtxuabbQBQTwtd-S8E9nR4ovtFEO5bRYvHks
