@@ -34,4 +34,41 @@ class ImportForm extends FormBase {
     return $form;
   }
 
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $csv_handler = \Drupal::service('bnm_import.csv_validator');
+    $all_files = $this->getRequest()->files->get('files', []);
+    /** @var UploadedFile $file */
+    $file = $all_files['import'];
+
+    try{
+      $fh = fopen($file->getRealPath(), 'r');
+      $errors = $csv_handler->validateImportData($fh);
+      fclose($fh);
+    }
+    catch(\Exception $exception){
+      $form_state->setErrorByName('import', $exception->getMessage());
+    }
+
+
+    if($errors){
+      $name = 'import';
+      $form_state->setErrorByName($name, $errors[0]);
+    }
+  }
+
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $csv_handler = \Drupal::service('bnm_import.csv_validator');
+    $all_files = $this->getRequest()->files->get('files', []);
+    /** @var UploadedFile $file */
+    $file = $all_files['import'];
+    try {
+      $fh = fopen($file->getRealPath(), 'r');
+      $csv_handler->createContent();
+      close($fh);
+    }
+    catch(\Exception $exception){
+      $form_state->setErrorByName('import', $exception->getMessage());
+    }
+  }
+
 }
