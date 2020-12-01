@@ -1,0 +1,6 @@
+bnm_import.importer:
+  title: 'Research group content csv import'
+  route_name: bnm_import.importer
+  description: 'Import research groups'
+  parent: system.admin
+  weight: -52
