@@ -1,0 +1,17 @@
+uuid: 3d5d1a8d-5538-4bdf-a707-1d0417fa82b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - bnm_rest
+    - serialization
+    - user
+id: researchgroup_search_rest_resource
+plugin_id: researchgroup_search_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie
