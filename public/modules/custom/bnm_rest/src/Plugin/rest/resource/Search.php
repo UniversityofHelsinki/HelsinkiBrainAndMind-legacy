@@ -75,10 +75,7 @@ final class Search extends ResourceBase {
 
     $query->keys(str_replace(',',' ', $q));
 
-    $parse_mode = \Drupal::service('plugin.manager.search_api.parse_mode')
-      ->createInstance('direct');
-    $parse_mode->setConjunction('AND');
-    $query->setParseMode($parse_mode);
+    $query->getParseMode()->setConjunction('AND');
 
     // Execute the search.
     $results = $query->execute();
