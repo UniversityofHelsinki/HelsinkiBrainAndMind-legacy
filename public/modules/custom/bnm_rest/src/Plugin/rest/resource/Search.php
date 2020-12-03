@@ -66,13 +66,14 @@ final class Search extends ResourceBase {
    *   The HTTP response object.
    */
   public function get(Request $request) {
-    $keys = $request->get('q');
+    $q = $request->get('q');
+    $affiliate = $request->get('affiliate');
     $index = Index::load('research_group');
 
     /** @var \Drupal\search_api\Query\Query $query */
     $query = $index->query();
 
-    $query->keys(str_replace(',',' ', $keys));
+    $query->keys(str_replace(',',' ', $q));
 
     $parse_mode = \Drupal::service('plugin.manager.search_api.parse_mode')
       ->createInstance('direct');
@@ -84,6 +85,10 @@ final class Search extends ResourceBase {
     $return = [];
 
     foreach ($results as $item) {
+      if($affiliate && $item->field_main_affiliation->target_id != $affiliate){
+        continue;
+      }
+
       $data = explode(':', $item->getId());
       $data = explode('/', $data[1]);
       $node = Node::load($data[1]);
