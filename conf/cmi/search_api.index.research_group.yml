@@ -4,9 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_faculty_unit
-    - field.storage.node.field_firstname
     - field.storage.node.field_keywords
-    - field.storage.node.field_main_affiliation
     - field.storage.node.field_other_affiliations
     - field.storage.node.field_research_group_name
     - search_api.server.default_server
@@ -24,18 +22,9 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_faculty_unit
     type: text
-    boost: !!float 2
     dependencies:
       config:
         - field.storage.node.field_faculty_unit
-  field_firstname:
-    label: Firstname
-    datasource_id: 'entity:node'
-    property_path: field_firstname
-    type: text
-    dependencies:
-      config:
-        - field.storage.node.field_firstname
   field_other_affiliations:
     label: 'Other affiliations'
     datasource_id: 'entity:node'
@@ -49,7 +38,6 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_research_group_name
     type: text
-    boost: 0.5
     dependencies:
       config:
         - field.storage.node.field_research_group_name
@@ -58,21 +46,9 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: 'field_keywords:entity:name'
     type: text
-    boost: !!float 5
     dependencies:
       config:
         - field.storage.node.field_keywords
-      module:
-        - taxonomy
-  main_affiliation:
-    label: 'Main affiliation'
-    datasource_id: 'entity:node'
-    property_path: 'field_main_affiliation:entity:name'
-    type: text
-    boost: !!float 3
-    dependencies:
-      config:
-        - field.storage.node.field_main_affiliation
       module:
         - taxonomy
   title:
@@ -80,7 +56,6 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: title
     type: text
-    boost: 0.5
     dependencies:
       module:
         - node
@@ -101,11 +76,9 @@ processor_settings:
     all_fields: true
     fields:
       - field_faculty_unit
-      - field_firstname
       - field_other_affiliations
       - field_research_group_name
       - keyword
-      - main_affiliation
       - title
     weights:
       preprocess_index: -20
