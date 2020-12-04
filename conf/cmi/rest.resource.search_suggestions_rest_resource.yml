@@ -1,4 +1,4 @@
-uuid: 582f1f7d-5033-461a-bb59-88c9d15b5c1f
+uuid: fd8aab14-b0cd-4f5c-9e69-0ffc95721ab1
 langcode: en
 status: true
 dependencies:
@@ -6,8 +6,8 @@ dependencies:
     - bnm_rest
     - serialization
     - user
-id: suggestion_rest_resource
-plugin_id: suggestion_rest_resource
+id: search_suggestions_rest_resource
+plugin_id: search_suggestions_rest_resource
 granularity: method
 configuration:
   GET:
