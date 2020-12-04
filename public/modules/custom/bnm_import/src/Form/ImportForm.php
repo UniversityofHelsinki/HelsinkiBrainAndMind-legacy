@@ -17,12 +17,7 @@ class ImportForm extends FormBase {
     $form['import'] = [
       '#type' => 'file',
       '#title' => 'Import from csv',
-      '#upload_location' => 'managed_file://certfiles',
-      #'#required' => true,
-      '#upload_validators' => [
-        'file_validate_extensions' => ['csv'],
-        'validate_csv_file' => [],
-      ],
+      '#upload_location' => 'managed_file://csv',
     ];
 
     $form['submit'] = [
@@ -40,6 +35,15 @@ class ImportForm extends FormBase {
     /** @var UploadedFile $file */
     $file = $all_files['import'];
 
+    if (!$file) {
+      $form_state->setErrorByName('import', 'Set the file for the import first.');
+      return;
+    }
+
+    if (!$file->getClientOriginalExtension() || $file->getClientOriginalExtension() !== 'csv') {
+      $form_state->setErrorByName('import', 'Unsupported file extension detected. You can only import from .csv file.');
+      return;
+    }
     try{
       $fh = fopen($file->getRealPath(), 'r');
       $errors = $csv_handler->validateImportData($fh);
