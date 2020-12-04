@@ -14,15 +14,15 @@ use Symfony\Component\HttpFoundation\Request;
  * Provides a resource to get available suggestions.
  *
  * @RestResource(
- *   id = "suggestion_rest_resource",
+ *   id = "search_suggestions_rest_resource",
  *   label = @Translation("Suggestions"),
  *   uri_paths = {
- *     "canonical" = "/suggestions",
- *     "https://www.drupal.org/link-relations/create" = "/suggestions"
+ *     "canonical" = "/search_suggestions",
+ *     "https://www.drupal.org/link-relations/create" = "/search_suggestions"
  *   }
  * )
  */
-final class Suggestions extends ResourceBase {
+final class SearchSuggestions extends ResourceBase {
 
   /**
    * Constructor.
