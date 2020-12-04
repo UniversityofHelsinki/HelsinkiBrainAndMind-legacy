@@ -1,0 +1,17 @@
+uuid: 582f1f7d-5033-461a-bb59-88c9d15b5c1f
+langcode: en
+status: true
+dependencies:
+  module:
+    - bnm_rest
+    - serialization
+    - user
+id: suggestion_rest_resource
+plugin_id: suggestion_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie
