@@ -1,0 +1,17 @@
+uuid: 167d830a-cfad-44aa-b299-a2df96fe9db0
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_autocomplete
+    - serialization
+    - user
+id: entity.search_api_autocomplete_search
+plugin_id: 'entity:search_api_autocomplete_search'
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie
