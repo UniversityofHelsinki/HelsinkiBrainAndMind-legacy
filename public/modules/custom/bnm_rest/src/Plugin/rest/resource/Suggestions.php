@@ -11,14 +11,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Provides a resource to get available filters.
+ * Provides a resource to get available suggestions.
  *
  * @RestResource(
- *   id = "filter_rest_resource",
+ *   id = "suggestion_rest_resource",
  *   label = @Translation("Suggestions"),
  *   uri_paths = {
  *     "canonical" = "/suggestions",
- *     "https://www.drupal.org/link-relations/create" = "/filters"
+ *     "https://www.drupal.org/link-relations/create" = "/suggestions"
  *   }
  * )
  */
@@ -37,8 +37,6 @@ final class Suggestions extends ResourceBase {
    *   The available serialization formats.
    * @param \Psr\Log\LoggerInterface $logger
    *   A logger instance.
-   * @param \Drupal\taxonomy\Entity\TermStorageInterface $manager
-   *   The term manager.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, array $serializer_formats, LoggerInterface $logger) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
