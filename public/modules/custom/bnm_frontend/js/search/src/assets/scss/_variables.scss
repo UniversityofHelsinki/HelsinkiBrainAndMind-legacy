@@ -1,0 +1,50 @@
+// Colors
+$color-black: #000000;
+$color-white: #ffffff;
+
+$color-violet-1: #29015F;
+
+$color-blue-1: #37FFFB;
+$color-blue-2: #40C3FF;
+$color-blue-3: #4936FF;
+
+$color-green-1: #6BFF6F;
+
+$color-gray-1: #EAEAEA;
+
+$color-indigo-1: #4F00A5;
+
+// Constraint
+$gutter: 16px;
+
+$spacing: $gutter; // 16px
+$spacing-tiny: $spacing * .5; // 8px
+$spacing-small: $spacing * 1.5; // 24px
+$spacing-medium: $spacing * 2; // 32px
+$spacing-large: $spacing * 3; // 48px
+$spacing-extra-large: $spacing * 4; // 64px
+
+$container-width: 1100px;
+
+// Breakpoints
+$tiny: 576px; // Use this with max-width breakpoints.
+$small: 577px;
+$medium: 768px;
+$large: 992px;
+$extra-large: 1200px;
+$ultra-large: 1350px;
+
+// Fonts
+$base-font-size: 16px;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+$default-font-family: 'Open Sans', sans-serif;
+
+// Mixins
+@mixin font-size($font-size, $desired-mobile-size: '') {
+  @media screen and (max-width: $medium) {
+    @if $desired-mobile-size != '' {
+      font-size: ($desired-mobile-size / $base-font-size) * 1rem;
+    }
+  }
+  font-size: ($font-size / $base-font-size) * 1rem;
+}
