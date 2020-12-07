@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import './search-field.suggestions.scss';
+
 export default {
   name: 'SearchFieldSuggestions'
 }

@@ -1,5 +1,5 @@
 <template>
-  <Container>
+  <Container class="search">
     <SearchField></SearchField>
   </Container>
 </template>
