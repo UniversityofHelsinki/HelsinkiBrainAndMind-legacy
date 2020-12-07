@@ -16,5 +16,17 @@ export default {
 <style lang="scss">
   #app {
     font-family: $default-font-family;
+    padding-bottom: $spacing-medium;
+    padding-top: $spacing-medium;
+
+    @media screen and (min-width: $small) {
+      padding-bottom: $spacing-large;
+      padding-top: $spacing-large;
+    }
+
+    @media screen and (min-width: $large) {
+      padding-bottom: $spacing-extra-large;
+      padding-top: $spacing-extra-large;
+    }
   }
 </style>
