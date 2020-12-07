@@ -29,8 +29,14 @@
         this.updateKeyword(event);
         // TODO add throttling
         if(event.target.value.length > 2) {
-          //this.autocompleteList =  this.$http.axios.get().then().catch();
-          this.autocompleteList = ['asd', 'boohoo'];
+            this.axios.get(`https://bnm.docker.sh/search_suggestions?q=${event.target.value}`, {}, {
+              headers: {
+                'Content-type': 'application/json',
+              },
+            })
+            .then(response => {
+                this.autocompleteList = response.data;
+            })
           this.currentKeywordValue = event.target.value;
         }
       },
@@ -38,7 +44,8 @@
         this.$emit('inputfieldValueUpdated', event.target.value);
       },
       setInputValue(event){
-        this.$emit('keywordSubmitted', event.target.innerHTML);
+        const clickedKeyword = event.target.innerHTML
+        this.$emit('keywordSubmitted', clickedKeyword);
         this.resetAutocomplete();
       },
       submitKeyword(event){

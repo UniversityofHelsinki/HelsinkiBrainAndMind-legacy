@@ -23,7 +23,8 @@ export default {
     },
     methods: {
       showSearchResults(results){
-        this.results = results;
+        console.log('page updated with: ', results);
+        this.results = Object.values(results);
       }
     }
 }
