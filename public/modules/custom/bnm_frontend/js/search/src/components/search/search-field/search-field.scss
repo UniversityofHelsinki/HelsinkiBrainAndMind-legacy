@@ -1,0 +1,31 @@
+.search-field__label {
+  @include font-size(16px);
+  color: $color-violet-1;
+  display: block;
+  font-weight: bold;
+  margin-bottom: $spacing-tiny;
+
+  @media screen and (min-width: $medium) {
+    @include font-size(18px);
+  }
+}
+
+.search-field__input {
+  @include font-size(16px);
+  border-radius: 3px;
+  border: 2px solid $color-violet-1;
+  color: $color-violet-1;
+  font-weight: bold;
+  height: 40px;
+  padding: $spacing-tiny $spacing-tiny * 1.5;
+  width: 100%;
+
+  @media screen and (min-width: $small) {
+    height: 44px;
+  }
+
+  @media screen and (min-width: $medium) {
+    @include font-size(18px);
+    height: 48px;
+  }
+}

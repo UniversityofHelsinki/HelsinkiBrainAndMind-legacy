@@ -10,7 +10,7 @@ import ResultList from '../ResultList/ResultList.vue';
 import Footer from './Footer.vue';
 
 export default {
-    name: 'SearchPage',
+    name: 'SearchPage2',
     components: {
       SearchBar,
       ResultList,
@@ -23,7 +23,6 @@ export default {
     },
     methods: {
       showSearchResults(results){
-        console.log('page updated with: ', results);
         this.results = Object.values(results);
       }
     }
