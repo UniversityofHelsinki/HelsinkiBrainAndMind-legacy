@@ -41,35 +41,18 @@
 
     mounted() {
       // Hardcoded, move to config
-      //'http://Brain:bnm_2020@dev.bnm.druidfi.wod.by/filters'
-      //'bnm.docker.sh/filters'
+      //'https://Brain:bnm_2020@dev.bnm.druidfi.wod.by/filters'
 
-      /*
-
-      axios.defaults.headers.common['Content-Type'] = 'application/json';
-axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-       */
-
-
-      this.axios.get('http://bnm.docker.sh/filters', {}, {
+      let filters = [];
+      this.axios.get('https://bnm.docker.sh/filters', {}, {
         headers: {
-          'Accept': 'application/json',
           'Content-type': 'application/json',
-          //'Access-Control-Allow-Origin': '*'
         },
-        withCredentials: true,
-        crossorigin: true
       })
       .then((result) => {
-        console.log(result);
-      }).catch((e) => {
-        console.log('catch me if you can', e);
-      });
-
-
-      const filters = [{"id":"2","name":"Aalto University","children":["4"]},{"id":"4","name":"Unit 2","children":null},{"id":"1","name":"Helsinki University","children":["3","4"]},{"id":"3","name":"Helsinki Unit 1","children":null},{"id":"4","name":"Unit 2","children":null}];
-      const parents = filters.filter( filter => filter.children);
-      const mappedFilters = parents.map((filter) => {
+        filters = result.data;
+        const parents = filters.filter( filter => filter.children);
+        const mappedFilters = parents.map((filter) => {
           const filterChildren = [];
 
           filter.children.forEach(childId => {
@@ -80,9 +63,12 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
               name: child.name });
           });
           return {id: filter.id, name: filter.name, children: filterChildren};
-      })
+        });
+        this.filterItems = mappedFilters
+      }).catch((e) => {
+        console.log('catch me if you can', e);
+      });
 
-      this.filterItems = mappedFilters
     }
   }
 </script>

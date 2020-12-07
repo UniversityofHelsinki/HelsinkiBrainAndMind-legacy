@@ -42,8 +42,8 @@ export default {
       this.currentKeyword = currentKeyword;
     },
     // TODO prevent adding same keyword twice
-    addKeyword(){
-      this.selectedKeywords.push(this.currentKeyword);
+    addKeyword(keyword){
+      this.selectedKeywords.push(keyword);
       this.currentKeyword = '';
     },
     // TODO
@@ -58,35 +58,29 @@ export default {
       this.selectedKeywords = [];
     },
     submitSearch(){
-      console.log('SUBMIT QUERY');
-      console.log('lets search! Keywords: ',this.currentKeyword, this.selectedKeywords, 'from affiliation:', this.selectedFilter);
-      /*
-      const keywords = this.keywords.join(',');
+      const keywords = this.selectedKeywords.join(',');
       const affiliate = this.selectedFilter;
-
-
 
       const api_endpoint = 'researchgroup_search';
       const queryString = `?q=${keywords}&affiliate=${affiliate}`;
-      this.searchResult.isLoading = true;
-      // `http://Brain:bnm_2020@dev.bnm.druidfi.wod.by/${api_endpoint}${queryString}`
-      // `bnm.docker.sh/${api_endpoint}${queryString}`
 
-      this.$http.axios.get(`bnm.docker.sh/${api_endpoint}${queryString}`)
+      this.searchResult.isLoading = true;
+      this.axios.get(`https://bnm.docker.sh/${api_endpoint}${queryString}`)
        .then((result) => {
+          console.log('result', result);
           this.searchResult.isLoading = false;
           this.searchResult.isLoaded = true;
-          this.searchResult.data = result.body;
+          this.searchResult.data = result.data;
+          this.$emit('searchCompleted', this.searchResult.data);
        })
-       .catch(() => {
+       .catch((error) => {
+          console.log('error',error);
           this.searchResult.isLoading = false;
           this.searchResult.isLoaded = true;
        });
 
-       */
-      this.searchResult.data = [{id: 1, name: 'test', main_affiliation: 'HY'}]
-      this.$emit('searchCompleted', this.searchResult.data);
-      console.log('RETURNED VALUE:', this.searchResult.data);
+
+
     }
   }
 
