@@ -45,18 +45,18 @@ class CsvFileHandler {
       while (($row = fgetcsv($handle, 0, ';', '"', '\\')) !== FALSE) {
         if ($i == 0) {
           $i++;
-          $header = array_flip($row);
+          $header = $row;
           continue;
         }
         $i++;
 
         foreach($required_fields as $key => $field) {
-          if(!$row[$header[$key]]){
+          if(!$row[array_search($key,$header)]) {
             $errors[] = "Value for $key on line $i is required and therefore may not be empty";
             continue;
           }
           try {
-            if($this->createValue($row[$header[$key]], $field) instanceof ImportType){
+            if($this->createValue($row[array_search($key,$header)], $field) instanceof ImportType){
               continue;
             } else {
               $errors[] = "Something unexpected happened while creating $key on line $i";
@@ -72,7 +72,7 @@ class CsvFileHandler {
 
         foreach($optional_fields as $key => $field){
           try {
-            if($this->createValue($row[$header[$key]], $field) instanceof ImportType){
+            if($this->createValue($row[array_search($key,$header)], $field) instanceof ImportType){
               continue;
             } else {
               $errors[] = "Something unexpected happened while creating $key on line $i";
@@ -116,16 +116,17 @@ class CsvFileHandler {
       while (($row = fgetcsv($handle, 0, ';', '"', '\\')) !== FALSE) {
         // Get header for fields machine names.
         if ($i == 0) {
-          $header = array_flip($row);
+          $header = $row;
           $i++;
           continue;
         }
+        $i++;
 
         $node_terms = [];
         $node_fields = $this->getNodeConstantValues();
 
         foreach ($fields as $key => $field) {
-          $data_object = $this->createValue($row[$header[$key]], $field);
+          $data_object = $this->createValue($row[array_search($key,$header)], $field);
 
           if ($field['type'] == 'taxonomy') {
             foreach ($data_object->getValue() as $term) {
