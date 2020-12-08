@@ -2,7 +2,7 @@
   <Container class="search">
     <div class="search__item">
       <SearchField @handleKeywordSubmit="handleAddKeyword" @handleUpdate="handleInputValueChange" class="search__item"></SearchField>
-      <SearchFieldKeywords :keywords="selectedKeywords" v-if="selectedKeywords.length > 0"></SearchFieldKeywords>
+      <SearchFieldKeywords :keywords="selectedKeywords" v-if="selectedKeywords.length > 0" @handleRemoveKeyword="handleRemoveKeyword"></SearchFieldKeywords>
     </div>
     <SearchDropdown @handleChange="handleDropdownChange" class="search__item"></SearchDropdown>
     <ButtonGroup class="search__item" :isReversed="true">
@@ -52,12 +52,14 @@ export default {
       this.currentKeyword = keyword;
     },
     handleAddKeyword(keyword) {
+      if (this.selectedKeywords.includes(keyword)) return;
+
       this.selectedKeywords = [...this.selectedKeywords, keyword]
       this.currentKeyword = '';
+    },
+    handleRemoveKeyword(keyword) {
+      this.selectedKeywords = this.selectedKeywords.filter(selectedKeyword => selectedKeyword !== keyword);
     }
-    // handleRemoveKeyword(keyword) {
-
-    // }
   }
 }
 </script>

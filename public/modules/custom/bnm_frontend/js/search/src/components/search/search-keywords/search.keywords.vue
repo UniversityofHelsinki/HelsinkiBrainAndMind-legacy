@@ -15,7 +15,7 @@ export default {
   name: 'SearchKeywords',
   components: { SearchKeywordsItem },
   props: {
-    keywords: Array
+    keywords: Array,
   }
 }
 </script>
