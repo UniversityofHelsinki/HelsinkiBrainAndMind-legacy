@@ -1,12 +1,13 @@
 <template>
   <Container class="search">
-    <SearchField class="search__item"></SearchField>
+    <SearchField @handleUpdate="handleInputValueChange" class="search__item"></SearchField>
     <SearchDropdown @handleChange="handleDropdownChange" class="search__item"></SearchDropdown>
     <ButtonGroup class="search__item" :isReversed="true">
       <Button @handleClick="handleSearchButtonClick" :isPrimary="true">Search</Button>
       <Button @handleClick="handleResetButtonClick" :isSecondary="true">Reset</Button>
     </ButtonGroup>
   </Container>
+  <h1>{{ this.currentKeyword }}</h1>
 </template>
 
 <script>
@@ -28,6 +29,7 @@ export default {
   },
   data(){
     return {
+      currentKeyword: '',
       selectedOption: 0,
     }
   },
@@ -40,6 +42,9 @@ export default {
     },
     handleDropdownChange(id) {
       this.selectedOption = id;
+    },
+    handleInputValueChange(keyword) {
+      this.currentKeyword = keyword;
     }
   }
 }

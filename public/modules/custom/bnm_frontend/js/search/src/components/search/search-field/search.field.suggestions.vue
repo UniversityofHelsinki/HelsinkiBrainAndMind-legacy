@@ -1,17 +1,22 @@
 <template>
   <ul class="search-suggestions">
-    <li class="search-suggestions__item"><button class="search-suggestions__button">Click me</button></li>
-    <li class="search-suggestions__item"><button class="search-suggestions__button">Click me</button></li>
-    <li class="search-suggestions__item"><button class="search-suggestions__button">Click me</button></li>
-    <li class="search-suggestions__item"><button class="search-suggestions__button">Click me</button></li>
-    <li class="search-suggestions__item"><button class="search-suggestions__button">Click me</button></li>
+    <SearchFieldSuggestionsItem v-for="suggestion in suggestions" :key="suggestion">
+      {{suggestion}}
+    </SearchFieldSuggestionsItem>
   </ul>
 </template>
 
 <script>
+import SearchFieldSuggestionsItem from './search.field.suggestions.item';
 import './search-field.suggestions.scss';
 
 export default {
-  name: 'SearchFieldSuggestions'
+  name: 'SearchFieldSuggestions',
+  props: {
+    suggestions: Array
+  },
+  components: {
+    SearchFieldSuggestionsItem
+  }
 }
 </script>
