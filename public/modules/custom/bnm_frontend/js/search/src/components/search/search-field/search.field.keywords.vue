@@ -12,7 +12,7 @@
       </li>
           <li class="search-keywords__item">
         <button class="search-keywords__button">
-          Matti
+          Brain
           <span>
             <IconClear></IconClear>
           </span>
@@ -20,7 +20,7 @@
       </li>
           <li class="search-keywords__item">
         <button class="search-keywords__button">
-          Matti
+          Helsinki
           <span>
             <IconClear></IconClear>
           </span>
@@ -28,7 +28,7 @@
       </li>
       <li class="search-keywords__item">
         <button class="search-keywords__button">
-          Matti
+          Website
           <span>
             <IconClear></IconClear>
           </span>
