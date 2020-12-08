@@ -1,0 +1,10 @@
+# Researchgroup search functionality
+researchgroup-search:
+  version: 1.0
+  js:
+    js/search/dist/js/app.227cb4b3.js: { }
+    js/search/dist/js/chunk-vendors.0aa8ba4d.js: { }
+  css:
+    theme:
+      js/search/dist/css/app.48598612.css: { }
+

@@ -1,0 +1,7 @@
+bnm_frontend.content:
+  path: '/search-app'
+  defaults:
+    _controller: '\Drupal\bnm_frontend\Controller\ResearchgroupSearchController::content'
+    #_title: 'Researchgroup Search'
+  requirements:
+    _permission: 'access content'
