@@ -1,5 +1,5 @@
 <template>
-  <div class="search__item">
+  <div>
     <div class="search-field">
       <label for="keywords" class="search-field__label">Keywords</label>
       <input type="text" id="keywords" class="search-field__input">
