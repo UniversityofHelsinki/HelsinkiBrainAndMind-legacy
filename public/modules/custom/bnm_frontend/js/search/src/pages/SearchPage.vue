@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Search></Search>
+    <Search @searchCompleted="getSearchResults"></Search>
   </div>
 </template>
 
@@ -11,6 +11,16 @@ export default {
   name: 'SearchPage',
   components: {
     Search
+  },
+  data() {
+    return {
+      results: []
+    }
+  },
+  methods: {
+    getSearchResults(results){
+      this.results = Object.values(results);
+    }
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <button @click="handleClick" class="button" :class="{ 'button--primary': isPrimary, 'button--secondary': isSecondary }" type="button">
+  <button @click="handleClick" class="button" :class="{ 'button--primary': isPrimary, 'button--secondary': isSecondary }" :type="isSubmit ? 'submit' : 'button'">
     <slot/>
   </button>
 </template>
@@ -11,7 +11,8 @@ export default {
   name: 'Button',
   props: {
     isPrimary: Boolean,
-    isSecondary: Boolean
+    isSecondary: Boolean,
+    isSubmit: Boolean
   },
   methods: {
     handleClick(event){
