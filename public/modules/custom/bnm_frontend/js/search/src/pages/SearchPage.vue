@@ -1,20 +1,21 @@
 <template>
-  <div>
     <Search @searchCompleted="getSearchResults"></Search>
-  </div>
+    <SearchResults :results="results"></SearchResults>
 </template>
 
 <script>
 import Search from '../components/search/search.vue'
+import SearchResults from '../components/search-result/search-results.vue';
 
 export default {
   name: 'SearchPage',
   components: {
-    Search
+    Search,
+    SearchResults,
   },
   data() {
     return {
-      results: []
+      results: [],
     }
   },
   methods: {
