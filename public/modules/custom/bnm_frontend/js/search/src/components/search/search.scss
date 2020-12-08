@@ -1,0 +1,37 @@
+.search {
+  @media screen and (min-width: $large) {
+    display: flex;
+    // align-items: baseline;
+    justify-content: space-between;
+  }
+}
+
+.search__item {
+  &:not(.button-group) {
+    @media screen and (min-width: $large) {
+      margin-right: $spacing;
+      width: 100%;
+    }
+  }
+
+  & + & {
+    margin-top: $spacing;
+
+    @media screen and (min-width: $medium) {
+      margin-top: $spacing-medium;
+    }
+
+    @media screen and (min-width: $large) {
+      margin-top: 0;
+    }
+  }
+
+  &.button-group {
+    &:nth-child(3) {
+      @media screen and (min-width: $large) {
+        margin-top: 20px + $spacing-tiny; // Label height + margin.
+        flex-shrink: 0;
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@
         Affiliations
       </label>
       <select class="search-dropdown__select" id="dropdown">
-        <option value="0">Select filter</option>
+        <option value="0">-- All --</option>
         <optgroup :label="filter.name" v-for="filter in filterItems" v-bind:key="filter.id">
           <option class="selectableoptiontitle" :value="filter.id">{{filter.name}}</option>
           <option :value="child.id" v-for="child in filter.children" v-bind:key="child.id">{{child.name}}</option>
