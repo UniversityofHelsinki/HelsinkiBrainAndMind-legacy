@@ -2,7 +2,7 @@
   <div class="search-field">
     <label for="keywords" class="search-field__label">Keywords</label>
     <input type="text" id="keywords" :value="inputKeywordsValue" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword">
-    <SearchFieldSuggestions :class="{ 'is-open': suggestions.length > 0 }" :suggestions="this.suggestions"></SearchFieldSuggestions>
+    <SearchFieldSuggestions :class="{ 'is-open': suggestions.length > 0 }" :inputReset="inputReset" :suggestions="this.suggestions"></SearchFieldSuggestions>
   </div>
 </template>
 

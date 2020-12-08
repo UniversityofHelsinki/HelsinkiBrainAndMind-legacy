@@ -1,6 +1,6 @@
 <template>
   <ul class="search-suggestions">
-    <SearchFieldSuggestionsItem v-for="suggestion in suggestions" :key="suggestion">
+    <SearchFieldSuggestionsItem v-for="suggestion in suggestions" :key="suggestion" :inputReset="inputReset">
       {{suggestion}}
     </SearchFieldSuggestionsItem>
   </ul>
@@ -13,7 +13,8 @@ import './search-field.suggestions.scss';
 export default {
   name: 'SearchFieldSuggestions',
   props: {
-    suggestions: Array
+    suggestions: Array,
+    inputReset: Function
   },
   components: {
     SearchFieldSuggestionsItem
