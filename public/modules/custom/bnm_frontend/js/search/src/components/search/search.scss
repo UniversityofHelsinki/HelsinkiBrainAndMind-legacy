@@ -1,8 +1,14 @@
 .search {
+  margin-bottom: $spacing-medium;
+
+  @media screen and (min-width: $medium) {
+    margin-bottom: $spacing-large;
+  }
+
   @media screen and (min-width: $large) {
     display: flex;
-    // align-items: baseline;
     justify-content: space-between;
+    margin-bottom: $spacing-extra-large;
   }
 }
 
