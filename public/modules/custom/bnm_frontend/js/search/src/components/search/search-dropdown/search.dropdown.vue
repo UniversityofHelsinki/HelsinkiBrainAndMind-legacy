@@ -4,21 +4,58 @@
       <label class="search-dropdown__label"  for="dropdown">
         Affiliations
       </label>
-      <select class="search-dropdown__select" id="dropdown">
-        <option value="0">-- All --</option>
-        <optgroup :label="filter.name" v-for="filter in filterItems" v-bind:key="filter.id">
-          <option class="selectableoptiontitle" :value="filter.id">{{filter.name}}</option>
-          <option :value="child.id" v-for="child in filter.children" v-bind:key="child.id">{{child.name}}</option>
-        </optgroup>
+      <select class="search-dropdown__select" id="dropdown" @change="handleDropdownChange">
+        <SearchDropdownOptions :options="options"></SearchDropdownOptions>
       </select>
     </div>
   </div>
 </template>
 
 <script>
+import SearchDropdownOptions from './search.dropdown.options';
 import './search-dropdown.scss';
 
 export default {
-  name: 'SearchDropdown'
+  name: 'SearchDropdown',
+  components: {SearchDropdownOptions},
+  data() {
+    return {
+      options: []
+    }
+  },
+
+  methods: {
+    handleDropdownChange(event){
+      this.$emit('handleChange', event.target.value);
+    }
+  },
+
+  mounted() {
+    // Hardcoded, move to config
+    //'https://Brain:bnm_2020@dev.bnm.druidfi.wod.by/filters'
+
+    this.axios.get('https://bnm.docker.sh/filters', {}, {
+      headers: {
+        'Content-type': 'application/json',
+      },
+    })
+    .then(({data: result}) => {
+      const parentOptions = result.filter(option => option.children);
+
+      this.options = parentOptions.map(({id, name, children: childrenIds}) => {
+        const children = childrenIds.map((childrenId) => {
+          const children = result.find(({id}) => id === childrenId)
+          delete children.children;
+
+          return children;
+        })
+
+        return {id, name, children};
+      })
+
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 }
 </script>
