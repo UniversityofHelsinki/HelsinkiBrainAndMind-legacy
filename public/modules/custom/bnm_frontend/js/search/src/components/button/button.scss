@@ -11,6 +11,22 @@
       margin-top: 0;
     }
   }
+
+  &--reversed {
+    @media screen and (min-width: $large) {
+      flex-direction: row-reverse;
+    }
+
+    .button + .button {
+      margin-top: $spacing;
+
+      @media screen and (min-width: $large) {
+        margin-left: 0;
+        margin-right: $spacing-tiny;
+        margin-top: 0;
+      }
+    }
+  }
 }
 
 .button {
@@ -21,7 +37,7 @@
   color: $color-violet-1;
   font-weight: bold;
   height: 40px;
-  padding: $spacing-tiny $spacing;
+  padding: $spacing-tiny $spacing-medium;
   width: 100%;
 
   @media screen and (min-width: $small) {
@@ -43,5 +59,33 @@
 
   &:hover, &:focus {
     border-color: $color-indigo-1;
+  }
+
+  &--primary {
+    background-color: $color-violet-1;
+    color: $color-white;
+
+    &:focus {
+      outline-color: $color-indigo-1;
+    }
+
+    &:hover, &:focus {
+      background-color: $color-indigo-1;
+    }
+  }
+
+  &--secondary {
+    background-color: $color-gray-1;
+    border-color: $color-gray-1;
+    color: $color-black;
+
+    &:focus {
+      border-color: $color-black;
+      outline-color: $color-black;
+    }
+
+    &:hover, &:focus {
+      border-color: $color-black;
+    }
   }
 }
