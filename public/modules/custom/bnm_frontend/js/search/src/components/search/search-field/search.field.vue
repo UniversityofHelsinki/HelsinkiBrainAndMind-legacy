@@ -1,21 +1,17 @@
 <template>
-  <div>
-    <div class="search-field">
-      <label for="keywords" class="search-field__label">Keywords</label>
-      <input type="text" id="keywords" :value="inputKeywordsValue" class="search-field__input" placeholder="Search ..." @input="handleSuggestions">
-      <SearchFieldSuggestions :class="{ 'is-open': suggestions.length > 0 }" :suggestions="this.suggestions"></SearchFieldSuggestions>
-    </div>
-    <SearchFieldKeywords></SearchFieldKeywords>
+  <div class="search-field">
+    <label for="keywords" class="search-field__label">Keywords</label>
+    <input type="text" id="keywords" :value="inputKeywordsValue" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword">
+    <SearchFieldSuggestions :class="{ 'is-open': suggestions.length > 0 }" :suggestions="this.suggestions"></SearchFieldSuggestions>
   </div>
 </template>
 
 <script>
 import './search-field.scss';
 import SearchFieldSuggestions from './search.field.suggestions.vue';
-import SearchFieldKeywords from './search.field.keywords.vue';
 
 export default {
-  components: { SearchFieldSuggestions, SearchFieldKeywords },
+  components: { SearchFieldSuggestions },
   name: 'SearchField',
   data(){
     return {
@@ -44,6 +40,14 @@ export default {
 
         this.inputKeywordsValue = keyword;
       }
+    },
+    handleAddKeyword() {
+      this.$emit('handleKeywordSubmit', event.target.value);
+      this.inputReset();
+    },
+    inputReset() {
+      this.suggestions = [];
+      this.inputKeywordsValue = '';
     }
   }
 }

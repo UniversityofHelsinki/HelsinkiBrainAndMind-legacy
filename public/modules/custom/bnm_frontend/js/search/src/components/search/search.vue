@@ -1,19 +1,22 @@
 <template>
   <Container class="search">
-    <SearchField @handleUpdate="handleInputValueChange" class="search__item"></SearchField>
+    <div class="search__item">
+      <SearchField @handleKeywordSubmit="handleAddKeyword" @handleUpdate="handleInputValueChange" class="search__item"></SearchField>
+      <SearchFieldKeywords :keywords="selectedKeywords" v-if="selectedKeywords.length > 0"></SearchFieldKeywords>
+    </div>
     <SearchDropdown @handleChange="handleDropdownChange" class="search__item"></SearchDropdown>
     <ButtonGroup class="search__item" :isReversed="true">
       <Button @handleClick="handleSearchButtonClick" :isPrimary="true">Search</Button>
       <Button @handleClick="handleResetButtonClick" :isSecondary="true">Reset</Button>
     </ButtonGroup>
   </Container>
-  <h1>{{ this.currentKeyword }}</h1>
 </template>
 
 <script>
 import Container from '../container/container';
 import SearchField from './search-field/search.field';
 import SearchDropdown from './search-dropdown/search.dropdown';
+import SearchFieldKeywords from './search-keywords/search.keywords'
 import ButtonGroup from '../button/button.group.vue';
 import Button from '../button/button.vue';
 import './search.scss';
@@ -25,12 +28,14 @@ export default {
     SearchField,
     SearchDropdown,
     ButtonGroup,
-    Button
+    Button,
+    SearchFieldKeywords
   },
   data(){
     return {
       currentKeyword: '',
       selectedOption: 0,
+      selectedKeywords: []
     }
   },
   methods: {
@@ -45,7 +50,14 @@ export default {
     },
     handleInputValueChange(keyword) {
       this.currentKeyword = keyword;
+    },
+    handleAddKeyword(keyword) {
+      this.selectedKeywords = [...this.selectedKeywords, keyword]
+      this.currentKeyword = '';
     }
+    // handleRemoveKeyword(keyword) {
+
+    // }
   }
 }
 </script>
