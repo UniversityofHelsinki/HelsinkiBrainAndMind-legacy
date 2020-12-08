@@ -6,7 +6,7 @@
     </div>
     <SearchDropdown @handleChange="handleDropdownChange" class="search__item"></SearchDropdown>
     <ButtonGroup class="search__item" :isReversed="true">
-      <Button @handleClick="handleSearchButtonClick" :isPrimary="true">Search</Button>
+      <Button @handleClick="handleSearchButtonClick" :isPrimary="true" :isSubmit="true">Search</Button>
       <Button @handleClick="handleResetButtonClick" :isSecondary="true">Reset</Button>
     </ButtonGroup>
   </Container>
@@ -35,12 +35,35 @@ export default {
     return {
       currentKeyword: '',
       selectedOption: 0,
-      selectedKeywords: []
+      selectedKeywords: [],
+      searchResult: {
+        isLoading: false,
+        isLoaded: false,
+        results: []
+      }
     }
   },
   methods: {
     handleSearchButtonClick() {
-      console.log('search');
+      const keywords = this.selectedKeywords.join(',');
+      const affiliate = this.selectedOption;
+      const apiEndpoint = 'researchgroup_search';
+      const queryString = `?q=${keywords}&affiliate=${affiliate}`;
+
+      this.searchResult.isLoading = true;
+
+      this.axios.get(`https://bnm.docker.sh/${apiEndpoint}${queryString}`)
+       .then(({data: result}) => {
+          this.searchResult.isLoading = false;
+          this.searchResult.isLoaded = true;
+          this.searchResult.results = result;
+          this.$emit('searchCompleted', this.searchResult.results);
+       })
+       .catch((error) => {
+          console.log('error', error);
+          this.searchResult.isLoading = false;
+          this.searchResult.isLoaded = true;
+       });
     },
     handleResetButtonClick() {
       console.log('reset');
