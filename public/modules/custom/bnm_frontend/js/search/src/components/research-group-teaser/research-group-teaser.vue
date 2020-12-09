@@ -71,7 +71,7 @@ export default {
   },
   data: function () {
     return {
-      strippedBody: this.body.replace(/(<([^>]+)>)/gi, "")
+      strippedBody: this.body?.replace(/(<([^>]+)>)/gi, "")
     }
   }
 }
