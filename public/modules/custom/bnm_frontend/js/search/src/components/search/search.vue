@@ -75,7 +75,7 @@ export default {
       this.currentKeyword = keyword;
     },
     handleAddKeyword(keyword) {
-      if (this.selectedKeywords.includes(keyword)) return;
+      if (this.selectedKeywords.includes(keyword) || keyword === '') return;
 
       this.selectedKeywords = [...this.selectedKeywords, keyword]
       this.currentKeyword = '';
