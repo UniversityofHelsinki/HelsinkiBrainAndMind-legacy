@@ -9,72 +9,70 @@
         {{ field_email }}
       </p>
     </div>
-    <ul class="description-list">
-      <li class="description-list__item">
-        <h3 class="description-list__label">
-          Group name
-        </h3>
-        <p class="description-list__description">
-          {{ field_research_group_name }}
-        </p>
-      </li>
-      <li class="description-list__item">
-        <h3 class="description-list__label">
-          Main affiliation, faculty
-        </h3>
-        <p class="description-list__description">
-          {{ field_main_affiliation }}, {{ field_faculty_unit }}
-        </p>
-      </li>
-      <li class="description-list__item">
-        <h3 class="description-list__label">
-          Other affiliations
-        </h3>
-        <p class="description-list__description">
-          {{ field_other_affiliations }}
-        </p>
-      </li>
-      <li class="description-list__item">
-        <h3 class="description-list__label">
-          Links
-        </h3>
+    <DescriptionList>
+      <DescriptionListItem label="Description" v-if="body">
+        {{ strippedBody }}
+      </DescriptionListItem>
+      <DescriptionListItem label="Group name" v-if="field_research_group_name">
+        {{ field_research_group_name }}
+      </DescriptionListItem>
+      <DescriptionListItem label="Main affiliation, faculty" v-if="field_main_affiliation && field_faculty_unit">
+        {{ field_main_affiliation }}, {{ field_faculty_unit }}
+      </DescriptionListItem>
+      <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
+        {{ field_other_affiliations }}
+      </DescriptionListItem>
+      <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
+        {{ field_other_affiliations }}
+      </DescriptionListItem>
+      <DescriptionListItem label="Links" v-if="field_links.length > 0">
         <ul class="description-list__list">
           <li v-for="link in field_links" :key="link" class="description-list__list-item">
             <a href="{{ link.href }}" class="description-list__link">{{ link.title }}</a>
           </li>
         </ul>
-      </li>
-      <li class="description-list__item">
-        <h3 class="description-list__label">
-          Keywords
-        </h3>
+      </DescriptionListItem>
+      <DescriptionListItem label="Keywords" v-if="field_keywords.length > 0">
         <ul class="description-list__list description-list__list--keywords">
           <li v-for="keyword in field_keywords" :key="keyword" class="description-list__list-item">
             <span class="research-group-teaser__keyword">{{ keyword }}</span>
           </li>
         </ul>
-      </li>
-    </ul>
+      </DescriptionListItem>
+      <DescriptionListItem label="Interested in industrial collaboration" v-if="field_industrial_collaboration">
+        {{ field_industrial_collaboration === "1" ? "Yes" : "No" }}
+      </DescriptionListItem>
+    </DescriptionList>
   </article>
 </template>
 
 <script>
+import DescriptionList from './description-list/description-list.vue'
+import DescriptionListItem from './description-list/description-list.item.vue'
 import './research-group-teaser.scss';
 
 export default {
   name: 'ResearchGroupTeaser',
+  components: {
+    DescriptionList, DescriptionListItem
+  },
   props: {
-    url: String,
-    title: String,
+    body: String,
     field_email: String,
     field_faculty_unit: String,
-    field_other_affiliations: String,
-    field_research_group_name: String,
     field_firstname: String,
+    field_industrial_collaboration: String,
+    field_keywords: Array,
     field_lastname: String,
     field_links: Array,
-    field_keywords: Array,
-    field_main_affiliation: String
+    field_main_affiliation: String,
+    field_other_affiliations: String,
+    field_research_group_name: String,
+  },
+  data: function () {
+    return {
+      strippedBody: this.body.replace(/(<([^>]+)>)/gi, "")
+    }
   }
 }
 </script>
