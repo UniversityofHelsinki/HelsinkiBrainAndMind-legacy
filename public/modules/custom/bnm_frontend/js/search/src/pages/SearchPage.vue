@@ -5,7 +5,7 @@
 
 <script>
 import Search from '../components/search/search.vue'
-import SearchResults from '../components/search-result/search-results.vue';
+import SearchResults from '../components/search-results/search-results.vue';
 
 export default {
   name: 'SearchPage',

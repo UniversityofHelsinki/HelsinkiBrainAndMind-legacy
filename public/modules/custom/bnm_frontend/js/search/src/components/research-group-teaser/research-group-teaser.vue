@@ -1,11 +1,11 @@
 <template>
-  <article class="search-result">
-    <div class="search-result__header">
-      <h2 class="search-result__title">
+  <article class="research-group-teaser">
+    <div class="research-group-teaser__header">
+      <h2 class="research-group-teaser__title">
         {{ field_firstname }}<br/>
         {{ field_lastname}}
       </h2>
-      <p class="search-result__email">
+      <p class="research-group-teaser__email">
         {{ field_email }}
       </p>
     </div>
@@ -38,15 +38,19 @@
         <h3 class="description-list__label">
           Links
         </h3>
-        <a v-for="link in field_links" :key="link" href="{{ link.href }}" class="description-list__link">{{ link.title }}</a>
+        <ul class="description-list__list">
+          <li v-for="link in field_links" :key="link" class="description-list__list-item">
+            <a href="{{ link.href }}" class="description-list__link">{{ link.title }}</a>
+          </li>
+        </ul>
       </li>
       <li class="description-list__item">
         <h3 class="description-list__label">
           Keywords
         </h3>
-        <ul class="description-list__list">
-          <li v-for="keyword in field_keywords" :key="keyword">
-            <span class="search-result__keyword">{{ keyword }}</span>
+        <ul class="description-list__list description-list__list--keywords">
+          <li v-for="keyword in field_keywords" :key="keyword" class="description-list__list-item">
+            <span class="research-group-teaser__keyword">{{ keyword }}</span>
           </li>
         </ul>
       </li>
@@ -55,8 +59,10 @@
 </template>
 
 <script>
+import './research-group-teaser.scss';
+
 export default {
-  name: 'SearchResult',
+  name: 'ResearchGroupTeaser',
   props: {
     url: String,
     title: String,
