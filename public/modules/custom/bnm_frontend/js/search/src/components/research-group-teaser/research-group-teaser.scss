@@ -86,10 +86,6 @@
   }
 }
 
-.description-list__link {
-  text-decoration: none;
-}
-
 .description-list__list-item {
   & + & {
     margin-top: $spacing-tiny;
