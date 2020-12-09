@@ -6,6 +6,8 @@
   </optgroup>
 </template>
 
+asds
+
 <script>
 import './search-dropdown.scss';
 
