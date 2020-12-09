@@ -1,6 +1,6 @@
 <template>
   <div class="search-field">
-    <div role="combobox" aria-expanded="false" aria-owns="listbox-suggestions" aria-haspopup="listbox" id="combobox-suggestions">
+    <div role="combobox" :aria-expanded="suggestions.length > 0 ? 'true' : 'false'" aria-owns="listbox-suggestions" aria-haspopup="listbox" id="combobox-suggestions">
       <label for="keywords" id="keywords-label" class="search-field__label">Keywords</label>
       <input type="text" id="keywords" :value="inputKeywordsValue" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword" aria-autocomplete="list" aria-controls="listbox-suggestions" aria-activedescendant="IDREF">
     </div>

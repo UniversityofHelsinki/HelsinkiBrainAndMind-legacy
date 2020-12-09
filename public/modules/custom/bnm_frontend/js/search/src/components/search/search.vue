@@ -66,7 +66,8 @@ export default {
        });
     },
     handleResetButtonClick() {
-      console.log('reset');
+      this.selectedKeywords = [];
+      this.$emit('searchReseted');
     },
     handleDropdownChange(id) {
       this.selectedOption = id;
