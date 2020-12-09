@@ -64,6 +64,7 @@
     display: inline-block;
     height: 18px;
     margin-left: $spacing-tiny;
+    pointer-events: none;
     width: 18px;
 
     svg {
