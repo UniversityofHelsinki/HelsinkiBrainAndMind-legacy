@@ -1,10 +1,10 @@
 <template>
   <Container class="search">
     <div class="search__item">
-      <SearchField @handleKeywordSubmit="handleAddKeyword" @handleUpdate="handleInputValueChange" class="search__item"></SearchField>
+      <SearchField @handleKeywordSubmit="handleAddKeyword" @handleUpdate="handleInputValueChange" class="search__item" :currentKeyword="currentKeyword"></SearchField>
       <SearchFieldKeywords :keywords="selectedKeywords" v-if="selectedKeywords.length > 0" @handleRemoveKeyword="handleRemoveKeyword"></SearchFieldKeywords>
     </div>
-    <SearchDropdown @handleChange="handleDropdownChange" class="search__item"></SearchDropdown>
+    <SearchDropdown @handleChange="handleDropdownChange" class="search__item" :selectedOption="this.selectedOption"></SearchDropdown>
     <ButtonGroup class="search__item" :isReversed="true">
       <Button @handleClick="handleSearchButtonClick" :isPrimary="true" :isSubmit="true">Search</Button>
       <Button @handleClick="handleResetButtonClick" :isSecondary="true">Reset</Button>
@@ -58,10 +58,12 @@ export default {
     },
     handleResetButtonClick() {
       this.selectedKeywords = [];
+      this.handleDropdownChange(0);
+      this.handleInputValueChange('');
       this.$emit('searchReseted');
     },
     handleDropdownChange(id) {
-      this.selectedOption = id;
+      this.selectedOption = Number(id);
     },
     handleInputValueChange(keyword) {
       this.currentKeyword = keyword;

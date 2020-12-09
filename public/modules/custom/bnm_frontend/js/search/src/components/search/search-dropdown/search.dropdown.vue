@@ -4,7 +4,7 @@
       <label class="search-dropdown__label"  for="dropdown">
         Affiliations
       </label>
-      <select class="search-dropdown__select" id="dropdown" @change="handleDropdownChange">
+      <select class="search-dropdown__select" id="dropdown" @change="handleDropdownChange" :value="this.selectedOption">
         <SearchDropdownOptions :options="options"></SearchDropdownOptions>
       </select>
     </div>
@@ -18,6 +18,9 @@ import './search-dropdown.scss';
 export default {
   name: 'SearchDropdown',
   components: {SearchDropdownOptions},
+  props: {
+    selectedOption: Number,
+  },
   data() {
     return {
       options: []
