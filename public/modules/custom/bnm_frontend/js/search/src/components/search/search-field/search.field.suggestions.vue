@@ -1,6 +1,6 @@
 <template>
   <ul class="search-suggestions">
-    <SearchFieldSuggestionsItem v-for="suggestion in suggestions" :key="suggestion" :inputReset="inputReset">
+    <SearchFieldSuggestionsItem v-for="suggestion in suggestions" :key="suggestion" :inputReset="inputReset" role="option">
       {{suggestion}}
     </SearchFieldSuggestionsItem>
   </ul>

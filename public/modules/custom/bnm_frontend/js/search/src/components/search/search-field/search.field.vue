@@ -1,8 +1,10 @@
 <template>
   <div class="search-field">
-    <label for="keywords" class="search-field__label">Keywords</label>
-    <input type="text" id="keywords" :value="inputKeywordsValue" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword">
-    <SearchFieldSuggestions :class="{ 'is-open': suggestions.length > 0 }" :inputReset="inputReset" :suggestions="this.suggestions"></SearchFieldSuggestions>
+    <div role="combobox" aria-expanded="false" aria-owns="listbox-suggestions" aria-haspopup="listbox" id="combobox-suggestions">
+      <label for="keywords" id="keywords-label" class="search-field__label">Keywords</label>
+      <input type="text" id="keywords" :value="inputKeywordsValue" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword" aria-autocomplete="list" aria-controls="listbox-suggestions" aria-activedescendant="IDREF">
+    </div>
+    <SearchFieldSuggestions :class="{ 'is-open': suggestions.length > 0 }" :inputReset="inputReset" :suggestions="this.suggestions" aria-labelledby="keywords-label" role="listbox" id="listbox-suggestions"></SearchFieldSuggestions>
   </div>
 </template>
 
