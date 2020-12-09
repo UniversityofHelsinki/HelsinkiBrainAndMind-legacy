@@ -1,0 +1,18 @@
+uuid: a7978449-a718-499a-8dac-ad0d91a2fb27
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_industrial_collaboration
+field_name: field_industrial_collaboration
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

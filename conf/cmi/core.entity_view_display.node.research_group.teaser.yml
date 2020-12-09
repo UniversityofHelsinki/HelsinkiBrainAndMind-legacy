@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.research_group.field_email
     - field.field.node.research_group.field_faculty_unit
     - field.field.node.research_group.field_firstname
+    - field.field.node.research_group.field_industrial_collaboration
     - field.field.node.research_group.field_keywords
     - field.field.node.research_group.field_lastname
     - field.field.node.research_group.field_links
@@ -40,6 +41,7 @@ hidden:
   field_email: true
   field_faculty_unit: true
   field_firstname: true
+  field_industrial_collaboration: true
   field_keywords: true
   field_lastname: true
   field_links: true
