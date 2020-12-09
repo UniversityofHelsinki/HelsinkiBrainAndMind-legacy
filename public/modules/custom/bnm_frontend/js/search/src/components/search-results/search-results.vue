@@ -2,7 +2,7 @@
   <Container v-if="results.length > 0" class="search-results">
     <Listing :col3="true">
       <ListingItem v-for="result in results" :key="result">
-        <SearchResult v-bind="result"></SearchResult>
+        <ResearchGroupTeaser v-bind="result"></ResearchGroupTeaser>
       </ListingItem>
     </Listing>
   </Container>
@@ -12,7 +12,7 @@
 import Container from '../container/container.vue';
 import Listing from '../listing/listing.vue'
 import ListingItem from '../listing/listing.item.vue'
-import SearchResult from './search-results.result.vue';
+import ResearchGroupTeaser from '../research-group-teaser/research-group-teaser.vue'
 
 export default {
   name: 'SearchResults',
@@ -23,7 +23,7 @@ export default {
     Container,
     Listing,
     ListingItem,
-    SearchResult
+    ResearchGroupTeaser
   }
 }
 </script>
