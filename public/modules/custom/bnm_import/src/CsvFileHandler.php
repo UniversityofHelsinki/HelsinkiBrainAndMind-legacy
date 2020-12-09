@@ -94,18 +94,17 @@ class CsvFileHandler {
       while (($row = fgetcsv($handle, 0, ';', '"', '\\')) !== FALSE) {
         // Get header for fields machine names.
         if ($i == 0) {
-          #$header = array_flip($row);
           $header = $row;
           $i++;
           continue;
         }
+        $i++;
 
         $node_terms = [];
         $node_fields = $this->getNodeConstantValues();
 
         foreach ($fields as $key => $field) {
           $data_object = $this->createValue(trim($row[array_search(strtolower($key), array_map('strtolower',$header))]), $field);
-
           if ($field['type'] == 'taxonomy') {
             foreach ($data_object->getValue() as $term) {
               if($existing_terms = taxonomy_term_load_multiple_by_name(ucfirst($term), $field['taxonomy_type'])){

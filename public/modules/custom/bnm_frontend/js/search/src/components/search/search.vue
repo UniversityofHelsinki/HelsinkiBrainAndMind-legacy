@@ -66,7 +66,8 @@ export default {
        });
     },
     handleResetButtonClick() {
-      console.log('reset');
+      this.selectedKeywords = [];
+      this.$emit('searchReseted');
     },
     handleDropdownChange(id) {
       this.selectedOption = id;
@@ -75,7 +76,7 @@ export default {
       this.currentKeyword = keyword;
     },
     handleAddKeyword(keyword) {
-      if (this.selectedKeywords.includes(keyword)) return;
+      if (this.selectedKeywords.includes(keyword) || keyword === '') return;
 
       this.selectedKeywords = [...this.selectedKeywords, keyword]
       this.currentKeyword = '';

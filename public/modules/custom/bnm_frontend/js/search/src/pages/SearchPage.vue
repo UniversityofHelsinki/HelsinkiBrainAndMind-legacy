@@ -1,5 +1,5 @@
 <template>
-    <Search @searchCompleted="getSearchResults"></Search>
+    <Search @searchCompleted="getSearchResults" @searchReseted="resetSearch"></Search>
     <SearchResults :results="results"></SearchResults>
 </template>
 
@@ -21,6 +21,9 @@ export default {
   methods: {
     getSearchResults(results){
       this.results = Object.values(results);
+    },
+    resetSearch() {
+      this.results = [];
     }
   }
 }
