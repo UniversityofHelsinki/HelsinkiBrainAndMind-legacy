@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.research_group.field_email
     - field.field.node.research_group.field_faculty_unit
     - field.field.node.research_group.field_firstname
+    - field.field.node.research_group.field_industrial_collaboration
     - field.field.node.research_group.field_keywords
     - field.field.node.research_group.field_lastname
     - field.field.node.research_group.field_links
@@ -62,6 +63,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_industrial_collaboration:
+    weight: 131
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_keywords:
     weight: 129
