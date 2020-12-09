@@ -109,6 +109,7 @@ final class Search extends ResourceBase {
       $return[$node->id()] = [
         'url' => '',
         'title' => $node->title->value,
+        'body' => $node->body->value,
         'field_email' => $node->field_email->value ,
         'field_faculty_unit' => $node->field_faculty_unit->value,
         'field_other_affiliations' => $node->field_other_affiliations->value,
@@ -118,6 +119,7 @@ final class Search extends ResourceBase {
         'field_links' => $links,
         'field_keywords' => $keywords_list,
         'field_main_affiliation' => $main_affiliation,
+        'field_industrial_collaboration' => $node->field_industrial_collaboration->value
       ];
     }
     return new JsonResponse($return);
