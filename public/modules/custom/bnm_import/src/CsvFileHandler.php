@@ -45,45 +45,23 @@ class CsvFileHandler {
       while (($row = fgetcsv($handle, 0, ';', '"', '\\')) !== FALSE) {
         if ($i == 0) {
           $i++;
-          $header = array_flip($row);
+          $header = $row;
           continue;
         }
         $i++;
 
-        foreach($required_fields as $key => $field) {
-          if(!$row[$header[$key]]){
+        foreach(array_merge($required_fields, $optional_fields) as $key => $field) {
+          if($this->isRequiredField($key, $required_fields) && !$row[array_search($key, $header)]){
             $errors[] = "Value for $key on line $i is required and therefore may not be empty";
             continue;
           }
-          try {
-            if($this->createValue($row[$header[$key]], $field) instanceof ImportType){
-              continue;
-            } else {
-              $errors[] = "Something unexpected happened while creating $key on line $i";
-              continue;
-            }
-          }
-          catch(\Exception $exception){
-            $errors[] = "Invalid value on line $i, on column $key.";
-            continue;
-          }
 
+          $validity = $this->validateFieldValue($key, $field, $row, $header, $i);
+          if($validity !== TRUE ){
+            $errors[] = $validity.' '.$row[array_search(strtolower($key), array_map('strtolower',$header))];
+          }
         }
 
-        foreach($optional_fields as $key => $field){
-          try {
-            if($this->createValue($row[$header[$key]], $field) instanceof ImportType){
-              continue;
-            } else {
-              $errors[] = "Something unexpected happened while creating $key on line $i";
-              continue;
-            }
-          }
-          catch(\Exception $exception){
-            $errors[] = "Invalid value on line $i, on column $key.";
-            continue;
-          }
-        }
       }
     }
 
@@ -116,7 +94,8 @@ class CsvFileHandler {
       while (($row = fgetcsv($handle, 0, ';', '"', '\\')) !== FALSE) {
         // Get header for fields machine names.
         if ($i == 0) {
-          $header = array_flip($row);
+          #$header = array_flip($row);
+          $header = $row;
           $i++;
           continue;
         }
@@ -125,13 +104,16 @@ class CsvFileHandler {
         $node_fields = $this->getNodeConstantValues();
 
         foreach ($fields as $key => $field) {
-          $data_object = $this->createValue($row[$header[$key]], $field);
+          $data_object = $this->createValue(trim($row[array_search(strtolower($key), array_map('strtolower',$header))]), $field);
 
           if ($field['type'] == 'taxonomy') {
             foreach ($data_object->getValue() as $term) {
               if($existing_terms = taxonomy_term_load_multiple_by_name(ucfirst($term), $field['taxonomy_type'])){
                 $node_terms[$field['taxonomy_type']] = $existing_terms;
               } else {
+                if(!$term){
+                  continue;
+                }
                 $name = trim($term);
                 $term = Term::create([
                   'name' => ucfirst($name),
@@ -231,6 +213,22 @@ class CsvFileHandler {
       'uid' => $user_id,
       'langcode' => 'en',
     ];
+  }
+
+  private function isRequiredField($field_name, $required_field_names){
+    return array_key_exists($field_name, $required_field_names);
+  }
+
+  private function validateFieldValue($key, $field, $row, $header, $i){
+    try {
+      if(!$this->createValue(trim($row[array_search(strtolower($key), array_map('strtolower',$header))]), $field) instanceof ImportType){
+        return "Something unexpected happened while creating $key on line $i";
+      }
+    }
+    catch(\Exception $exception){
+      return "Invalid value on line $i, on column $key.";
+    }
+    return TRUE;
   }
 
 }

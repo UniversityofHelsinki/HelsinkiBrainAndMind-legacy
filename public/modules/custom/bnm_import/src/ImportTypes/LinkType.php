@@ -2,13 +2,18 @@
 
 namespace Drupal\bnm_import\ImportTypes;
 
+use Drupal\Component\Utility\UrlHelper;
+
 class LinkType extends ImportType {
 
   protected $value;
 
   public function __construct($data, $field = [])
   {
-    if(!$this->isValidUrl($data) && $data != ''){
+    if($data == ''){
+      return false;
+    }
+    if($data != '' && !$this->isValidUrl($data)){
       throw new \Exception('Not a valid url');
     }
     $this->value = [
@@ -28,7 +33,7 @@ class LinkType extends ImportType {
   }
 
   private function isValidUrl($data){
-    return filter_var($data, FILTER_VALIDATE_URL);
+    return UrlHelper::isValid($data);
   }
 
 }

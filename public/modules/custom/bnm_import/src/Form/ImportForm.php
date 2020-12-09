@@ -71,6 +71,7 @@ class ImportForm extends FormBase {
       fclose($fh);
     }
     catch(\Exception $exception){
+      fclose($fh);
       $form_state->setErrorByName('import', $exception->getMessage());
     }
 

@@ -82,29 +82,18 @@ final class Search extends ResourceBase {
     $return = [];
 
     foreach ($results as $item) {
-      if($affiliate && $item->field_main_affiliation->target_id != $affiliate){
+      if($affiliate != 0 || (isset($item->field_main_affiliation) && $item->field_main_affiliation->target_id != $affiliate)){
         continue;
       }
 
       $data = explode(':', $item->getId());
       $data = explode('/', $data[1]);
       $node = Node::load($data[1]);
-      $keywords = $node->field_keywords;
       $main_affiliation = Term::load($node->field_main_affiliation->target_id)->getName();
 
-      $links = [];
-      foreach ($node->field_links as $link) {
-        $link = [
-          'title' => $link->title,
-          'url' => $link->uri,
-        ];
-        $links[] = $link;
-      }
+      $links = $this->getLinks($node->field_links);
 
-      $keywords_list = [];
-      foreach ($keywords as $keyword) {
-        $keywords_list[] = Term::load($keyword->target_id)->getName();
-      }
+      $keywords_list = $this->getKeywords($node->field_keywords);
 
       $return[$node->id()] = [
         'url' => '',
@@ -123,6 +112,26 @@ final class Search extends ResourceBase {
       ];
     }
     return new JsonResponse($return);
+  }
+
+  private function getLinks($field) {
+    $links = [];
+    foreach ($field as $link) {
+      $link = [
+        'title' => $link->title,
+        'url' => $link->uri,
+      ];
+      $links[] = $link;
+    }
+    return $links;
+  }
+
+  private function getKeywords($keywords){
+    $keywords_list = [];
+    foreach ($keywords as $keyword) {
+      $keywords_list[] = Term::load($keyword->target_id)->getName();
+    }
+    return $keywords_list;
   }
 
 }
