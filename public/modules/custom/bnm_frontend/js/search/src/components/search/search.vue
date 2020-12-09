@@ -36,11 +36,6 @@ export default {
       currentKeyword: '',
       selectedOption: 0,
       selectedKeywords: [],
-      searchResult: {
-        isLoading: false,
-        isLoaded: false,
-        results: []
-      }
     }
   },
   methods: {
@@ -50,20 +45,16 @@ export default {
       const apiEndpoint = 'researchgroup_search';
       const queryString = `?q=${keywords}&affiliate=${affiliate}`;
 
-      this.searchResult.isLoading = true;
+      this.$emit('isLoading', true);
 
       this.axios.get(`https://bnm.docker.sh/${apiEndpoint}${queryString}`)
-       .then(({data: result}) => {
-          this.searchResult.isLoading = false;
-          this.searchResult.isLoaded = true;
-          this.searchResult.results = result;
-          this.$emit('searchCompleted', this.searchResult.results);
+       .then(({data: results}) => {
+          this.$emit('searchCompleted', results);
        })
        .catch((error) => {
           console.log('error', error);
-          this.searchResult.isLoading = false;
-          this.searchResult.isLoaded = true;
-       });
+       })
+       .finally(() => this.$emit('isLoading', false));
     },
     handleResetButtonClick() {
       this.selectedKeywords = [];

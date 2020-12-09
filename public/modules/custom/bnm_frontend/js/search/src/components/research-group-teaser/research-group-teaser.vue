@@ -28,7 +28,7 @@
       <DescriptionListItem label="Links" v-if="field_links.length > 0">
         <ul class="description-list__list">
           <li v-for="link in field_links" :key="link" class="description-list__list-item">
-            <a href="{{ link.href }}" class="description-list__link">{{ link.title }}</a>
+            <a :href="link.url" class="description-list__link">{{ link.title }}</a>
           </li>
         </ul>
       </DescriptionListItem>
