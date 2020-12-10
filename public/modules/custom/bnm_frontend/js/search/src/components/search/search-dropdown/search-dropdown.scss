@@ -3,6 +3,7 @@
   color: $color-violet-1;
   display: block;
   font-weight: bold;
+  line-height: 20px;
   margin-bottom: $spacing-tiny;
 
   @media screen and (min-width: $medium) {
@@ -20,6 +21,7 @@
   border-radius: 3px;
   border: 2px solid $color-violet-1;
   color: $color-violet-1;
+  font-family: $default-font-family;
   font-weight: bold;
   height: 40px;
   padding: $spacing-tiny $spacing-tiny * 1.5;

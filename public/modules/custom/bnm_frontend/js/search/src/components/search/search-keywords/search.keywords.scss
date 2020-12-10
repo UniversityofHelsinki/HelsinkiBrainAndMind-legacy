@@ -11,7 +11,9 @@
   color: $color-violet-1;
   display: block;
   font-weight: bold;
+  line-height: 20px;
   margin-bottom: $spacing-tiny;
+  margin-top: 0;
 
   @media screen and (min-width: $medium) {
     @include font-size(18px);
@@ -42,6 +44,7 @@
   border: 0;
   color: $color-white;
   display: inline-flex;
+  font-family: $default-font-family;
   font-weight: bold;
   margin: 0;
   padding: $spacing-tiny $spacing-tiny * 1.5;

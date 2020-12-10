@@ -15,6 +15,8 @@
 import SearchDropdownOptions from './search.dropdown.options';
 import './search-dropdown.scss';
 
+const BACKEND_URL = process.env.VUE_APP_BACKEND_URL;
+
 export default {
   name: 'SearchDropdown',
   components: {SearchDropdownOptions},
@@ -34,7 +36,7 @@ export default {
   },
 
   mounted() {
-    this.axios.get('http://Brain:bnm_2020@dev.bnm.druidfi.wod.by/filters', {}, {
+    this.axios.get(`${BACKEND_URL}/filters`, {}, {
       headers: {
         'Content-type': 'application/json',
       },
@@ -54,6 +56,7 @@ export default {
       })
 
     }).catch((error) => {
+      // eslint-disable-next-line
       console.log(error);
     });
   }

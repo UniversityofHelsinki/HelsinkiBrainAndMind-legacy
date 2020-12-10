@@ -2,9 +2,8 @@
 researchgroup-search:
   version: 1.0
   js:
-    js/search/dist/js/app.9f9fcdb4.js: { }
-    js/search/dist/js/chunk-vendors.46addfda.js: { }
+    js/search/dist/js/app.js: { }
   css:
     theme:
-      js/search/dist/css/app.e00948b6.css: { }
+      js/search/dist/css/app.css: { }
 
