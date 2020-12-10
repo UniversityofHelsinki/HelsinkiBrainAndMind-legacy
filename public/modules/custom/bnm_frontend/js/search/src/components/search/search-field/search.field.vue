@@ -34,7 +34,7 @@ export default {
 
       // TODO add throttling
       if (keyword.length > 2) {
-        this.axios.get(`https://bnm.docker.sh/search_suggestions?q=${keyword}`, {}, {
+        this.axios.get(`http://dev.bnm.druidfi.wod.by/search_suggestions?q=${keyword}`, {}, {
           headers: {
             'Content-type': 'application/json',
           },

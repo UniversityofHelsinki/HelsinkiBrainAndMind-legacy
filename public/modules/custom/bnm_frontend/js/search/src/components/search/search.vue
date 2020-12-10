@@ -47,7 +47,7 @@ export default {
 
       this.$emit('isLoading', true);
 
-      this.axios.get(`https://bnm.docker.sh/${apiEndpoint}${queryString}`)
+      this.axios.get(`http://dev.bnm.druidfi.wod.by/${apiEndpoint}${queryString}`)
        .then(({data: results}) => {
           this.$emit('searchCompleted', results);
        })

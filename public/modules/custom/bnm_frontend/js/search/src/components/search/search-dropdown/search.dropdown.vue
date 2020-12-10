@@ -34,10 +34,7 @@ export default {
   },
 
   mounted() {
-    // Hardcoded, move to config
-    //'https://Brain:bnm_2020@dev.bnm.druidfi.wod.by/filters'
-
-    this.axios.get('https://bnm.docker.sh/filters', {}, {
+    this.axios.get('http://dev.bnm.druidfi.wod.by/filters', {}, {
       headers: {
         'Content-type': 'application/json',
       },
