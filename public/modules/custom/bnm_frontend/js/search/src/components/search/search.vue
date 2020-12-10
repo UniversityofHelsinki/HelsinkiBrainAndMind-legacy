@@ -47,7 +47,7 @@ export default {
 
       this.$emit('isLoading', true);
 
-      this.axios.get(`http://dev.bnm.druidfi.wod.by/${apiEndpoint}${queryString}`)
+      this.axios.get(`http://Brain:bnm_2020@dev.bnm.druidfi.wod.by/${apiEndpoint}${queryString}`)
        .then(({data: results}) => {
           this.$emit('searchCompleted', results);
        })

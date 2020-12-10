@@ -34,7 +34,7 @@ export default {
   },
 
   mounted() {
-    this.axios.get('http://dev.bnm.druidfi.wod.by/filters', {}, {
+    this.axios.get('http://Brain:bnm_2020@dev.bnm.druidfi.wod.by/filters', {}, {
       headers: {
         'Content-type': 'application/json',
       },
