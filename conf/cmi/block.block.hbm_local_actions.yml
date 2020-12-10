@@ -1,15 +1,15 @@
-uuid: 30e62854-90c4-447f-ba12-384b7758f29b
+uuid: 3f4a73a1-77b0-444c-828e-d8b9e2ce68b4
 langcode: en
 status: true
 dependencies:
   theme:
-    - bartik
+    - hbm
 _core:
-  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
-id: bartik_local_actions
-theme: bartik
+  default_config_hash: OQ9aJ-4qVwK1x00o9EOYK4eFDjQr_HLpbPiJaPSVZiQ
+id: hbm_local_actions
+theme: hbm
 region: content
-weight: -20
+weight: -10
 provider: null
 plugin: local_actions_block
 settings:

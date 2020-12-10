@@ -1,14 +1,14 @@
-uuid: fb1cedf5-a8dd-4d39-b789-528c60e8cb39
+uuid: e07512c9-66dd-4012-9896-deea6ae56133
 langcode: en
 status: true
 dependencies:
   theme:
-    - seven
+    - hbm
 _core:
-  default_config_hash: QeZBeCilQfeET3GeW6ZtJkEiwROADTZktFgKWwPieD4
-id: seven_secondary_local_tasks
-theme: seven
-region: pre_content
+  default_config_hash: BCWhood0xXFQYqxFgL1spXdb9KeIuXH1YvTdjIEedDg
+id: hbm_secondary_local_tasks
+theme: hbm
+region: sidebar_first
 weight: 0
 provider: null
 plugin: local_tasks_block
