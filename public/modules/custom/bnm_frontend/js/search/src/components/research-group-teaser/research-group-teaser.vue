@@ -16,7 +16,7 @@
       <DescriptionListItem label="Group name" v-if="field_research_group_name">
         {{ field_research_group_name }}
       </DescriptionListItem>
-      <DescriptionListItem label="Main affiliation, faculty" v-if="field_main_affiliation && field_faculty_unit">
+      <DescriptionListItem label="Main affiliation" v-if="field_main_affiliation && field_faculty_unit">
         {{ field_main_affiliation }}, {{ field_faculty_unit }}
       </DescriptionListItem>
       <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
