@@ -44,7 +44,7 @@ export default {
     .then(({data: result}) => {
       const parentOptions = result.filter(option => option.children);
 
-      if(parentOptions.length == 0){
+      if (parentOptions.length === 0) {
         this.options = result;
       } else {
         this.options = parentOptions.map(({id, name, children: childrenIds}) => {
