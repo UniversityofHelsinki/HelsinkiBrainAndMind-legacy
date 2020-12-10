@@ -22,9 +22,6 @@
       <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
         {{ field_other_affiliations }}
       </DescriptionListItem>
-      <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
-        {{ field_other_affiliations }}
-      </DescriptionListItem>
       <DescriptionListItem label="Links" v-if="field_links.length > 0">
         <ul class="description-list__list">
           <li v-for="link in field_links" :key="link" class="description-list__list-item">
