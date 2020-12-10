@@ -21,6 +21,8 @@ import ButtonGroup from '../button/button.group.vue';
 import Button from '../button/button.vue';
 import './search.scss';
 
+const BACKEND_URL = process.env.VUE_APP_BACKEND_URL;
+
 export default {
   name: 'Search',
   components: {
@@ -47,12 +49,13 @@ export default {
 
       this.$emit('isLoading', true);
 
-      this.axios.get(`http://Brain:bnm_2020@dev.bnm.druidfi.wod.by/${apiEndpoint}${queryString}`)
+      this.axios.get(`${BACKEND_URL}/${apiEndpoint}${queryString}`)
        .then(({data: results}) => {
           this.$emit('searchCompleted', results);
        })
        .catch((error) => {
-          console.log('error', error);
+        //  eslint-disable-next-line
+        console.log('error', error);
        })
        .finally(() => this.$emit('isLoading', false));
     },

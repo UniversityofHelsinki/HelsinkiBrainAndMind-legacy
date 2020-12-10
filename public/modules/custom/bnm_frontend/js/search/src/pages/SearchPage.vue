@@ -1,6 +1,6 @@
 <template>
     <Search @searchCompleted="getSearchResults" @searchReseted="resetSearch" @isLoading="setLoadingStatus"></Search>
-    <Container v-if="results.length === 0">
+    <Container v-if="results.length === 0 && !this.isLoading">
       <h2>No results.</h2>
     </Container>
     <Loader v-if="this.isLoading"></Loader>
