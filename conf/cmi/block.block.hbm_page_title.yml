@@ -1,15 +1,15 @@
-uuid: 6740520d-defe-4bd9-8b70-058b4e6b8ecd
+uuid: 6b567ed5-aab6-4085-bc74-c4474e2852a0
 langcode: en
 status: true
 dependencies:
   theme:
-    - bartik
+    - hbm
 _core:
-  default_config_hash: 7rR9chwXvdM2H8OYMAYx9Zj3GGlPMrZp_M3ZA4thYTk
-id: bartik_page_title
-theme: bartik
-region: content
-weight: -50
+  default_config_hash: HLQY2xgby8K3vN_98hiOSasOhm9pdCsH234-s0duJ8Q
+id: hbm_page_title
+theme: hbm
+region: header
+weight: -30
 provider: null
 plugin: page_title_block
 settings:

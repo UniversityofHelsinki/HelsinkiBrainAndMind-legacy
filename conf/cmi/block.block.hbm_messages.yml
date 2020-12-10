@@ -1,15 +1,15 @@
-uuid: a62a3ffa-8005-419e-be4f-016f8772f6eb
+uuid: 02b343f8-baa4-4165-bea7-14434b9ba19c
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - bartik
+    - hbm
 _core:
-  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
-id: bartik_messages
-theme: bartik
+  default_config_hash: WvPhI8OwllG0gE69-F8qL3ai3nd5SbYD6JpmEuZcyok
+id: hbm_messages
+theme: hbm
 region: highlighted
 weight: 0
 provider: null

@@ -1,15 +1,15 @@
-uuid: 7ccb8bda-b39b-456c-96e4-6e9dc0ff10b1
+uuid: 31fb48e8-ed62-4fdc-b867-3de2b9040726
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - seven
+    - hbm
 _core:
-  default_config_hash: YRY68JWkaUiGeZlWMv1nzeIgDm0ZZwXYgpqUpLFzwAY
-id: seven_content
-theme: seven
+  default_config_hash: hBHXB7hC05XU7pDYzETt-GUcpFlogK1gkjyAsg0Ym58
+id: hbm_content
+theme: hbm
 region: content
 weight: 0
 provider: null

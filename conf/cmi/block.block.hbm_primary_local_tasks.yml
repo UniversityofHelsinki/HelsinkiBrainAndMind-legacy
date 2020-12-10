@@ -1,13 +1,13 @@
-uuid: 204671c1-9b56-4a81-85b0-8ea6440dbbf7
+uuid: b11ed36a-b426-4f3b-a702-2b64b3b67812
 langcode: en
 status: true
 dependencies:
   theme:
-    - seven
+    - hbm
 _core:
-  default_config_hash: ddy1OsBbWxjwEI8VL1viD4I69qcLHOkul4BxbTqLBTs
-id: seven_primary_local_tasks
-theme: seven
+  default_config_hash: Hh01DLj9k7UnNdPpOQXHZHW7GHf2OPNDQyCJF7_R9ac
+id: hbm_primary_local_tasks
+theme: hbm
 region: header
 weight: 0
 provider: null
