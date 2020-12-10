@@ -69,16 +69,15 @@ class ImportForm extends FormBase {
       $fh = fopen($file->getRealPath(), 'r');
       $content = $csv_handler->createContent($fh);
       fclose($fh);
+      $node_count = count($content['nodes']);
+      $term_count = count($content['terms']);
+      \Drupal::messenger()->addMessage("Created $node_count new research groups and created $term_count new keywords in the process.");
     }
     catch(\Exception $exception){
       fclose($fh);
-      $form_state->setErrorByName('import', $exception->getMessage());
+      \Drupal::messenger()->addError("Unexpected error: {$exception->getMessage()}");
     }
 
-    $node_count = count($content['nodes']);
-    $term_count = count($content['terms']);
-
-    \Drupal::messenger()->addMessage("Created $node_count new research groups and created $term_count new keywords in the process.");
   }
 
 }

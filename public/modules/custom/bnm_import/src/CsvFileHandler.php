@@ -108,7 +108,7 @@ class CsvFileHandler {
           if ($field['type'] == 'taxonomy') {
             foreach ($data_object->getValue() as $term) {
               if($existing_terms = taxonomy_term_load_multiple_by_name(ucfirst($term), $field['taxonomy_type'])){
-                $node_terms[$field['taxonomy_type']] = $existing_terms;
+                $node_terms[$field['taxonomy_type']][] = reset($existing_terms);
               } else {
                 if(!$term){
                   continue;
