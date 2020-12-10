@@ -94,6 +94,7 @@ final class Filters extends ResourceBase {
       $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
       $items[] = $item;
     }
+
     return new JsonResponse($items);
   }
 

@@ -1,0 +1,23 @@
+uuid: 16e4a0e2-6b7a-4ccd-8863-00310ce44a5c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_industrial_collaboration
+    - node.type.research_group
+id: node.research_group.field_industrial_collaboration
+field_name: field_industrial_collaboration
+entity_type: node
+bundle: research_group
+label: 'Interested in industrial collaboration'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'True'
+  off_label: 'False'
+field_type: boolean

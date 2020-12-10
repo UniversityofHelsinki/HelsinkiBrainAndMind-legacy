@@ -1,0 +1,22 @@
+// Doing it this way ensures that container styles work on IE11.
+$container-max-width--mobile: $container-width + ($spacing * 2);
+$container-max-width--tablet: $container-width + ($spacing-large * 2);
+$container-max-width--desktop: $container-width + ($spacing-extra-large * 2);
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $container-max-width--mobile;
+  padding: 0 $spacing;
+  width: 100%;
+
+  @media screen and (min-width: $small) {
+    max-width: $container-max-width--tablet;
+    padding: 0 $spacing-large;
+  }
+
+  @media screen and (min-width: $medium) {
+    max-width: $container-max-width--desktop;
+    padding: 0 $spacing-extra-large;
+  }
+}
