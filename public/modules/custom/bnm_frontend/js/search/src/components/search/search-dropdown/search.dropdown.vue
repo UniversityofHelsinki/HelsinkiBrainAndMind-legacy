@@ -44,17 +44,19 @@ export default {
     .then(({data: result}) => {
       const parentOptions = result.filter(option => option.children);
 
-      this.options = parentOptions.map(({id, name, children: childrenIds}) => {
-        const children = childrenIds.map((childrenId) => {
-          const children = result.find(({id}) => id === childrenId)
-          delete children.children;
+      if(parentOptions.length == 0){
+        this.options = result;
+      } else {
+        this.options = parentOptions.map(({id, name, children: childrenIds}) => {
+          const children = childrenIds.map((childrenId) => {
+            const children = result.find(({id}) => id === childrenId)
+            delete children.children;
 
-          return children;
+            return children;
+          })
+          return {id, name, children};
         })
-
-        return {id, name, children};
-      })
-
+      }
     }).catch((error) => {
       // eslint-disable-next-line
       console.log(error);
