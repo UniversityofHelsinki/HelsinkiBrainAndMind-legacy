@@ -3,11 +3,12 @@
   background-color: $color-white;
   border-radius: 3px;
   border: 2px solid $color-violet-1;
+  box-sizing: border-box;
   display: none;
   left: 0;
   list-style: none;
   margin: 0;
-  max-height: 15rem;
+  max-height: 17rem;
   overflow: auto;
   padding: 0;
   position: absolute;
@@ -34,6 +35,7 @@
   border: 0;
   color: $color-violet-1;
   display: block;
+  font-family: $default-font-family;
   font-weight: bold;
   margin: 0;
   padding: $spacing $spacing-tiny * 1.5;

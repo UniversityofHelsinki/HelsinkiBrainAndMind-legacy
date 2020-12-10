@@ -32,7 +32,6 @@ export default {
       const { value: keyword } = event.target;
       this.handleInputValueChange(keyword);
 
-      // TODO add throttling
       if (keyword.length > 2) {
         this.axios.get(`http://Brain:bnm_2020@dev.bnm.druidfi.wod.by/search_suggestions?q=${keyword}`, {}, {
           headers: {
