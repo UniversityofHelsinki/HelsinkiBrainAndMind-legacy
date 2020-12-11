@@ -103,11 +103,17 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     $tree = \Drupal::menuTree()->load($menu, new \Drupal\Core\Menu\MenuTreeParameters());
     $links = [];
 
+    $host = \Drupal::request()->getSchemeAndHttpHost();
+
     foreach ($tree as $item) {
       $title = $item->link->getTitle();
       $link = $item->link->getUrlObject()->toString();
       $weight = $item->link->getWeight();
       $isExternal = $item->link->getUrlObject()->isExternal();
+
+      // Add base url, if link is internal.
+      $link = !$isExternal ? ($host . $link) : $link;
+
       if ($item->link->isEnabled()) {
         $links[] = ['title' => $title, 'link' => $link, 'weight' => $weight, 'external' => $isExternal];
       }
