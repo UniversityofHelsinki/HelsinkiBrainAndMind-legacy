@@ -34,15 +34,17 @@ export default {
       const { value: keyword } = event.target;
       this.handleInputValueChange(keyword);
 
-      if (keyword.length > 2) {
-        this.axios.get(`${BACKEND_URL}/search_suggestions?q=${keyword}`, {}, {
-          headers: {
-            'Content-type': 'application/json',
-          },
-        })
-        .then(({data: results}) => {
-            this.suggestions = results;
-        })
+      if (keyword.length >= 2) {
+        setTimeout(() => {
+          this.axios.get(`${BACKEND_URL}/search_suggestions?q=${keyword}`, {}, {
+            headers: {
+              'Content-type': 'application/json',
+            },
+          })
+          .then(({data: results}) => {
+              this.suggestions = results;
+          })
+        }, 500)
 
         this.inputKeywordsValue = keyword;
       }
