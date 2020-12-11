@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Url;
 
 /**
  * Provides a resource to get all initially available front-end data.
@@ -80,7 +81,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     $affiliates = $this->manager->loadTree('Affiliations', 0, NULL, TRUE);
     $items = [];
 
-    $items['footer-menu'][] = $this->getMenuTreeLinks('footer');
+    $items['footer_menu'] = $this->getMenuTreeLinks('footer');
 
     if ($affiliates) {
       /** @var Term $term */
@@ -106,7 +107,8 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       $title = $item->link->getTitle();
       $link = $item->link->getUrlObject()->toString();
       $weight = $item->link->getWeight();
-      $links[] = ['title' => $title, 'link' => $link, 'weight' => $weight];
+      $isExternal = $item->link->getUrlObject()->isExternal();
+      $links[] = ['title' => $title, 'link' => $link, 'weight' => $weight, 'external' => $isExternal];
     }
 
     usort($links, function ($item1, $item2) {

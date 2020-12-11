@@ -1,6 +1,6 @@
 <template>
   <li class="footer__item">
-    <CustomLink :link="link" class="footer__link"><slot/></CustomLink>
+    <CustomLink :link="link" class="footer__link" :isBlank="isExternal"><slot/></CustomLink>
   </li>
 </template>
 
@@ -13,7 +13,8 @@ export default {
     CustomLink
   },
   props: {
-    link: String
+    link: String,
+    isExternal: Boolean
   }
 }
 </script>
