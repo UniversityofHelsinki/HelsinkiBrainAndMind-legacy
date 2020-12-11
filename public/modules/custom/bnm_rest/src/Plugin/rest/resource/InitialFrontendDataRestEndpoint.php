@@ -92,7 +92,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         'name' => $term->getName()
       ];
       $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
-      $items[] = $item;
+      $items['affiliates'][] = $item;
     }
 
     return new JsonResponse($items);
