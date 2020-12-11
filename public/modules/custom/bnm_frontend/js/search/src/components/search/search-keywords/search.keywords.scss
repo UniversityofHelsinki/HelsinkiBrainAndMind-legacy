@@ -38,7 +38,7 @@
 .search-keywords__button {
   @include font-size(14px);
   align-items: center;
-  background-color: $color-violet-1;
+  background-color: $color-green-2;
   border-radius: 0;
   border-radius: 3px;
   border: 0;
@@ -56,11 +56,11 @@
   }
 
   &:focus {
-    outline-color: $color-indigo-1;
+    outline-color: $color-black;
   }
 
   &:hover, &:focus {
-    background-color: $color-indigo-1;
+    background-color: $color-green-3;
   }
 
   > span {
