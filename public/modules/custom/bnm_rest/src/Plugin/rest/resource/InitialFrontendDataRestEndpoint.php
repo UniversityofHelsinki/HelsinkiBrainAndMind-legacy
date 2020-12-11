@@ -78,24 +78,46 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
    */
   public function get(Request $request) {
     $affiliates = $this->manager->loadTree('Affiliations', 0, NULL, TRUE);
-    if (!$affiliates) {
-      return new JsonResponse([]);
-    }
-
     $items = [];
 
-    /** @var Term $term */
-    foreach($affiliates as $term) {
-      $children = $this->manager->loadChildren($term->id());
-      $item = [
-        'id' => $term->id(),
-        'name' => $term->getName()
-      ];
-      $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
-      $items['affiliates'][] = $item;
+    $items['footer-menu'][] = $this->getMenuTreeLinks('footer');
+
+    if ($affiliates) {
+      /** @var Term $term */
+      foreach($affiliates as $term) {
+        $children = $this->manager->loadChildren($term->id());
+        $item = [
+          'id' => $term->id(),
+          'name' => $term->getName()
+        ];
+        $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
+        $items['affiliates'][] = $item;
+      }
     }
 
     return new JsonResponse($items);
+  }
+
+  private function getMenuTreeLinks($menu) {
+    $tree = \Drupal::menuTree()->load($menu, new \Drupal\Core\Menu\MenuTreeParameters());
+    $links = [];
+
+    foreach ($tree as $item) {
+      $title = $item->link->getTitle();
+      $link = $item->link->getUrlObject()->toString();
+      $weight = $item->link->getWeight();
+      $links[] = ['title' => $title, 'link' => $link, 'weight' => $weight];
+    }
+
+    usort($links, function ($item1, $item2) {
+      return $item1['weight'] <=> $item2['weight'];
+    });
+
+    foreach ($links as $key => $link) {
+      unset($links[$key]['weight']);
+    }
+
+    return $links;
   }
 
 
