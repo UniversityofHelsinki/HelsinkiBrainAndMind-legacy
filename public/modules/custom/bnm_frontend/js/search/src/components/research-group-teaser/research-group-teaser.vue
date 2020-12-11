@@ -30,7 +30,7 @@
         </ul>
       </DescriptionListItem>
       <DescriptionListItem label="Interested in industrial collaboration" v-if="field_industrial_collaboration">
-        {{ field_industrial_collaboration === "1" ? "Yes" : "No" }}
+        {{ field_industrial_collaboration.charAt(0).toUpperCase() + field_industrial_collaboration.slice(1) }}
       </DescriptionListItem>
       <DescriptionListItem label="Keywords" v-if="field_keywords.length > 0">
         <ul class="description-list__list description-list__list--keywords">
