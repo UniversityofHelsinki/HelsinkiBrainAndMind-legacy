@@ -5,6 +5,9 @@
     </Container>
     <Loader v-if="this.isLoading"></Loader>
     <SearchResults :results="results" v-if="!this.isLoading"></SearchResults>
+    <Footer>
+      <FooterItem link="/asd">Hello</FooterItem>
+    </Footer>
 </template>
 
 <script>
@@ -12,6 +15,8 @@ import Search from '../components/search/search.vue'
 import SearchResults from '../components/search-results/search-results.vue';
 import Loader from '../components/loader/loader.vue';
 import Container from '../components/container/container.vue';
+import Footer from '../components/footer/footer.vue';
+import FooterItem from '../components/footer/footer.item.vue';
 
 export default {
   name: 'SearchPage',
@@ -19,7 +24,9 @@ export default {
     Search,
     SearchResults,
     Loader,
-    Container
+    Container,
+    Footer,
+    FooterItem
   },
   data() {
     return {
