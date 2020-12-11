@@ -16,11 +16,8 @@
       <DescriptionListItem label="Group name" v-if="field_research_group_name">
         {{ field_research_group_name }}
       </DescriptionListItem>
-      <DescriptionListItem label="Main affiliation, faculty" v-if="field_main_affiliation && field_faculty_unit">
+      <DescriptionListItem label="Main affiliation" v-if="field_main_affiliation && field_faculty_unit">
         {{ field_main_affiliation }}, {{ field_faculty_unit }}
-      </DescriptionListItem>
-      <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
-        {{ field_other_affiliations }}
       </DescriptionListItem>
       <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
         {{ field_other_affiliations }}
@@ -28,9 +25,12 @@
       <DescriptionListItem label="Links" v-if="field_links.length > 0">
         <ul class="description-list__list">
           <li v-for="link in field_links" :key="link" class="description-list__list-item">
-            <a :href="link.url" class="description-list__link">{{ link.title }}</a>
+            <a :href="link.url" class="description-list__link" target="_blank">{{ link.title }}</a>
           </li>
         </ul>
+      </DescriptionListItem>
+      <DescriptionListItem label="Interested in industrial collaboration" v-if="field_industrial_collaboration">
+        {{ field_industrial_collaboration === "1" ? "Yes" : "No" }}
       </DescriptionListItem>
       <DescriptionListItem label="Keywords" v-if="field_keywords.length > 0">
         <ul class="description-list__list description-list__list--keywords">
@@ -38,9 +38,6 @@
             <span class="research-group-teaser__keyword">{{ keyword }}</span>
           </li>
         </ul>
-      </DescriptionListItem>
-      <DescriptionListItem label="Interested in industrial collaboration" v-if="field_industrial_collaboration">
-        {{ field_industrial_collaboration === "1" ? "Yes" : "No" }}
       </DescriptionListItem>
     </DescriptionList>
   </article>

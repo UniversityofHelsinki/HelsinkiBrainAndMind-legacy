@@ -82,13 +82,15 @@ final class Search extends ResourceBase {
     $return = [];
 
     foreach ($results as $item) {
-      if($affiliate != 0 || (isset($item->field_main_affiliation) && $item->field_main_affiliation->target_id != $affiliate)){
-        continue;
-      }
 
       $data = explode(':', $item->getId());
       $data = explode('/', $data[1]);
       $node = Node::load($data[1]);
+
+      if ($affiliate != 0 && isset($node->field_main_affiliation) && ($node->field_main_affiliation->target_id != (string)$affiliate)) {
+        continue;
+      }
+
       $main_affiliation = Term::load($node->field_main_affiliation->target_id)->getName();
 
       $links = $this->getLinks($node->field_links);
