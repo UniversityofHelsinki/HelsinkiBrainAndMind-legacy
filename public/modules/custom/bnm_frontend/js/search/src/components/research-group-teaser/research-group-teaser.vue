@@ -10,9 +10,6 @@
       </p>
     </div>
     <DescriptionList>
-      <DescriptionListItem label="Description" v-if="body">
-        {{ strippedBody }}
-      </DescriptionListItem>
       <DescriptionListItem label="Group name" v-if="field_research_group_name">
         {{ field_research_group_name }}
       </DescriptionListItem>
@@ -22,6 +19,12 @@
       <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
         {{ field_other_affiliations }}
       </DescriptionListItem>
+      <DescriptionListItem label="Description" v-if="body">
+        {{ strippedBody }}
+      </DescriptionListItem>
+      <DescriptionListItem label="Interested in industrial collaboration" v-if="field_industrial_collaboration">
+        {{ field_industrial_collaboration.charAt(0).toUpperCase() + field_industrial_collaboration.slice(1) }}
+      </DescriptionListItem>
       <DescriptionListItem label="Links" v-if="field_links.length > 0">
         <ul class="description-list__list">
           <li v-for="link in field_links" :key="link" class="description-list__list-item">
@@ -30,9 +33,6 @@
             </CustomLink>
           </li>
         </ul>
-      </DescriptionListItem>
-      <DescriptionListItem label="Interested in industrial collaboration" v-if="field_industrial_collaboration">
-        {{ field_industrial_collaboration.charAt(0).toUpperCase() + field_industrial_collaboration.slice(1) }}
       </DescriptionListItem>
       <DescriptionListItem label="Keywords" v-if="field_keywords.length > 0">
         <ul class="description-list__list description-list__list--keywords">
