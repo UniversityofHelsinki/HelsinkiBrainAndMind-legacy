@@ -25,7 +25,9 @@
       <DescriptionListItem label="Links" v-if="field_links.length > 0">
         <ul class="description-list__list">
           <li v-for="link in field_links" :key="link" class="description-list__list-item">
-            <a :href="link.url" class="description-list__link" target="_blank">{{ link.title }}</a>
+            <CustomLink :link="link.url" class="description-list__link" :isBlank="true">
+              {{ link.title }}
+            </CustomLink>
           </li>
         </ul>
       </DescriptionListItem>
@@ -46,12 +48,13 @@
 <script>
 import DescriptionList from './description-list/description-list.vue'
 import DescriptionListItem from './description-list/description-list.item.vue'
+import CustomLink from '../custom-link/custom-link.vue';
 import './research-group-teaser.scss';
 
 export default {
   name: 'ResearchGroupTeaser',
   components: {
-    DescriptionList, DescriptionListItem
+    DescriptionList, DescriptionListItem, CustomLink
   },
   props: {
     body: String,

@@ -57,3 +57,11 @@
     margin-top: 0;
   }
 }
+
+.description-list__link {
+  color: $color-violet-1;
+
+  svg {
+    fill: $color-violet-1;
+  }
+}
