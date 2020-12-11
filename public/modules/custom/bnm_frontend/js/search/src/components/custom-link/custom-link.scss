@@ -1,0 +1,26 @@
+.custom-link {
+  line-height: 20px;
+  overflow: hidden;
+
+  span {
+    display: inline-block;
+    height: 16px;
+    margin-left: $spacing-tiny;
+    overflow: hidden;
+    transform: translateY(2px);
+    width: 16px;
+
+    svg {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

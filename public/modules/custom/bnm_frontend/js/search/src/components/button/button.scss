@@ -33,7 +33,7 @@
   @include font-size(16px);
   background-color: transparent;
   border-radius: 3px;
-  border: 2px solid $color-violet-1;
+  border: 2px solid $color-green-2;
   color: $color-violet-1;
   font-family: $default-font-family;
   font-weight: bold;
@@ -59,19 +59,19 @@
   }
 
   &:hover, &:focus {
-    border-color: $color-indigo-1;
+    border-color: $color-black;
   }
 
   &--primary {
-    background-color: $color-violet-1;
+    background-color: $color-green-2;
     color: $color-white;
 
     &:focus {
-      outline-color: $color-indigo-1;
+      outline-color: $color-black
     }
 
     &:hover, &:focus {
-      background-color: $color-indigo-1;
+      background-color: $color-green-3;
     }
   }
 

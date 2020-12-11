@@ -12,7 +12,7 @@
 
 .description-list__label {
   @include font-size(14px);
-  color: $color-blue-3;
+  color: $color-green-3;
   line-height: 16px;
   margin-bottom: $spacing-tiny / 2;
   margin-top: 0;
@@ -55,5 +55,13 @@
     margin-bottom: $spacing-tiny;
     margin-right: $spacing-tiny;
     margin-top: 0;
+  }
+}
+
+.description-list__link {
+  color: $color-violet-1;
+
+  svg {
+    fill: $color-violet-1;
   }
 }
