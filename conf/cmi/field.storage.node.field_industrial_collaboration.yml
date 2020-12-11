@@ -1,15 +1,24 @@
-uuid: a7978449-a718-499a-8dac-ad0d91a2fb27
+uuid: b6f387a6-2874-47f5-846a-2113e5f416f5
 langcode: en
 status: true
 dependencies:
   module:
     - node
+    - options
 id: node.field_industrial_collaboration
 field_name: field_industrial_collaboration
 entity_type: node
-type: boolean
-settings: {  }
-module: core
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'no'
+      label: 'No'
+    -
+      value: 'yes'
+      label: 'Yes'
+  allowed_values_function: ''
+module: options
 locked: false
 cardinality: 1
 translatable: true

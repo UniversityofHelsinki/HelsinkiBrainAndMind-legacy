@@ -66,10 +66,9 @@ content:
     region: content
   field_industrial_collaboration:
     weight: 131
-    settings:
-      display_label: true
+    settings: {  }
     third_party_settings: {  }
-    type: boolean_checkbox
+    type: options_select
     region: content
   field_keywords:
     weight: 129

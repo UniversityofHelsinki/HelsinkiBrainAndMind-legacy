@@ -30,8 +30,8 @@
         </ul>
       </DescriptionListItem>
       <DescriptionListItem label="Interested in industrial collaboration" v-if="field_industrial_collaboration">
-        {{ field_industrial_collaboration === "1" ? "Yes" : "No" }}
-      </DescriptionListItem>
+      {{ field_industrial_collaboration }}
+    </DescriptionListItem>
       <DescriptionListItem label="Keywords" v-if="field_keywords.length > 0">
         <ul class="description-list__list description-list__list--keywords">
           <li v-for="keyword in field_keywords" :key="keyword" class="description-list__list-item">
