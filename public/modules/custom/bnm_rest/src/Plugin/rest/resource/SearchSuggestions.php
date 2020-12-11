@@ -89,7 +89,8 @@ final class SearchSuggestions extends ResourceBase {
 
     $return = [];
     foreach($suggestions as $suggestion){
-      $return[] = "{$suggestion->getUserInput()}{$suggestion->getSuggestionSuffix()}";
+      $suffix = str_replace('XXX', ' ', $suggestion->getSuggestionSuffix());
+      $return[] = "{$suggestion->getUserInput()}$suffix";
     }
     return new JsonResponse($return);
   }
