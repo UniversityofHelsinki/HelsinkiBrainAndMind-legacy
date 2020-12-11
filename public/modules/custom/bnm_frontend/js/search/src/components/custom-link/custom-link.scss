@@ -3,12 +3,10 @@
   overflow: hidden;
 
   span {
-    display: inline-block;
-    height: 16px;
-    margin-left: $spacing-tiny;
-    overflow: hidden;
-    transform: translateY(2px);
-    width: 16px;
+    display: inline-flex;
+    height: 14px;
+    margin-left: $spacing-tiny / 2;
+    width: 14px;
 
     svg {
       height: 100%;
