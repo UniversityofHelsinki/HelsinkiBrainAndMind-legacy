@@ -108,7 +108,9 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       $link = $item->link->getUrlObject()->toString();
       $weight = $item->link->getWeight();
       $isExternal = $item->link->getUrlObject()->isExternal();
-      $links[] = ['title' => $title, 'link' => $link, 'weight' => $weight, 'external' => $isExternal];
+      if ($item->link->isEnabled()) {
+        $links[] = ['title' => $title, 'link' => $link, 'weight' => $weight, 'external' => $isExternal];
+      }
     }
 
     usort($links, function ($item1, $item2) {
