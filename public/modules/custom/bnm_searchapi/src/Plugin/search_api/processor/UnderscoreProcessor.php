@@ -128,13 +128,12 @@ class UnderscoreProcessor extends FieldsProcessorPluginBase {
      $this->process($value);
   }
 
-
   /**
    * {@inheritdoc}
    */
   protected function process(&$value) {
     if (is_string($value)) {
-      $value = str_replace(' ', 'xxx', $value) . 'x';
+      $value = str_replace(' ', 'qq', $value) . 'q';
     }
   }
 
