@@ -1,7 +1,7 @@
 <template>
   <Container class="search">
     <div class="search__item">
-      <SearchField @handleKeywordSubmit="handleAddKeyword" @handleUpdate="handleInputValueChange" class="search__item" :currentKeyword="currentKeyword"></SearchField>
+      <SearchField @handleKeywordSubmit="handleAddKeyword" @handleUpdate="handleInputValueChange" class="search__item" :currentKeyword="currentKeyword" ref="suggestionReset"></SearchField>
       <SearchFieldKeywords :keywords="selectedKeywords" v-if="selectedKeywords.length > 0" @handleRemoveKeyword="handleRemoveKeyword"></SearchFieldKeywords>
     </div>
     <SearchDropdown @handleChange="handleDropdownChange" class="search__item" :selectedOption="this.selectedOption"></SearchDropdown>
@@ -46,6 +46,7 @@ export default {
       const apiEndpoint = 'researchgroup_search';
       const queryString = `?q=${keywords}&affiliate=${affiliate}`;
 
+      this.$refs.suggestionReset.suggestionsReset();
       this.$emit('isLoading', true);
       this.$emit('searchCompleted', await getSearchResults(apiEndpoint, queryString));
       this.$emit('isLoading', false);
