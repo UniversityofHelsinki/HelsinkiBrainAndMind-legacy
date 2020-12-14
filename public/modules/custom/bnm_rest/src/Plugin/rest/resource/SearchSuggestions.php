@@ -73,25 +73,74 @@ final class SearchSuggestions extends ResourceBase {
 
     /** @var \Drupal\search_api_autocomplete\Utility\PluginHelper $plugin_helper */
     $plugin_helper = \Drupal::service('search_api_autocomplete.plugin_helper');
-
     $search = Search::create(Search::getDefaultOptions());
 
     /** @var \Drupal\search_api_autocomplete\Plugin\search_api_autocomplete\suggester\Server $suggester */
     $suggester = $plugin_helper->createSuggesterPlugin($search, 'server', []);
 
     $index = Index::load('research_group');
-    $query = $index->query([])->range(0, 5);
+    $query = $index->query([]);
 
-    $incomplete_key = $q;
-    $user_input = $q;
+    $handle_underscore = $this->underscoreProcessorIsUsed($index->getProcessors());
+
+    if ($handle_underscore) {
+      $incomplete_key = str_replace(' ', 'xxx', $q);
+      $user_input = str_replace(' ', 'xxx', $q);
+    } else {
+      $incomplete_key = $q;
+      $user_input = $q;
+    }
 
     $suggestions = $suggester->getAutocompleteSuggestions($query, $incomplete_key, $user_input);
 
-    $return = [];
+    $suggest = [];
     foreach($suggestions as $suggestion){
-      $return[] = "{$suggestion->getUserInput()}{$suggestion->getSuggestionSuffix()}";
+      if($handle_underscore){
+        $suggest[] = $this->underscoreProcessorHandler($suggestion);
+      } else {
+        $suggest[] = $suggestion;
+      }
+      $suggest = array_unique($suggest, SORT_STRING);
+      if(count($suggest) > 5){
+        break;
+      }
     }
-    return new JsonResponse($return);
+
+    asort($suggest, [$this, 'suggestionSorting']);
+
+    return new JsonResponse(array_values($suggest));
   }
+
+  /**
+   * Check if custom underscore processor used.
+   * @param $processors
+   * @return bool
+   */
+  private function underscoreProcessorIsUsed($processors){
+    foreach($processors as $processor){
+      if($processor->getPluginId() === 'bnm_underscore_processor'){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Clean up the indexed keywords altered by custom Underscore -processor.
+   *
+   * @param $suggestion
+   * @param $processors
+   */
+  private function underscoreProcessorHandler($suggestion){
+    // TODO: on underscore processor, search api automatically gets rid of underscore.
+    // XXX should be just a temporary workaround
+    $string = str_replace('xxx', ' ', "{$suggestion->getUserInput()}{$suggestion->getSuggestionSuffix()}");
+    return rtrim($string, 'x');
+  }
+
+  private function suggestionSorting($a, $b) {
+    return strlen($a) - strlen($b);
+  }
+
 
 }
