@@ -21,6 +21,7 @@ export default {
   },
   data(){
     return {
+      fetchTimeout: undefined,
       suggestions: [],
       inputKeywordsValue: '',
     }
@@ -29,13 +30,19 @@ export default {
     handleInputValueChange(keyword) {
       this.$emit('handleUpdate', keyword);
     },
-    async handleSuggestions(event) {
+    handleSuggestions(event) {
+      const fetchNewSuggestions = async () => {
+        this.suggestions = await getSearchSuggestions(keyword);
+        this.inputKeywordsValue = keyword
+      };
+
       const { value: keyword } = event.target;
       this.handleInputValueChange(keyword);
 
+      clearTimeout(this.fetchTimeout);
+
       if (keyword.length >= 2) {
-        this.suggestions = await getSearchSuggestions(keyword);
-        this.inputKeywordsValue = keyword
+        this.fetchTimeout = setTimeout(fetchNewSuggestions, 300);
       }
     },
     handleAddKeyword() {
