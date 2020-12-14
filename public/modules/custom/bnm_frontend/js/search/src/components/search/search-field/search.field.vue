@@ -11,8 +11,7 @@
 <script>
 import './search-field.scss';
 import SearchFieldSuggestions from './search.field.suggestions.vue';
-
-const BACKEND_URL = process.env.VUE_APP_BACKEND_URL;
+import getSearchSuggestions from '../../../services/suggestions.service.js';
 
 export default {
   components: { SearchFieldSuggestions },
@@ -30,23 +29,13 @@ export default {
     handleInputValueChange(keyword) {
       this.$emit('handleUpdate', keyword);
     },
-    handleSuggestions(event) {
+    async handleSuggestions(event) {
       const { value: keyword } = event.target;
       this.handleInputValueChange(keyword);
 
       if (keyword.length >= 2) {
-        setTimeout(() => {
-          this.axios.get(`${BACKEND_URL}/search_suggestions?q=${keyword}`, {}, {
-            headers: {
-              'Content-type': 'application/json',
-            },
-          })
-          .then(({data: results}) => {
-              this.suggestions = results;
-          })
-        }, 500)
-
-        this.inputKeywordsValue = keyword;
+        this.suggestions = await getSearchSuggestions(keyword);
+        this.inputKeywordsValue = keyword
       }
     },
     handleAddKeyword() {
