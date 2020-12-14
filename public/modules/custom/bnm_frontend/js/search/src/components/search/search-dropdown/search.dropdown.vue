@@ -36,12 +36,12 @@ export default {
   },
 
   mounted() {
-    this.axios.get(`${BACKEND_URL}/filters`, {}, {
+    this.axios.get(`${BACKEND_URL}/initial-frontend-data`, {}, {
       headers: {
         'Content-type': 'application/json',
       },
     })
-    .then(({data: result}) => {
+    .then(({data: { affiliates: result}}) => {
       const parentOptions = result.filter(option => option.children);
 
       if (parentOptions.length === 0) {

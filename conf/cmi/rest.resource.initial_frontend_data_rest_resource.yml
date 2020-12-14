@@ -1,0 +1,17 @@
+uuid: f1dcb9c4-d5d8-4262-96b9-65aad8cea068
+langcode: en
+status: true
+dependencies:
+  module:
+    - bnm_rest
+    - serialization
+    - user
+id: initial_frontend_data_rest_resource
+plugin_id: initial_frontend_data_rest_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie
