@@ -1,9 +1,9 @@
 definitions:
   contact__site_page:
-    enabled: true
+    enabled: false
     menu_name: footer
     parent: ''
-    weight: 0
+    weight: -48
     expanded: false
   system__admin_content:
     weight: -59
