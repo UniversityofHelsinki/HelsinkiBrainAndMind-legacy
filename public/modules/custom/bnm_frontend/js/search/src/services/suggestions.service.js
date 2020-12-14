@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { BACKEND_URL } from '../constans/backend-url';
+import { BACKEND_URL } from '../constants/backend-url';
 
 const getSearchSuggestions = async (keyword) => {
   try {

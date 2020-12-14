@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { BACKEND_URL } from '../constans/backend-url';
+import { BACKEND_URL } from '../constants/backend-url';
 
 const getSearchResults = async (endpoint, query) => {
   try {
