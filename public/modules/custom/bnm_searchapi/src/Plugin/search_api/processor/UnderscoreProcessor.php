@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\bnm_import\Plugin\search_api\processor;
+namespace Drupal\bnm_searchapi\Plugin\search_api\processor;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\search_api\Item\FieldInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Underscore processor.
  *
  * @SearchApiProcessor(
- *   id = "underscore_processor",
+ *   id = "bnm_underscore_processor",
  *   label = @Translation("BNM - underscore processor"),
  *   description = @Translation("Replace whitespace in fulltext keyword with underscore"),
  *   stages = {
@@ -133,9 +133,8 @@ class UnderscoreProcessor extends FieldsProcessorPluginBase {
    * {@inheritdoc}
    */
   protected function process(&$value) {
-    // We don't touch integers, NULL values or the like.
     if (is_string($value)) {
-      $value = str_replace(' ', 'XXX', $value);
+      $value = str_replace(' ', 'xxx', $value) . 'x';
     }
   }
 
