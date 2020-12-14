@@ -7,6 +7,7 @@ module:
   bnm_frontend: 0
   bnm_import: 0
   bnm_rest: 0
+  bnm_searchapi: 0
   breakpoint: 0
   ckeditor: 0
   color: 0
