@@ -84,8 +84,8 @@ final class SearchSuggestions extends ResourceBase {
     $handle_underscore = $this->underscoreProcessorIsUsed($index->getProcessors());
 
     if ($handle_underscore) {
-      $incomplete_key = str_replace(' ', 'xxx', $q);
-      $user_input = str_replace(' ', 'xxx', $q);
+      $incomplete_key = str_replace(' ', 'qq', $q);
+      $user_input = str_replace(' ', 'qq', $q);
     } else {
       $incomplete_key = $q;
       $user_input = $q;
@@ -106,7 +106,11 @@ final class SearchSuggestions extends ResourceBase {
       }
     }
 
-    asort($suggest, [$this, 'suggestionSorting']);
+    if(empty($suggest)){
+      return new JsonResponse([]);
+    }
+
+    uasort($suggest, [$this, 'suggestionSorting']);
 
     return new JsonResponse(array_values($suggest));
   }
@@ -133,14 +137,13 @@ final class SearchSuggestions extends ResourceBase {
    */
   private function underscoreProcessorHandler($suggestion){
     // TODO: on underscore processor, search api automatically gets rid of underscore.
-    // XXX should be just a temporary workaround
-    $string = str_replace('xxx', ' ', "{$suggestion->getUserInput()}{$suggestion->getSuggestionSuffix()}");
-    return rtrim($string, 'x');
+    // qq should be just a temporary workaround
+    $string = str_replace('qq', ' ', "{$suggestion->getUserInput()}{$suggestion->getSuggestionSuffix()}");
+    return rtrim($string, 'q');
   }
 
   private function suggestionSorting($a, $b) {
     return strlen($a) - strlen($b);
   }
-
 
 }

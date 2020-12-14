@@ -124,7 +124,7 @@ class CsvFileHandler {
               }
             }
           } else if($field['type'] == 'link'){
-            if($data_object->getValue()['uri']){
+            if($data_object->getValue() && isset($data_object->getValue()['uri'])){
               $node_fields[$field['field']][] = $data_object->getValue();
             }
           }
