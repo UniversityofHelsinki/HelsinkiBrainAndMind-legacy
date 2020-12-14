@@ -19,9 +19,8 @@ import SearchDropdown from './search-dropdown/search.dropdown';
 import SearchFieldKeywords from './search-keywords/search.keywords'
 import ButtonGroup from '../button/button.group.vue';
 import Button from '../button/button.vue';
+import getSearchResults from '../../services/search-results.service.js';
 import './search.scss';
-
-const BACKEND_URL = process.env.VUE_APP_BACKEND_URL;
 
 export default {
   name: 'Search',
@@ -41,23 +40,15 @@ export default {
     }
   },
   methods: {
-    handleSearchButtonClick() {
+    async handleSearchButtonClick() {
       const keywords = this.selectedKeywords.join(',');
       const affiliate = this.selectedOption;
       const apiEndpoint = 'researchgroup_search';
       const queryString = `?q=${keywords}&affiliate=${affiliate}`;
 
       this.$emit('isLoading', true);
-
-      this.axios.get(`${BACKEND_URL}/${apiEndpoint}${queryString}`)
-       .then(({data: results}) => {
-          this.$emit('searchCompleted', results);
-       })
-       .catch((error) => {
-        //  eslint-disable-next-line
-        console.log('error', error);
-       })
-       .finally(() => this.$emit('isLoading', false));
+      this.$emit('searchCompleted', await getSearchResults(apiEndpoint, queryString));
+      this.$emit('isLoading', false);
     },
     handleResetButtonClick() {
       this.selectedKeywords = [];
