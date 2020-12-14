@@ -78,25 +78,33 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
    *   The HTTP response object.
    */
   public function get(Request $request) {
-    $affiliates = $this->manager->loadTree('Affiliations', 0, NULL, TRUE);
     $items = [];
 
     $items['footer_menu'] = $this->getMenuTreeLinks('footer');
-
-    if ($affiliates) {
-      /** @var Term $term */
-      foreach($affiliates as $term) {
-        $children = $this->manager->loadChildren($term->id());
-        $item = [
-          'id' => $term->id(),
-          'name' => $term->getName()
-        ];
-        $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
-        $items['affiliates'][] = $item;
-      }
-    }
+    $items['affiliates'] = $this->getAffialites();
 
     return new JsonResponse($items);
+  }
+
+  private function getAffialites() {
+    $affiliates = $this->manager->loadTree('Affiliations', 0, NULL, TRUE);
+
+    if (!$affiliates) return [];
+
+    $stack = [];
+
+    /** @var Term $term */
+    foreach($affiliates as $term) {
+      $children = $this->manager->loadChildren($term->id());
+      $item = [
+        'id' => $term->id(),
+        'name' => $term->getName()
+      ];
+      $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
+      $stack[] = $item;
+    }
+
+    return $stack;
   }
 
   private function getMenuTreeLinks($menu) {
