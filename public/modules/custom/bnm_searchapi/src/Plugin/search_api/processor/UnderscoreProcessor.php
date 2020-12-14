@@ -19,8 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   description = @Translation("Replace whitespace in fulltext keyword with underscore"),
  *   stages = {
  *     "pre_index_save" = 5,
- *     "preprocess_index" = -15,
- *     "preprocess_query" = -15
+ *     "preprocess_index" = -15
  *   }
  * )
  */
