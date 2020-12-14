@@ -56,6 +56,11 @@
     margin-right: $spacing-tiny;
     margin-top: 0;
   }
+
+  &.is-hidden {
+    display: none;
+    visibility: hidden;
+  }
 }
 
 .description-list__link {
@@ -63,5 +68,24 @@
 
   svg {
     fill: $color-violet-1;
+  }
+}
+
+.description-list__button {
+  @include font-size(12px);
+  align-items: center;
+  background-color: $color-gray-1;
+  border-radius: 3px;
+  border: 0;
+  box-sizing: border-box;
+  color: $color-black;
+  display: inline-flex;
+  font-weight: bold;
+  margin-bottom: $spacing-tiny;
+  padding: $spacing-tiny $spacing-tiny;
+  text-align: left;
+
+  &:hover {
+    cursor: pointer;
   }
 }

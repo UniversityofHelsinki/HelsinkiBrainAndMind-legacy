@@ -35,8 +35,20 @@
         </ul>
       </DescriptionListItem>
       <DescriptionListItem label="Keywords" v-if="field_keywords.length > 0">
+        <button
+          type="button"
+          v-if="field_keywords.length > 3"
+          @click="this.toggleKeywords()"
+          :aria-expanded="(field_keywords.length > 3) && !isKeywordsHidden"
+          class="description-list__button">
+          {{ isKeywordsHidden ? 'Show more keywords' : 'Show less keywords' }}
+        </button>
         <ul class="description-list__list description-list__list--keywords">
-          <li v-for="keyword in field_keywords" :key="keyword" class="description-list__list-item">
+          <li
+            v-for="(keyword, index) in field_keywords"
+            :key="keyword" class="description-list__list-item"
+            :class="{ 'is-hidden': (index > 2) && isKeywordsHidden }"
+            :aria-hidden="(index > 2) && isKeywordsHidden">
             <span class="research-group-teaser__keyword">{{ keyword }}</span>
           </li>
         </ul>
@@ -71,7 +83,13 @@ export default {
   },
   data: function () {
     return {
-      strippedBody: this.body?.replace(/(<([^>]+)>)/gi, "")
+      strippedBody: this.body?.replace(/(<([^>]+)>)/gi, ""),
+      isKeywordsHidden: true,
+    }
+  },
+  methods: {
+    toggleKeywords() {
+      this.isKeywordsHidden = !this.isKeywordsHidden;
     }
   }
 }
