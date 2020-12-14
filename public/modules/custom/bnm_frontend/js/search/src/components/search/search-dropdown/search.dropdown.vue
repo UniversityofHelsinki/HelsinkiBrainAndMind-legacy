@@ -13,9 +13,10 @@
 
 <script>
 import SearchDropdownOptions from './search.dropdown.options';
+import getAffiliates from '../../../services/affiliates.service.js';
 import './search-dropdown.scss';
 
-const BACKEND_URL = process.env.VUE_APP_BACKEND_URL;
+// const BACKEND_URL = process.env.VUE_APP_BACKEND_URL;
 
 export default {
   name: 'SearchDropdown',
@@ -35,32 +36,23 @@ export default {
     }
   },
 
-  mounted() {
-    this.axios.get(`${BACKEND_URL}/initial-frontend-data`, {}, {
-      headers: {
-        'Content-type': 'application/json',
-      },
-    })
-    .then(({data: { affiliates: result}}) => {
-      const parentOptions = result.filter(option => option.children);
+  async mounted() {
+    const affiliates = await getAffiliates();
 
-      if (parentOptions.length === 0) {
-        this.options = result;
-      } else {
-        this.options = parentOptions.map(({id, name, children: childrenIds}) => {
-          const children = childrenIds.map((childrenId) => {
-            const children = result.find(({id}) => id === childrenId)
-            delete children.children;
+    const parentOptions = affiliates.filter(option => option.children);
 
-            return children;
-          })
-          return {id, name, children};
+    if (parentOptions.length === 0) {
+      this.options = affiliates;
+    } else {
+      this.options = parentOptions.map(({id, name, children: childrenIds}) => {
+        const children = childrenIds.map((childrenId) => {
+          const children = affiliates.find(({id}) => id === childrenId)
+          delete children.children;
+          return children;
         })
-      }
-    }).catch((error) => {
-      // eslint-disable-next-line
-      console.log(error);
-    });
+        return {id, name, children};
+      })
+    }
   }
 }
 </script>

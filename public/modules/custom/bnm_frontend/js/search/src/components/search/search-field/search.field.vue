@@ -2,7 +2,7 @@
   <div class="search-field">
     <div role="combobox" :aria-expanded="suggestions.length > 0 ? 'true' : 'false'" aria-owns="listbox-suggestions" aria-haspopup="listbox" id="combobox-suggestions">
       <label for="keywords" id="keywords-label" class="search-field__label">Keywords</label>
-      <input type="text" id="keywords" :value="currentKeyword" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword" @keyup.esc="suggestionsReset" aria-autocomplete="list" aria-controls="listbox-suggestions" aria-activedescendant="IDREF">
+      <input type="text" id="keywords" :value="currentKeyword" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword" @keyup.esc="suggestionsReset" aria-autocomplete="list" aria-controls="listbox-suggestions" aria-activedescendant="IDREF" @focus="handleFocus">
     </div>
     <SearchFieldSuggestions :class="{ 'is-open': suggestions.length > 0 }" :inputReset="inputReset" :suggestions="this.suggestions" aria-labelledby="keywords-label" role="listbox" id="listbox-suggestions"></SearchFieldSuggestions>
   </div>
@@ -11,8 +11,7 @@
 <script>
 import './search-field.scss';
 import SearchFieldSuggestions from './search.field.suggestions.vue';
-
-const BACKEND_URL = process.env.VUE_APP_BACKEND_URL;
+import getSearchSuggestions from '../../../services/suggestions.service.js';
 
 export default {
   components: { SearchFieldSuggestions },
@@ -22,6 +21,7 @@ export default {
   },
   data(){
     return {
+      fetchTimeout: undefined,
       suggestions: [],
       inputKeywordsValue: '',
     }
@@ -31,22 +31,20 @@ export default {
       this.$emit('handleUpdate', keyword);
     },
     handleSuggestions(event) {
+      const fetchNewSuggestions = async () => {
+        this.suggestions = await getSearchSuggestions(keyword);
+        this.inputKeywordsValue = keyword
+      };
+
       const { value: keyword } = event.target;
       this.handleInputValueChange(keyword);
 
-      if (keyword.length >= 2) {
-        setTimeout(() => {
-          this.axios.get(`${BACKEND_URL}/search_suggestions?q=${keyword}`, {}, {
-            headers: {
-              'Content-type': 'application/json',
-            },
-          })
-          .then(({data: results}) => {
-              this.suggestions = results;
-          })
-        }, 500)
+      clearTimeout(this.fetchTimeout);
 
-        this.inputKeywordsValue = keyword;
+      if (keyword.length >= 2) {
+        this.fetchTimeout = setTimeout(fetchNewSuggestions, 300);
+      } else {
+        this.suggestionsReset();
       }
     },
     handleAddKeyword() {
@@ -59,6 +57,18 @@ export default {
     inputReset() {
       this.suggestionsReset();
       this.inputKeywordsValue = '';
+    },
+    handleFocus(event) {
+      this.handleSuggestions(event);
+
+      const clickListener = document.addEventListener("click", (e) => {
+        const isSearchFormClick = (e.target.closest(".search-field"));
+
+        if (!isSearchFormClick) {
+          this.inputReset();
+          document.removeEventListener("click", clickListener);
+        }
+      });
     }
   }
 }
