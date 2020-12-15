@@ -1,7 +1,8 @@
 <template>
   <a :href="link" :target="isBlank ? '_blank' : '_self'" class="custom-link">
     <slot />
-    <span v-if="isBlank" class="visually-hidden">(link opens in a new tab)</span>
+    <span v-if="isBlank && !isDownloadable" class="visually-hidden">(link opens in a new tab)</span>
+    <span v-if="isBlank && isDownloadable" class="visually-hidden">(open or download file)</span>
     <span v-if="isBlank">
       <IconOpenNewTab></IconOpenNewTab>
     </span>
@@ -19,7 +20,8 @@ export default {
   },
   props: {
     link: String,
-    isBlank: Boolean
+    isBlank: Boolean,
+    isDownloadable: Boolean
   }
 }
 </script>

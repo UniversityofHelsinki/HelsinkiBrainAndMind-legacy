@@ -113,17 +113,21 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
 
     $host = \Drupal::request()->getSchemeAndHttpHost();
 
+    $allowedFileExtensions = ['docx', 'pdf'];
+
     foreach ($tree as $item) {
       $title = $item->link->getTitle();
       $link = $item->link->getUrlObject()->toString();
       $weight = $item->link->getWeight();
       $isExternal = $item->link->getUrlObject()->isExternal();
+      $linkFileExtension = pathinfo($link, PATHINFO_EXTENSION);
+      $isFile = in_array($linkFileExtension, $allowedFileExtensions);
 
       // Add base url, if link is internal.
       $link = !$isExternal ? ($host . $link) : $link;
 
       if ($item->link->isEnabled()) {
-        $links[] = ['title' => $title, 'link' => $link, 'weight' => $weight, 'external' => $isExternal];
+        $links[] = ['title' => $title, 'link' => $link, 'weight' => $weight, 'external' => $isExternal, 'downloadable' => $isFile];
       }
     }
 
