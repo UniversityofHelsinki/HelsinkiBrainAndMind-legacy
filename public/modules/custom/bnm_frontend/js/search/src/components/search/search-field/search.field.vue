@@ -2,7 +2,7 @@
   <div class="search-field">
     <div role="combobox" :aria-expanded="suggestions.length > 0 ? 'true' : 'false'" aria-owns="listbox-suggestions" aria-haspopup="listbox" id="combobox-suggestions">
       <label for="keywords" id="keywords-label" class="search-field__label">Keywords</label>
-      <input type="text" id="keywords" :value="currentKeyword" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword" @keyup.esc="suggestionsReset" aria-autocomplete="list" aria-controls="listbox-suggestions" aria-activedescendant="IDREF" @focus="handleFocus">
+      <input type="text" id="keywords" :value="currentKeyword" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword" @keyup.esc="suggestionsReset" aria-autocomplete="list" aria-controls="listbox-suggestions" aria-activedescendant="IDREF" @focus="handleFocus" @keydown.down="handleArrowDown" @keydown.up="handleArrowUp">
     </div>
     <SearchFieldSuggestions :class="{ 'is-open': suggestions.length > 0 }" :inputReset="inputReset" :suggestions="this.suggestions" aria-labelledby="keywords-label" role="listbox" id="listbox-suggestions"></SearchFieldSuggestions>
   </div>
@@ -69,6 +69,22 @@ export default {
           document.removeEventListener("click", clickListener);
         }
       });
+    },
+    handleArrowUp(event) {
+      const { parentElement: parent } = event.target;
+
+      const suggestionsListElement = parent.parentElement.querySelector('ul.search-suggestions');
+      const suggestionsListButtonElements = suggestionsListElement.querySelectorAll('.search-suggestions__button');
+      const suggestionsListLastButtonElement = suggestionsListButtonElements[suggestionsListButtonElements.length - 1];
+      suggestionsListLastButtonElement.focus();
+    },
+    handleArrowDown(event) {
+      const { parentElement: parent } = event.target;
+
+      const suggestionsListElement = parent.parentElement.querySelector('ul.search-suggestions');
+      const suggestionsListButtonElements = suggestionsListElement.querySelectorAll('.search-suggestions__button');
+      const suggestionsListFirstButtonElement = suggestionsListButtonElements[0];
+      suggestionsListFirstButtonElement.focus();
     }
   }
 }

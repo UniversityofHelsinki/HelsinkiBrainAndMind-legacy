@@ -1,7 +1,7 @@
 <template>
   <ul class="search-suggestions">
     <SearchFieldSuggestionsItem v-for="suggestion in suggestions" :key="suggestion" :inputReset="inputReset" role="option">
-      {{suggestion}}
+      {{ suggestion }}
     </SearchFieldSuggestionsItem>
   </ul>
 </template>
