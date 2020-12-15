@@ -1,6 +1,6 @@
 <template>
-  <li class="search-suggestions__item">
-    <button @click="handleAddKeyword" @keydown.down="handleArrowDown" @keydown.up="handleArrowUp" class="search-suggestions__button" tabindex="-1">
+  <li class="search-suggestions__item" :id="id" :aria-selected="id === currentlyActiveDescendant ? true : false">
+    <button @keyup.enter="handleAddKeyword" @mousedown="handleAddKeyword" @keydown.down="handleArrowDown" @keydown.up="handleArrowUp" class="search-suggestions__button" tabindex="-1">
       <slot />
     </button>
   </li>
@@ -11,7 +11,9 @@
 export default {
   name: 'SearchFieldSuggestionsItem',
   props: {
-    inputReset: Function
+    id: String,
+    inputReset: Function,
+    currentlyActiveDescendant: String,
   },
   methods: {
     handleAddKeyword(event) {
@@ -20,32 +22,38 @@ export default {
     },
     handleArrowUp(event) {
       const { parentElement: parent } = event.target;
+      const suggestionsListItemElements = parent.parentElement.querySelectorAll('li.search-suggestions__item');
       const suggestionsListButtonElements = parent.parentElement.querySelectorAll('button.search-suggestions__button');
       const suggestionsListLastButtonElement = suggestionsListButtonElements[suggestionsListButtonElements.length - 1];
       const previousListItemSibling = parent.previousElementSibling;
 
       if (!previousListItemSibling) {
+        this.$parent.$emit('handleActiveDescendantChange', suggestionsListItemElements[suggestionsListItemElements.length - 1].getAttribute('id'));
         suggestionsListLastButtonElement.focus();
         return;
       }
 
-      const nextButtonSibling = previousListItemSibling.querySelector('button.search-suggestions__button');
+      const previousButtonSibling = previousListItemSibling.querySelector('button.search-suggestions__button');
 
-      nextButtonSibling.focus();
+      this.$parent.$emit('handleActiveDescendantChange', previousListItemSibling.getAttribute('id'));
+      previousButtonSibling.focus();
     },
     handleArrowDown(event) {
       const { parentElement: parent } = event.target;
+      const suggestionsListItemElements = parent.parentElement.querySelectorAll('li.search-suggestions__item');
       const suggestionsListButtonElements = parent.parentElement.querySelectorAll('button.search-suggestions__button');
       const suggestionsListFirstButtonElement = suggestionsListButtonElements[0];
       const nextListItemSibling = parent.nextElementSibling;
 
       if (!nextListItemSibling) {
+        this.$parent.$emit('handleActiveDescendantChange', suggestionsListItemElements[0].getAttribute('id'));
         suggestionsListFirstButtonElement.focus();
         return;
       }
 
       const nextButtonSibling = nextListItemSibling.querySelector('button.search-suggestions__button');
 
+      this.$parent.$emit('handleActiveDescendantChange', nextListItemSibling.getAttribute('id'));
       nextButtonSibling.focus();
     }
   }
