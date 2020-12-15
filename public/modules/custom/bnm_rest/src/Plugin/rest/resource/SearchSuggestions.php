@@ -94,14 +94,16 @@ final class SearchSuggestions extends ResourceBase {
     $suggestions = $suggester->getAutocompleteSuggestions($query, $incomplete_key, $user_input);
 
     $suggest = [];
-    foreach($suggestions as $suggestion){
-      if($handle_underscore){
+    foreach($suggestions as $suggestion) {
+      if ($handle_underscore) {
         $suggest[] = $this->underscoreProcessorHandler($suggestion);
       } else {
         $suggest[] = $suggestion;
       }
+
       $suggest = array_unique($suggest, SORT_STRING);
-      if(count($suggest) > 5){
+
+      if(count($suggest) === 5){
         break;
       }
     }
