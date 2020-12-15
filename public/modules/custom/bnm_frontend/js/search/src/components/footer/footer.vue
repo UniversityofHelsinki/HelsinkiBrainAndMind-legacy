@@ -2,7 +2,7 @@
   <footer class="footer" v-if="links.length > 0">
     <Container class="footer__container">
       <ul class="footer__items">
-        <FooterItem :link="link.link" v-for="link in links" :key="link.link" :isExternal="link.external">
+        <FooterItem :link="link.link" v-for="link in links" :key="link.link" :isExternal="link.external" :isDownloadable="link.downloadable">
           {{ link.title }}
         </FooterItem>
       </ul>
