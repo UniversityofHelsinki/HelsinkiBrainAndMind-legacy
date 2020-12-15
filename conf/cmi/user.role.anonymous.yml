@@ -18,3 +18,4 @@ permissions:
   - 'restful get suggestion_rest_resource'
   - 'search content'
   - 'use text format restricted_html'
+  - 'view media'
