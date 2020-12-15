@@ -82,7 +82,6 @@ final class Search extends ResourceBase {
     $return = [];
 
     foreach ($results as $item) {
-
       $data = explode(':', $item->getId());
       $data = explode('/', $data[1]);
       $node = Node::load($data[1]);
