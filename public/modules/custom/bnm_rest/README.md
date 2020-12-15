@@ -1,49 +1,38 @@
-#BNM rest module
+# BNM rest module
 
 Module contains rest-api related modifications.
 
-Endpoints:
+## Endpoints
 
-GET /filters: Filters endpoint returns list of objects of 
-Parameters: -
+### Initial Frontend Data
 
-Return: Array of affiliate taxonomy term objects
-{
-    id: int
-    name: string
-    children: [int]
-}
-`
- [ 
- { 
-    id: 1,
-    name: 'affiliate1', 
-    childred: [2]
- },
- {
-    id: 2,
-    name: 'child-affiliate-1,  
-    children: []
- }...
- ]
-`
+```
+// Endpoint returns {footer_menu} and {affiliates} objects.
+$ GET /initial-frontend-data
+// Footer menu
+Return: Array of footer menu items as objects [{ title: string, link: string, external: boolean, downloadable: boolean }, ...]
+// Affiliates
+Return: Array of affiliate taxonomy term objects [{ id: int, name: string, children: [int] }, ...]
+```
 
-GET /search_suggestions
-Parameters:
-q - string: keyword for autocomplete
+### Suggestions
 
-example query /search_suggestions?q=uni
-return: [string]
-`
-['unit', 'unity', 'universe', 'university']
-`
+```
+// Parameters: q - string: keyword for autocomplete
+$ GET /search_suggestions
+// Example query
+$ /search_suggestions?q=uni
+// Example query returns
+$ ['unit', 'unity', 'universe', 'university']
+```
 
-GET /researchgroup_search
-Parameters
-q         - string: comma separated list of keywords
-affiliate - int: id of of affiliate
+### Researchgroup search
 
-Example query /researchgroup_search?q=brain,uni&affiliate=2
-Return: array of search results objects
-
-Check the endpoint for full list
+```
+// Parameters q - string: comma separated list of keywords, affiliate - int: tid of affiliate
+$ GET /researchgroup_search
+// Example query
+$ /researchgroup_search?q=brain,uni&affiliate=2
+// Example query returns
+$ Array of search results objects (Check the endpoint for full list)
+```
