@@ -78,7 +78,7 @@ export default {
     },
     handleArrowUp(event) {
       if (this.suggestions.length === 0) return;
-
+      event.preventDefault();
       const { parentElement: parent } = event.target;
 
       const suggestionsListElement = parent.parentElement.querySelector('ul.search-suggestions');
@@ -91,6 +91,7 @@ export default {
     },
     handleArrowDown(event) {
       if (this.suggestions.length === 0) return;
+      event.preventDefault();
       const { parentElement: parent } = event.target;
 
       const suggestionsListElement = parent.parentElement.querySelector('ul.search-suggestions');

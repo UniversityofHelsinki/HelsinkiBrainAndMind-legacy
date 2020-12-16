@@ -21,6 +21,7 @@ export default {
       this.inputReset();
     },
     handleArrowUp(event) {
+      event.preventDefault();
       const { parentElement: parent } = event.target;
       const suggestionsListItemElements = parent.parentElement.querySelectorAll('li.search-suggestions__item');
       const suggestionsListButtonElements = parent.parentElement.querySelectorAll('button.search-suggestions__button');
@@ -39,6 +40,7 @@ export default {
       previousButtonSibling.focus();
     },
     handleArrowDown(event) {
+      event.preventDefault();
       const { parentElement: parent } = event.target;
       const suggestionsListItemElements = parent.parentElement.querySelectorAll('li.search-suggestions__item');
       const suggestionsListButtonElements = parent.parentElement.querySelectorAll('button.search-suggestions__button');
