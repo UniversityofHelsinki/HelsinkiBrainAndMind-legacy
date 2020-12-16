@@ -2,7 +2,7 @@
   <div class="search-field">
     <div role="combobox" :aria-expanded="suggestions.length > 0 ? 'true' : 'false'" aria-owns="listbox-suggestions" aria-haspopup="listbox" id="combobox-suggestions">
       <label for="keywords" id="keywords-label" class="search-field__label">Keywords</label>
-      <input type="text" id="keywords" :value="currentKeyword" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword" @keyup.esc="suggestionsReset" aria-autocomplete="list" aria-controls="listbox-suggestions" :aria-activedescendant="activeDescendant" @focus="handleFocus" @keydown.down="handleArrowDown" @keydown.up="handleArrowUp">
+      <input type="text" id="keywords" :value="currentKeyword" class="search-field__input" placeholder="Search ..." @input="handleSuggestions" @keyup.enter="handleAddKeyword" @keyup.esc="inputReset" aria-autocomplete="list" aria-controls="listbox-suggestions" :aria-activedescendant="activeDescendant" @focus="handleFocus" @keydown.down="handleArrowDown" @keydown.up="handleArrowUp">
     </div>
     <SearchFieldSuggestions :class="{ 'is-open': suggestions.length > 0 }" :inputReset="inputReset" :suggestions="this.suggestions" aria-labelledby="keywords-label" role="listbox" id="listbox-suggestions" @handleActiveDescendantChange="handleActiveDescendantChange" :currentlyActiveDescendant="this.activeDescendant"></SearchFieldSuggestions>
   </div>
@@ -55,10 +55,14 @@ export default {
     suggestionsReset() {
       this.suggestions = [];
     },
-    inputReset() {
+    inputSoftReset() {
       this.suggestionsReset();
       this.handleActiveDescendantChange('');
       this.inputKeywordsValue = '';
+    },
+    inputReset() {
+      this.inputSoftReset()
+      this.handleInputValueChange('');
     },
     handleFocus(event) {
       this.handleSuggestions(event);
@@ -67,7 +71,7 @@ export default {
         const isSearchFormClick = (e.target.closest(".search-field"));
 
         if (!isSearchFormClick) {
-          this.inputReset();
+          this.inputSoftReset();
           document.removeEventListener("click", clickListener);
         }
       });

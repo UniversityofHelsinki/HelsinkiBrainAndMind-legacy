@@ -1,6 +1,6 @@
 <template>
   <li class="search-suggestions__item" :id="id" :aria-selected="id === currentlyActiveDescendant ? true : false">
-    <button @keyup.enter="handleAddKeyword" @mousedown="handleAddKeyword" @keydown.down="handleArrowDown" @keydown.up="handleArrowUp" class="search-suggestions__button" tabindex="-1">
+    <button @keyup.enter="handleAddKeyword" @mousedown="handleAddKeyword" @keydown.down="handleArrowDown" @keydown.up="handleArrowUp" @keyup.esc="this.$parent.$parent.inputReset()" class="search-suggestions__button" tabindex="-1">
       <slot />
     </button>
   </li>
