@@ -6,7 +6,9 @@
         {{ field_lastname}}
       </h2>
       <p class="research-group-teaser__email">
-        {{ field_email }}
+        <CustomLink :link="'mailto:' + field_email" class="description-list__link">
+          {{ field_email }}
+        </CustomLink>
       </p>
     </div>
     <DescriptionList>
