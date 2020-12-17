@@ -104,11 +104,22 @@ class CsvFileHandler {
         $node_fields = $this->getNodeConstantValues();
 
         foreach ($fields as $key => $field) {
-          $data_object = $this->createValue(trim($row[array_search(strtolower($key), array_map('strtolower',$header))]), $field);
+          $data_object = $this->createValue($this->getFieldValueByHeaderTitleIndex($row, $key, $header), $field);
+          $is_child = false;
           if ($field['type'] == 'taxonomy') {
+
+            if(isset($field['child'])){
+              $is_child = true;
+              $parent = $row[$this->getCsvHeaderIndexByName('Organisation', $header)];
+            }
+
             foreach ($data_object->getValue() as $term) {
               if($existing_terms = taxonomy_term_load_multiple_by_name(ucfirst($term), $field['taxonomy_type'])){
-                $node_terms[$field['taxonomy_type']][] = reset($existing_terms);
+                if($is_child){
+                  $node_terms[$field['taxonomy_type'].'_child'][] = reset($existing_terms);
+                } else {
+                  $node_terms[$field['taxonomy_type']][] = reset($existing_terms);
+                }
               } else {
                 if(!$term){
                   continue;
@@ -118,11 +129,26 @@ class CsvFileHandler {
                   'name' => ucfirst($name),
                   'vid' => $field['taxonomy_type'],
                 ]);
+
+                if($is_child){
+                  $pt = taxonomy_term_load_multiple_by_name(ucfirst($parent), $field['taxonomy_type']);
+                  if($pt){
+                    $term->set('parent', ['target_id' => reset($pt)->id()]);
+                  }
+                }
+
                 $term->save();
-                $node_terms[$field['taxonomy_type']][] = $term;
+                if($is_child){
+                  $node_terms[$field['taxonomy_type'].'_child'][] = $term;
+                } else {
+                  $node_terms[$field['taxonomy_type']][] = $term;
+                }
+
                 $terms[] = $term;
               }
+
             }
+
           } else if($field['type'] == 'link'){
             if($data_object->getValue() && isset($data_object->getValue()['uri'])){
               $node_fields[$field['field']][] = $data_object->getValue();
@@ -135,11 +161,22 @@ class CsvFileHandler {
 
         $node = Node::create($node_fields);
 
-        if ($node_terms['affiliations']) {
+        if (isset($node_terms['affiliations'])) {
+          // Term exists or newly created
           if(reset($node_terms['affiliations']) instanceof Term){
             $node->set('field_main_affiliation', ['target_id' => reset($node_terms['affiliations'])->tid->value]);
           } else {
             $node->set('field_main_affiliation', ['target_id' => reset($node_terms['affiliations'])]);
+          }
+        }
+
+        if(isset($node_terms['affiliations_child'])){
+          if(reset($node_terms['affiliations_child']) instanceof Term){
+            #$node->set('field_faculty_unit', ['target_id' => ]);
+            $node->set('field_faculty_unit', reset($node_terms['affiliations_child'])->tid->value);
+          } else {
+            #$node->set('field_faculty_unit', reset($node_terms['affiliations_child']));
+            $node->set('field_faculty_unit', ['target_id' => reset($node_terms['affiliations_child'])]);
           }
         }
 
@@ -214,13 +251,37 @@ class CsvFileHandler {
     ];
   }
 
+  /**
+   * @param $field_name
+   * @param $required_field_names
+   * @return bool
+   */
   private function isRequiredField($field_name, $required_field_names){
     return array_key_exists($field_name, $required_field_names);
   }
 
+  /**
+   * @param $row
+   * @param $header_title
+   * @param $header
+   * @return string
+   */
+  private function getFieldValueByHeaderTitleIndex($row, $header_title, $header){
+    $index = $this->getCsvHeaderIndexByName($header_title, $header);
+    return trim($row[$index]);
+  }
+
+  /**
+   * @param $header
+   * @param $name
+   */
+  private function getCsvHeaderIndexByName($header_title, $header){
+    return array_search(strtolower($header_title), array_map('strtolower',$header));
+  }
+
   private function validateFieldValue($key, $field, $row, $header, $i){
     try {
-      if(!$this->createValue(trim($row[array_search(strtolower($key), array_map('strtolower',$header))]), $field) instanceof ImportType){
+      if(!$this->createValue($this->getFieldValueByHeaderTitleIndex($row, $key, $header), $field) instanceof ImportType){
         return "Something unexpected happened while creating $key on line $i";
       }
     }
