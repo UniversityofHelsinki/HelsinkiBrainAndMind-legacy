@@ -96,12 +96,15 @@ final class Search extends ResourceBase {
 
       $keywords_list = $this->getKeywords($node->field_keywords);
 
+      $faculty_field_entity = $node->field_faculty_unit->entity;
+      $faculty = $faculty_field_entity ? $faculty_field_entity->getName() : NULL;
+
       $return[$node->id()] = [
         'url' => '',
         'title' => $node->title->value,
         'body' => $node->body->value,
         'field_email' => $node->field_email->value ,
-        'field_faculty_unit' => $node->field_faculty_unit->value,
+        'field_faculty_unit' => $faculty,
         'field_other_affiliations' => $node->field_other_affiliations->value,
         'field_research_group_name' => $node->field_research_group_name->value,
         'field_firstname' => $node->field_firstname->value,
