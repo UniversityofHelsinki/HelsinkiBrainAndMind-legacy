@@ -17,7 +17,7 @@
         "druidfi/omen": "^0.2.0",
         "drupal/core-composer-scaffold": "^9.0",
         "drupal/core-recommended": "^9.0",
-        "drupal/gin": "^3.0",
+        "drupal/gin": "3.x-dev@dev",
         "drupal/gin_login": "^1.0",
         "drupal/gin_toolbar": "^1.0@beta",
         "drupal/menu_admin_per_menu": "^1.3",
