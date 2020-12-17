@@ -99,7 +99,8 @@ final class Search extends ResourceBase {
       $faculty_field_entity = $node->field_faculty_unit->entity;
       $faculty = $faculty_field_entity ? $faculty_field_entity->getName() : NULL;
 
-      $return[$node->id()] = [
+      $return[] = [
+        'id' => $node->id(),
         'url' => '',
         'title' => $node->title->value,
         'body' => $node->body->value,
@@ -115,6 +116,16 @@ final class Search extends ResourceBase {
         'field_industrial_collaboration' => $node->field_industrial_collaboration->value
       ];
     }
+
+    usort($return, function($a, $b) {
+      // Sort by lastname.
+      $sorted = strnatcmp($a['field_lastname'], $b['field_lastname']);
+      if ($sorted) return $sorted;
+
+      // If last names are identical, sort by firstname.
+      return strnatcmp($a['field_firstname'], $b['field_firstname']);
+    });
+
     return new JsonResponse($return);
   }
 
