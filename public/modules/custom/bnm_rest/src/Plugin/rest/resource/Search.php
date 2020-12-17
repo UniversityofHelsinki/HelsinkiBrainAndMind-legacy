@@ -6,6 +6,7 @@ use Drupal\search_api\Entity\Index;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\rest\Plugin\ResourceBase;
+use Drupal\taxonomy\TermStorage;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -77,7 +78,6 @@ final class Search extends ResourceBase {
 
     $query->getParseMode()->setConjunction('AND');
 
-    // Execute the search.
     $results = $query->execute();
     $return = [];
 
@@ -86,11 +86,25 @@ final class Search extends ResourceBase {
       $data = explode('/', $data[1]);
       $node = Node::load($data[1]);
 
-      if ($affiliate != 0 && isset($node->field_main_affiliation) && ($node->field_main_affiliation->target_id != (string)$affiliate)) {
-        continue;
+      if(!$affiliate || $affiliate == 0){
+      } else {
+        // if is parent affiliation, check if node is one of children
+        if($children = TermStorage::loadChildren($affiliate)) {
+          $children_ids = array_map(function($item){
+            return $item->id;
+          }, $children);
+          $is_child = in_array($node->field_faculty_unit->target_id, $children_ids) ? true : false;
+          if(!$is_child){
+            continue;
+          }
+        } else {
+          //is a child affiliation, show only if get parameter id == node field_faculty_unit value
+          if($node->field_faculty_unit != $affiliate){
+            continue;
+          }
+        }
       }
 
-      $main_affiliation = Term::load($node->field_main_affiliation->target_id)->getName();
 
       $links = $this->getLinks($node->field_links);
 
@@ -98,6 +112,9 @@ final class Search extends ResourceBase {
 
       $faculty_field_entity = $node->field_faculty_unit->entity;
       $faculty = $faculty_field_entity ? $faculty_field_entity->getName() : NULL;
+
+      $main_affiliation_entity = $node->field_main_affiliation->entity;
+
 
       $return[] = [
         'id' => $node->id(),
@@ -112,7 +129,7 @@ final class Search extends ResourceBase {
         'field_lastname' => $node->field_lastname->value,
         'field_links' => $links,
         'field_keywords' => $keywords_list,
-        'field_main_affiliation' => $main_affiliation,
+        'field_main_affiliation' => $main_affiliation_entity->getName(),
         'field_industrial_collaboration' => $node->field_industrial_collaboration->value
       ];
     }
