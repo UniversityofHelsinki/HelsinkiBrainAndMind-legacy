@@ -172,10 +172,8 @@ class CsvFileHandler {
 
         if(isset($node_terms['affiliations_child'])){
           if(reset($node_terms['affiliations_child']) instanceof Term){
-            #$node->set('field_faculty_unit', ['target_id' => ]);
             $node->set('field_faculty_unit', reset($node_terms['affiliations_child'])->tid->value);
           } else {
-            #$node->set('field_faculty_unit', reset($node_terms['affiliations_child']));
             $node->set('field_faculty_unit', ['target_id' => reset($node_terms['affiliations_child'])]);
           }
         }

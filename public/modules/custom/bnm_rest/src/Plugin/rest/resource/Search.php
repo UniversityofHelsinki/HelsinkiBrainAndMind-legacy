@@ -7,6 +7,7 @@ use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\taxonomy\TermStorage;
+use Drupal\taxonomy\TermStorageInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -88,18 +89,22 @@ final class Search extends ResourceBase {
 
       if(!$affiliate || $affiliate == 0){
       } else {
+
+
         // if is parent affiliation, check if node is one of children
-        if($children = TermStorage::loadChildren($affiliate)) {
-          $children_ids = array_map(function($item){
-            return $item->id;
+        $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('affiliations', $affiliate, 2, true);
+        if($children) {
+          $children_ids = array_map(function ($item) {
+            return $item->id();
           }, $children);
-          $is_child = in_array($node->field_faculty_unit->target_id, $children_ids) ? true : false;
+
+          $is_child = in_array($node->field_faculty_unit->target_id, $children_ids, false) ? true : false;
           if(!$is_child){
             continue;
           }
         } else {
           //is a child affiliation, show only if get parameter id == node field_faculty_unit value
-          if($node->field_faculty_unit != $affiliate){
+          if($node->field_faculty_unit->target_id != $affiliate){
             continue;
           }
         }
