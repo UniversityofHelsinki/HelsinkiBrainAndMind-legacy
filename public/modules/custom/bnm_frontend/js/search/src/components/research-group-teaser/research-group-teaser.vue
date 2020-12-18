@@ -45,7 +45,7 @@
           class="description-list__button">
           {{ isKeywordsHidden ? 'Show more keywords' : 'Show less keywords' }}
         </button>
-        <ul class="description-list__list description-list__list--keywords">
+        <ul class="description-list__list description-list__list--keywords" aria-label="Keywords" aria-live="polite">
           <li
             v-for="(keyword, index) in field_keywords"
             :key="keyword" class="description-list__list-item"

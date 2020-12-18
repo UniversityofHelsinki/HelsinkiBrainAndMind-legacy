@@ -46,6 +46,7 @@
     background-repeat: no-repeat;
     background-size: 5px 5px, 5px 5px;
     outline-color: $color-indigo-1;
+    outline-offset: 1px;
   }
 
   &:hover, &:focus {
