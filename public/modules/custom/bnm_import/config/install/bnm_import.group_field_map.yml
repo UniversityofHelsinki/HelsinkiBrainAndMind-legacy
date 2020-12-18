@@ -16,7 +16,9 @@ field_map:
   optional:
     Faculty:
       field: field_faculty_unit
-      type: string
+      type: taxonomy
+      taxonomy_type: affiliations
+      child: true
     Key words:
       field: field_keywords
       type: taxonomy

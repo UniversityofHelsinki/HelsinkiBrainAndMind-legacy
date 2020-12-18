@@ -3,10 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_faculty_unit
     - field.storage.node.field_other_affiliations
     - field.storage.node.field_research_group_name
     - field.storage.node.field_keywords
+    - field.storage.node.field_faculty_unit
     - search_api.server.default_server
   module:
     - taxonomy
@@ -18,14 +18,6 @@ name: 'Research group'
 description: ''
 read_only: false
 field_settings:
-  field_faculty_unit:
-    label: 'Faculty / unit'
-    datasource_id: 'entity:node'
-    property_path: field_faculty_unit
-    type: text
-    dependencies:
-      config:
-        - field.storage.node.field_faculty_unit
   field_other_affiliations:
     label: 'Other affiliations'
     datasource_id: 'entity:node'
@@ -52,6 +44,16 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_keywords
+      module:
+        - taxonomy
+  name:
+    label: 'Faculty / unit » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_faculty_unit:entity:name'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_faculty_unit
       module:
         - taxonomy
   title:
@@ -81,7 +83,6 @@ processor_settings:
       - keyword
     weights:
       preprocess_index: -15
-      preprocess_query: -15
   entity_status: {  }
   ignore_character:
     all_fields: false
@@ -95,10 +96,10 @@ processor_settings:
   ignorecase:
     all_fields: true
     fields:
-      - field_faculty_unit
       - field_other_affiliations
       - field_research_group_name
       - keyword
+      - name
       - title
     weights:
       preprocess_index: -50
@@ -108,10 +109,10 @@ processor_settings:
   stopwords:
     all_fields: false
     fields:
-      - field_faculty_unit
       - field_other_affiliations
       - field_research_group_name
       - keyword
+      - name
       - title
     stopwords:
       - a

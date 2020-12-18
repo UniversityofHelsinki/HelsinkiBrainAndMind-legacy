@@ -1,10 +1,11 @@
-uuid: 7959495a-3131-40a9-b1b8-f2b85e8c3a83
+uuid: 4007fe1c-cf55-4f55-848d-c0ac0e36b9ca
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_faculty_unit
     - node.type.research_group
+    - taxonomy.vocabulary.affiliations
 id: node.research_group.field_faculty_unit
 field_name: field_faculty_unit
 entity_type: node
@@ -15,5 +16,14 @@ required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
-field_type: string
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      affiliations: affiliations
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

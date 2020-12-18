@@ -2,14 +2,15 @@
 
 namespace Drupal\bnm_rest\Plugin\rest\resource;
 
-use Drupal\taxonomy\Entity\Term;
+use Drupal\node\Entity\Node;
 use Drupal\rest\Plugin\ResourceBase;
+use Drupal\search_api\Entity\Index;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\TermStorageInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\Core\Url;
 
 /**
  * Provides a resource to get all initially available front-end data.
@@ -82,6 +83,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
 
     $items['footer_menu'] = $this->getMenuTreeLinks('footer');
     $items['affiliates'] = $this->getAffialites();
+    $items['initial_search_results'] = $this->getInitialSearchResults($request, 20);
 
     return new JsonResponse($items);
   }
@@ -142,5 +144,89 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     return $links;
   }
 
+  private function getInitialSearchResults($request, $amount = NULL) {
+    $q = $request->get('q');
+    $affiliate = $request->get('affiliate');
+    $index = Index::load('research_group');
 
+    /** @var \Drupal\search_api\Query\Query $query */
+    $query = $index->query();
+
+    $query->keys(str_replace(',',' ', $q));
+
+    $query->getParseMode()->setConjunction('AND');
+
+    // Execute the search.
+    $results = $query->execute();
+    $stack = [];
+
+    $target_results = array_slice($results->getResultItems(), 0, $amount ?? $results->getResultCount());
+
+    foreach ($target_results as $item) {
+      $data = explode(':', $item->getId());
+      $data = explode('/', $data[1]);
+      $node = Node::load($data[1]);
+
+      if ($affiliate != 0 && isset($node->field_main_affiliation) && ($node->field_main_affiliation->target_id != (string)$affiliate)) {
+        continue;
+      }
+
+      $main_affiliation = Term::load($node->field_main_affiliation->target_id)->getName();
+
+      $links = $this->getLinks($node->field_links);
+
+      $keywords_list = $this->getKeywords($node->field_keywords);
+
+      $faculty_field_entity = $node->field_faculty_unit->entity;
+      $faculty = $faculty_field_entity ? $faculty_field_entity->getName() : NULL;
+
+      $stack[] = [
+        'id' => $node->id(),
+        'url' => '',
+        'title' => $node->title->value,
+        'body' => $node->body->value,
+        'field_email' => $node->field_email->value ,
+        'field_faculty_unit' => $faculty,
+        'field_other_affiliations' => $node->field_other_affiliations->value,
+        'field_research_group_name' => $node->field_research_group_name->value,
+        'field_firstname' => $node->field_firstname->value,
+        'field_lastname' => $node->field_lastname->value,
+        'field_links' => $links,
+        'field_keywords' => $keywords_list,
+        'field_main_affiliation' => $main_affiliation,
+        'field_industrial_collaboration' => $node->field_industrial_collaboration->value
+      ];
+    }
+
+    usort($stack, function($a, $b) {
+      // Sort by lastname.
+      $sorted = strnatcmp($a['field_lastname'], $b['field_lastname']);
+      if ($sorted) return $sorted;
+
+      // If last names are identical, sort by firstname.
+      return strnatcmp($a['field_firstname'], $b['field_firstname']);
+    });
+
+    return $stack;
+  }
+
+  private function getLinks($field) {
+    $links = [];
+    foreach ($field as $link) {
+      $link = [
+        'title' => $link->title,
+        'url' => $link->uri,
+      ];
+      $links[] = $link;
+    }
+    return $links;
+  }
+
+  private function getKeywords($keywords){
+    $keywords_list = [];
+    foreach ($keywords as $keyword) {
+      $keywords_list[] = Term::load($keyword->target_id)->getName();
+    }
+    return $keywords_list;
+  }
 }
