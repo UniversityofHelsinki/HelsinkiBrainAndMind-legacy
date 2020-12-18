@@ -6,8 +6,9 @@ Description of your project.
 
 Env | Branch | Drush alias | URL
 --- | ------ | ----------- | ---
-development | development | - | http://dev.bnm.druidfi.wod.by/
-production | master | - | TBD
+local | development | - | https://bnm.docker.sh
+development | development | - | http://hbm-dev-20.it.helsinki.fi/
+production | master | - | http://hbm-prod-20.it.helsinki.fi/
 
 ## Requirements
 
