@@ -1,0 +1,4 @@
+bnm_import:
+  css:
+    theme:
+       assets/css/menu.css: {}

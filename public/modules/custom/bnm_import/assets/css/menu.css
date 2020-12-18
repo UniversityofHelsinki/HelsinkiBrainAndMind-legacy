@@ -1,0 +1,4 @@
+.toolbar .toolbar-bar .toolbar-menu-administration .toolbar-icon.toolbar-icon-bnm-import-importer:before {
+  -webkit-mask-image: url(../icons/tools.svg);
+  mask-image: url(../icons/tools.svg);
+}
