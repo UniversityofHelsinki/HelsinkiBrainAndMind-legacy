@@ -4,6 +4,7 @@ drush/contrib/
 files
 files_private
 node_modules
+public
 public/robots.txt
 public/core
 public/modules/contrib
@@ -16,6 +17,7 @@ public/sites/simpletest
 tools/init-tools-status
 vendor
 web/
+shared
 
 drush/sites/.checksums
 .phpunit.result.cache
