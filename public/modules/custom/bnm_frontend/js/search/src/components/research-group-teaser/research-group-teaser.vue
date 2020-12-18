@@ -6,7 +6,9 @@
         {{ field_lastname}}
       </h2>
       <p class="research-group-teaser__email">
-        {{ field_email }}
+        <CustomLink :link="'mailto:' + field_email" class="description-list__link">
+          {{ field_email }}
+        </CustomLink>
       </p>
     </div>
     <DescriptionList>
@@ -43,7 +45,7 @@
           class="description-list__button">
           {{ isKeywordsHidden ? 'Show more keywords' : 'Show less keywords' }}
         </button>
-        <ul class="description-list__list description-list__list--keywords">
+        <ul class="description-list__list description-list__list--keywords" aria-label="Keywords" aria-live="polite">
           <li
             v-for="(keyword, index) in field_keywords"
             :key="keyword" class="description-list__list-item"

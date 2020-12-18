@@ -1,7 +1,7 @@
 <template>
   <ul class="search-suggestions">
-    <SearchFieldSuggestionsItem v-for="suggestion in suggestions" :key="suggestion" :inputReset="inputReset" role="option">
-      {{suggestion}}
+    <SearchFieldSuggestionsItem v-for="(suggestion, index) in suggestions" :key="suggestion" :inputReset="inputReset" role="option" :id="'suggestion-' + index" :currentlyActiveDescendant="currentlyActiveDescendant">
+      {{ suggestion }}
     </SearchFieldSuggestionsItem>
   </ul>
 </template>
@@ -14,7 +14,8 @@ export default {
   name: 'SearchFieldSuggestions',
   props: {
     suggestions: Array,
-    inputReset: Function
+    inputReset: Function,
+    currentlyActiveDescendant: String,
   },
   components: {
     SearchFieldSuggestionsItem
