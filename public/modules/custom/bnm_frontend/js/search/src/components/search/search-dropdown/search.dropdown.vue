@@ -16,8 +16,6 @@ import SearchDropdownOptions from './search.dropdown.options';
 import getAffiliates from '../../../services/affiliates.service.js';
 import './search-dropdown.scss';
 
-// const BACKEND_URL = process.env.VUE_APP_BACKEND_URL;
-
 export default {
   name: 'SearchDropdown',
   components: {SearchDropdownOptions},
@@ -38,20 +36,28 @@ export default {
 
   async mounted() {
     const affiliates = await getAffiliates();
-
     const parentOptions = affiliates.filter(option => option.children);
+
+    let stack = [];
 
     if (parentOptions.length === 0) {
       this.options = affiliates;
     } else {
-      this.options = parentOptions.map(({id, name, children: childrenIds}) => {
+      stack = parentOptions.map(({id, name, children: childrenIds}) => {
         const children = childrenIds.map((childrenId) => {
           const children = affiliates.find(({id}) => id === childrenId)
           delete children.children;
           return children;
         })
-        return {id, name, children};
+
+        return [
+          {id: 0, name: '--------------------------------', isDisabled: true},
+          {id, name: `${name} (all)`},
+          ...children
+        ];
       })
+
+      this.options = stack.flat();
     }
   }
 }
