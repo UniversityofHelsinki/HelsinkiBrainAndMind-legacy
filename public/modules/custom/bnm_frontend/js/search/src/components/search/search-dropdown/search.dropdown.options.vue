@@ -1,9 +1,6 @@
 <template>
   <option value="0">All</option>
-  <optgroup :label="option.name" v-for="option in options" v-bind:key="option.id">
-    <option :value="option.id">{{option.name}}</option>
-    <option :value="child.id" v-for="child in option.children" v-bind:key="child.id">{{child.name}}</option>
-  </optgroup>
+  <option :value="option.id" v-for="option in options" v-bind:key="option.id" :disabled="option.isDisabled">{{option.name}}</option>
 </template>
 
 <script>
