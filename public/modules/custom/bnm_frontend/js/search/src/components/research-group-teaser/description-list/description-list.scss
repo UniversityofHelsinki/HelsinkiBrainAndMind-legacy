@@ -26,6 +26,10 @@
   @include font-size(16px);
   line-height: 20px;
   margin: 0;
+
+  p {
+    margin-top: 0;
+  }
 }
 
 .description-list__list {
