@@ -24,6 +24,7 @@
         "drupal/restui": "^1.18",
         "drupal/search_api": "^1.18",
         "drupal/search_api_autocomplete": "^1.4",
+        "drupal/taxonomy_unique": "^2.3",
         "drush/drush": "^10.3"
     },
     "require-dev": {
