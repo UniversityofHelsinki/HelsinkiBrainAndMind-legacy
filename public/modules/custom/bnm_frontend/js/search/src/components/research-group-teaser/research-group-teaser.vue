@@ -31,7 +31,7 @@
           {{ isDescriptionHidden ? 'Read more description' : 'Read less description' }}
         </button>
         <p>
-          {{ isDescriptionHidden ? `${strippedBody.substring(0, 100)}...` : strippedBody }}
+          {{ isDescriptionHidden && strippedBody.length > 100 ? `${strippedBody.substring(0, 100)}...` : strippedBody }}
         </p>
       </DescriptionListItem>
       <DescriptionListItem label="Interested in industrial collaboration" v-if="field_industrial_collaboration">
