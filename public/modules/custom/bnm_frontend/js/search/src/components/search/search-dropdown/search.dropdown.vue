@@ -51,7 +51,7 @@ export default {
         })
 
         return [
-          {id: 0, name: '--------------------------------', isDisabled: true},
+          {id: Math.round(Math.random() * 100) + 1, name: '--------------------------------', isDisabled: true},
           {id, name: `${name} (all)`},
           ...children
         ];
