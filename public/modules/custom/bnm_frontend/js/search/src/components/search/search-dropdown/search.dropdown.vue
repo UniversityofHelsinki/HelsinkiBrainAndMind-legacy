@@ -2,7 +2,7 @@
   <div>
     <div class="search-dropdown">
       <label class="search-dropdown__label"  for="dropdown">
-        Affiliations
+        Organization
       </label>
       <select class="search-dropdown__select" id="dropdown" @change="handleDropdownChange" :value="this.selectedOption">
         <SearchDropdownOptions :options="options"></SearchDropdownOptions>
