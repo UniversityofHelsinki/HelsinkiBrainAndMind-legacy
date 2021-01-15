@@ -13,7 +13,8 @@
 <script>
 import Container from '../container/container.vue';
 import FooterItem from './footer.item.vue';
-import getFooterMenuItems from '../../services/footer.service.js';
+import { watch } from '@vue/runtime-core'
+import useInitialData from '../../stores/data';
 import './footer.scss';
 
 export default {
@@ -28,7 +29,10 @@ export default {
     }
   },
   async mounted() {
-    this.links = await getFooterMenuItems();
-  }
+    const { results } = useInitialData();
+    watch(()=>{
+      this.links = results._object.footer_menu;
+    });
+  },
 }
 </script>

@@ -1,13 +1,14 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
 import '../node_modules/modern-normalize/modern-normalize.css';
+import axios from 'axios';
+import VueAxios from "vue-axios";
 
+const environment = document.querySelector("#app").getAttribute('data-environment');
 
-const app = createApp(App)
-  .use(VueAxios, axios);
+axios.defaults.baseURL = environment;
 
-app.config.globalProperties.axios = axios;
-
+const app = createApp(App);
+app.use(VueAxios, axios);
+app.config.globalProperties.$environment = environment;
 app.mount('#app');

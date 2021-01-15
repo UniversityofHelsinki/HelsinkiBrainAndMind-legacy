@@ -14,7 +14,8 @@ import SearchResults from '../components/search-results/search-results.vue';
 import Loader from '../components/loader/loader.vue';
 import Container from '../components/container/container.vue';
 import Footer from '../components/footer/footer.vue';
-import { getInitialSearchResults } from '../services/search-results.service.js';
+import useInitialData from '../stores/data';
+import { watch } from '@vue/runtime-core';
 
 export default {
   name: 'SearchPage',
@@ -24,6 +25,7 @@ export default {
     Loader,
     Container,
     Footer,
+    // ApiRequest,
   },
   data() {
     return {
@@ -43,7 +45,20 @@ export default {
     }
   },
   async mounted() {
-    this.getSearchResults(await getInitialSearchResults());
+    const { fetchInitialData, results } = useInitialData();
+
+    watch(() => {
+      this.getSearchResults(results._object.results)
+    });
+
+    await fetchInitialData(this.$environment)
+    .then(() => {
+        this.getSearchResults(results._object.results);
+    })
+    .catch((error) => {
+        // eslint-disable-next-line
+        console.log('error', error);
+    });
   }
 }
 </script>

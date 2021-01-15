@@ -19,7 +19,7 @@ import SearchDropdown from './search-dropdown/search.dropdown';
 import SearchFieldKeywords from './search-keywords/search.keywords'
 import ButtonGroup from '../button/button.group.vue';
 import Button from '../button/button.vue';
-import { getSearchResults } from '../../services/search-results.service.js';
+import useInitialData from '../../stores/data';
 import './search.scss';
 
 export default {
@@ -48,7 +48,10 @@ export default {
 
       this.$refs.suggestionReset.suggestionsReset();
       this.$emit('isLoading', true);
-      this.$emit('searchCompleted', await getSearchResults(apiEndpoint, queryString));
+      const { fetchResults } = useInitialData();
+
+      fetchResults(apiEndpoint, queryString, this.$environment);
+
       this.$emit('isLoading', false);
     },
     handleResetButtonClick() {

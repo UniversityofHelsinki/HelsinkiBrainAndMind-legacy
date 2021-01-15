@@ -13,8 +13,10 @@ class ResearchgroupSearchController extends ControllerBase {
    * Render Vue application.
    */
   public function content() {
+    $host = \Drupal::request()->getSchemeAndHttpHost();
+    // $host = 'http://hbm-dev-20.it.helsinki.fi/';
     $build = [
-      '#markup' => '<div id="app"></div>',
+      '#markup' => '<div id="app" data-environment="'.$host.'"></div>',
       '#cache' => ['max-age' => 0],
       '#attached' => [
         'library' => [
