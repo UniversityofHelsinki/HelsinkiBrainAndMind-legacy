@@ -165,9 +165,12 @@ final class Search extends ResourceBase {
 
   private function getKeywords($keywords){
     $keywords_list = [];
+
     foreach ($keywords as $keyword) {
-      $keywords_list[] = Term::load($keyword->target_id)->getName();
+      $target_id = $keyword->target_id;
+      if (Term::load($target_id)) $keywords_list[] = Term::load($target_id)->getName();
     }
+
     return $keywords_list;
   }
 

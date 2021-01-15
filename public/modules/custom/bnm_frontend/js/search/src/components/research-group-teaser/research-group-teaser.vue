@@ -22,7 +22,17 @@
         {{ field_other_affiliations }}
       </DescriptionListItem>
       <DescriptionListItem label="Description" v-if="body">
-        {{ strippedBody }}
+        <button
+          type="button"
+          v-if="strippedBody.length > 100"
+          @click="this.toggleDescription()"
+          :aria-expanded="(strippedBody.length > 100) && !isDescriptionHidden"
+          class="description-list__button">
+          {{ isDescriptionHidden ? 'Read more description' : 'Read less description' }}
+        </button>
+        <p>
+          {{ isDescriptionHidden && strippedBody.length > 100 ? `${strippedBody.substring(0, 100)}...` : strippedBody }}
+        </p>
       </DescriptionListItem>
       <DescriptionListItem label="Interested in industrial collaboration" v-if="field_industrial_collaboration">
         {{ field_industrial_collaboration.charAt(0).toUpperCase() + field_industrial_collaboration.slice(1) }}
@@ -87,11 +97,15 @@ export default {
     return {
       strippedBody: this.body?.replace(/(<([^>]+)>)/gi, ""),
       isKeywordsHidden: true,
+      isDescriptionHidden: true,
     }
   },
   methods: {
     toggleKeywords() {
       this.isKeywordsHidden = !this.isKeywordsHidden;
+    },
+    toggleDescription() {
+      this.isDescriptionHidden = !this.isDescriptionHidden;
     }
   }
 }

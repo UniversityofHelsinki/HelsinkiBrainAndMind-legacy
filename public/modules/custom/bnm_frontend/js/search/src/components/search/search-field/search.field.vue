@@ -40,6 +40,7 @@ export default {
           this.inputKeywordsValue = keyword
         })
         .catch((error) => {
+          // eslint-disable-next-line
           console.log(error);
         });
       };
