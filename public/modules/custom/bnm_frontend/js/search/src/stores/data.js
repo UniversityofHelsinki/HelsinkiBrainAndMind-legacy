@@ -7,6 +7,7 @@ const state = reactive({
   affiliates: [],
   footer_menu: [],
   results: [],
+  resultsLoadingStatus: false,
 });
 
 export default function useInitialData(environment){
@@ -18,6 +19,7 @@ export default function useInitialData(environment){
       state.affiliates = response.data.affiliates;
       state.footer_menu = response.data.footer_menu;
       state.results = response.data.initial_search_results;
+      state.resultsLoadingStatus = false;
     })
     .catch((error) => {
       return error
@@ -27,6 +29,7 @@ export default function useInitialData(environment){
   const fetchResults = async (endpoint, query, environment) => {
     searchResultRequest(endpoint, query, environment)
     .then((response) => {
+      setResultsLoadingStatus();
       state.results = response.data;
     })
     .catch(() => {
@@ -35,9 +38,19 @@ export default function useInitialData(environment){
     });
   };
 
+  const resetResults = () => {
+    state.results = [];
+  }
+
+  const setResultsLoadingStatus = () => {
+    state.resultsLoadingStatus = !state.resultsLoadingStatus;
+  };
+
   return {
     ...toRefs(state),
     fetchInitialData,
-    fetchResults
+    fetchResults,
+    resetResults,
+    setResultsLoadingStatus
   }
 }

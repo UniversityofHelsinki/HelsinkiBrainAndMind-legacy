@@ -24,6 +24,11 @@ export function getFooterData(environment){
 }
 
 function request(baseurl = 'https://hbm-prod-20.it.helsinki.fi') {
+  if (baseurl === null || baseurl.includes('localhost')) {
+    // Needs to be changed/updated if app is standalone.
+    baseurl = 'https://bnm.docker.sh/';
+  }
+
   const headers = {
     'Content-Type': 'application/json',
   };

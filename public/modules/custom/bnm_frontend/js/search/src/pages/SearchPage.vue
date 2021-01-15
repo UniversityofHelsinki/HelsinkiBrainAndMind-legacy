@@ -1,5 +1,5 @@
 <template>
-    <Search @searchCompleted="getSearchResults" @searchReseted="resetSearch" @isLoading="setLoadingStatus"></Search>
+    <Search @searchCompleted="getSearchResults"></Search>
     <Container v-if="results.length === 0 && !this.isLoading">
       <h2>No results.</h2>
     </Container>
@@ -25,7 +25,6 @@ export default {
     Loader,
     Container,
     Footer,
-    // ApiRequest,
   },
   data() {
     return {
@@ -37,27 +36,27 @@ export default {
     getSearchResults(results) {
       this.results = Object.values(results);
     },
-    resetSearch() {
-      this.results = [];
-    },
     setLoadingStatus(status) {
       this.isLoading = status;
     }
   },
   async mounted() {
-    const { fetchInitialData, results } = useInitialData();
+    const { fetchInitialData, setResultsLoadingStatus, results } = useInitialData();
 
     watch(() => {
-      this.getSearchResults(results._object.results)
+      this.getSearchResults(results._object.results);
+      this.setLoadingStatus(results._object.resultsLoadingStatus);
     });
+
+    setResultsLoadingStatus();
 
     await fetchInitialData(this.$environment)
     .then(() => {
         this.getSearchResults(results._object.results);
     })
     .catch((error) => {
-        // eslint-disable-next-line
-        console.log('error', error);
+      // eslint-disable-next-line
+      console.log('error', error);
     });
   }
 }

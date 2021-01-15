@@ -47,18 +47,16 @@ export default {
       const queryString = `?q=${keywords}&affiliate=${affiliate}`;
 
       this.$refs.suggestionReset.suggestionsReset();
-      this.$emit('isLoading', true);
-      const { fetchResults } = useInitialData();
-
+      const { fetchResults, setResultsLoadingStatus } = useInitialData();
+      setResultsLoadingStatus();
       fetchResults(apiEndpoint, queryString, this.$environment);
-
-      this.$emit('isLoading', false);
     },
     handleResetButtonClick() {
       this.selectedKeywords = [];
       this.handleDropdownChange(0);
       this.handleInputValueChange('');
-      this.$emit('searchReseted');
+      const { resetResults } = useInitialData();
+      resetResults();
     },
     handleDropdownChange(id) {
       this.selectedOption = Number(id);
