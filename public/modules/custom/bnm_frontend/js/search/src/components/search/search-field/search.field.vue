@@ -11,7 +11,6 @@
 <script>
 import './search-field.scss';
 import SearchFieldSuggestions from './search.field.suggestions.vue';
-// import getSearchSuggestions from '../../../services/suggestions.service.js';
 import { searchSuggestionRequest } from '../../../services/request-helper'
 
 export default {

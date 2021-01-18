@@ -64,9 +64,6 @@ export default {
         this.options = stack.flat();
       }
     })
-    /*
-
-     */
   }
 }
 </script>

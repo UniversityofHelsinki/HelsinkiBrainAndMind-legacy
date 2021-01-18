@@ -3,7 +3,6 @@ import { reactive, toRefs } from 'vue';
 import { initialDataRequest, searchResultRequest } from '../services/request-helper';
 
 const state = reactive({
-  // environment: 'https://bnm.docker.sh/',
   affiliates: [],
   footer_menu: [],
   results: [],
