@@ -1,5 +1,5 @@
 <template>
-    <Search @searchCompleted="getSearchResults" @searchReseted="resetSearch" @isLoading="setLoadingStatus"></Search>
+    <Search @searchCompleted="getSearchResults"></Search>
     <Container v-if="results.length === 0 && !this.isLoading">
       <h2>No results.</h2>
     </Container>
@@ -14,7 +14,8 @@ import SearchResults from '../components/search-results/search-results.vue';
 import Loader from '../components/loader/loader.vue';
 import Container from '../components/container/container.vue';
 import Footer from '../components/footer/footer.vue';
-import { getInitialSearchResults } from '../services/search-results.service.js';
+import useInitialData from '../stores/data';
+import { watch } from '@vue/runtime-core';
 
 export default {
   name: 'SearchPage',
@@ -35,15 +36,28 @@ export default {
     getSearchResults(results) {
       this.results = Object.values(results);
     },
-    resetSearch() {
-      this.results = [];
-    },
     setLoadingStatus(status) {
       this.isLoading = status;
     }
   },
   async mounted() {
-    this.getSearchResults(await getInitialSearchResults());
+    const { fetchInitialData, setResultsLoadingStatus, results } = useInitialData();
+
+    watch(() => {
+      this.getSearchResults(results._object.results);
+      this.setLoadingStatus(results._object.resultsLoadingStatus);
+    });
+
+    setResultsLoadingStatus();
+
+    await fetchInitialData(this.$environment)
+    .then(() => {
+        this.getSearchResults(results._object.results);
+    })
+    .catch((error) => {
+      // eslint-disable-next-line
+      console.log('error', error);
+    });
   }
 }
 </script>

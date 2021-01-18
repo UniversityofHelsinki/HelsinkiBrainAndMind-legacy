@@ -4,12 +4,14 @@
 
 <script>
 import SearchPage from './pages/SearchPage.vue'
-
 export default {
   name: 'App',
   components: {
-    SearchPage
-  }
+    SearchPage,
+  },
+  props: {
+    environment: String,
+  },
 }
 </script>
 

@@ -8,7 +8,8 @@ Env | Branch | Drush alias | URL
 --- | ------ | ----------- | ---
 local | development | - | https://bnm.docker.sh
 development | development | - | http://hbm-dev-20.it.helsinki.fi/
-production | master | - | http://hbm-prod-20.it.helsinki.fi/
+production (alias) | master | - | https://hbm-prod-20.it.helsinki.fi/
+production | master | - | https://research.helsinkibrainandmind.fi/
 
 ## Requirements
 

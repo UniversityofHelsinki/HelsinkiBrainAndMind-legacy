@@ -11,7 +11,7 @@
 <script>
 import './search-field.scss';
 import SearchFieldSuggestions from './search.field.suggestions.vue';
-import getSearchSuggestions from '../../../services/suggestions.service.js';
+import { searchSuggestionRequest } from '../../../services/request-helper'
 
 export default {
   components: { SearchFieldSuggestions },
@@ -33,8 +33,15 @@ export default {
     },
     handleSuggestions(event) {
       const fetchNewSuggestions = async () => {
-        this.suggestions = await getSearchSuggestions(keyword);
-        this.inputKeywordsValue = keyword
+        this.suggestions = searchSuggestionRequest(keyword, this.$environment)
+        .then((response) => {
+          this.suggestions = response.data;
+          this.inputKeywordsValue = keyword
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.log(error);
+        });
       };
 
       const { value: keyword } = event.target;

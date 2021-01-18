@@ -13,7 +13,8 @@
 
 <script>
 import SearchDropdownOptions from './search.dropdown.options';
-import getAffiliates from '../../../services/affiliates.service.js';
+import { watch } from '@vue/runtime-core';
+import useInitialData from "../../../stores/data";
 import './search-dropdown.scss';
 
 export default {
@@ -35,30 +36,34 @@ export default {
   },
 
   async mounted() {
-    const affiliates = await getAffiliates();
-    const parentOptions = affiliates.filter(option => option.children);
+    const { results } = useInitialData();
 
-    let stack = [];
+    watch(() => {
+      const affiliates = results._object.affiliates;
+      const parentOptions = affiliates.filter(option => option.children);
 
-    if (parentOptions.length === 0) {
-      this.options = affiliates;
-    } else {
-      stack = parentOptions.map(({id, name, children: childrenIds}) => {
-        const children = childrenIds.map((childrenId) => {
-          const children = affiliates.find(({id}) => id === childrenId)
-          delete children.children;
-          return children;
+      let stack = [];
+
+      if (parentOptions.length === 0) {
+        this.options = affiliates;
+      } else {
+        stack = parentOptions.map(({id, name, children: childrenIds}) => {
+          const children = childrenIds.map((childrenId) => {
+            const children = affiliates.find(({id}) => id === childrenId)
+            delete children.children;
+            return children;
+          })
+
+          return [
+            {id: 0, name: '--------------------------------', isDisabled: true},
+            {id, name: `${name} (all)`},
+            ...children
+          ];
         })
 
-        return [
-          {id: 0, name: '--------------------------------', isDisabled: true},
-          {id, name: `${name} (all)`},
-          ...children
-        ];
-      })
-
-      this.options = stack.flat();
-    }
+        this.options = stack.flat();
+      }
+    })
   }
 }
 </script>

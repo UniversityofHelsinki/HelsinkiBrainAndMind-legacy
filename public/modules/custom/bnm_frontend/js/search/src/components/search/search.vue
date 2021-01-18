@@ -19,7 +19,7 @@ import SearchDropdown from './search-dropdown/search.dropdown';
 import SearchFieldKeywords from './search-keywords/search.keywords'
 import ButtonGroup from '../button/button.group.vue';
 import Button from '../button/button.vue';
-import { getSearchResults } from '../../services/search-results.service.js';
+import useInitialData from '../../stores/data';
 import './search.scss';
 
 export default {
@@ -47,15 +47,16 @@ export default {
       const queryString = `?q=${keywords}&affiliate=${affiliate}`;
 
       this.$refs.suggestionReset.suggestionsReset();
-      this.$emit('isLoading', true);
-      this.$emit('searchCompleted', await getSearchResults(apiEndpoint, queryString));
-      this.$emit('isLoading', false);
+      const { fetchResults, setResultsLoadingStatus } = useInitialData();
+      setResultsLoadingStatus();
+      fetchResults(apiEndpoint, queryString, this.$environment);
     },
     handleResetButtonClick() {
       this.selectedKeywords = [];
       this.handleDropdownChange(0);
       this.handleInputValueChange('');
-      this.$emit('searchReseted');
+      const { resetResults } = useInitialData();
+      resetResults();
     },
     handleDropdownChange(id) {
       this.selectedOption = Number(id);
