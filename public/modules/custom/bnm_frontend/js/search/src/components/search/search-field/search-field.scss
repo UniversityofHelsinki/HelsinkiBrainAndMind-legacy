@@ -2,6 +2,13 @@
   position: relative;
 }
 
+.search-field__header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
 .search-field__label {
   @include font-size(16px);
   color: $color-violet-1;

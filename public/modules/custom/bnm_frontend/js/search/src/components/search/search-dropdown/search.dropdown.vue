@@ -1,9 +1,12 @@
 <template>
   <div>
     <div class="search-dropdown">
-      <label class="search-dropdown__label"  for="dropdown">
-        Affiliations
-      </label>
+      <div class="search-dropdown__header">
+        <label class="search-dropdown__label"  for="dropdown">
+          Affiliations
+        </label>
+        <InfoIcon icon="Question" text="textOrganizationsHelp" iconName="Organizations"></InfoIcon>
+      </div>
       <select class="search-dropdown__select" id="dropdown" @change="handleDropdownChange" :value="this.selectedOption">
         <SearchDropdownOptions :options="options"></SearchDropdownOptions>
       </select>
@@ -12,6 +15,7 @@
 </template>
 
 <script>
+import InfoIcon from '../../info-icon/info-icon';
 import SearchDropdownOptions from './search.dropdown.options';
 import { watch } from '@vue/runtime-core';
 import useInitialData from "../../../stores/data";
@@ -19,7 +23,7 @@ import './search-dropdown.scss';
 
 export default {
   name: 'SearchDropdown',
-  components: {SearchDropdownOptions},
+  components: {SearchDropdownOptions, InfoIcon},
   props: {
     selectedOption: Number,
   },
