@@ -5,6 +5,7 @@
     </Container>
     <Loader v-if="this.isLoading"></Loader>
     <SearchResults :results="results" v-if="!this.isLoading"></SearchResults>
+    <Pager v-if="isPagerVisible && results.length !== 0"></Pager>
     <Footer></Footer>
 </template>
 
@@ -14,6 +15,7 @@ import SearchResults from '../components/search-results/search-results.vue';
 import Loader from '../components/loader/loader.vue';
 import Container from '../components/container/container.vue';
 import Footer from '../components/footer/footer.vue';
+import Pager from '../components/pager/pager.vue'
 import useInitialData from '../stores/data';
 import { watch } from '@vue/runtime-core';
 
@@ -25,11 +27,13 @@ export default {
     Loader,
     Container,
     Footer,
+    Pager
   },
   data() {
     return {
       results: [],
       isLoading: false,
+      isPagerVisible: false,
     }
   },
   methods: {
@@ -44,9 +48,27 @@ export default {
     const { fetchInitialData, setResultsLoadingStatus, results } = useInitialData();
 
     watch(() => {
-      this.getSearchResults(results._object.results);
+      const hasSubArray = results._object.results.some(item => Array.isArray(item))
+
+      this.isPagerVisible = false;
+
+      if (hasSubArray) {
+        this.getSearchResults(results._object.results[results._object.currentPage])
+        this.isPagerVisible = true;
+      } else {
+        this.getSearchResults(results._object.results);
+      }
+
+    if (results._object.pageCount === 0) {
+      this.isPagerVisible = false;
+    }
+
       this.setLoadingStatus(results._object.resultsLoadingStatus);
     });
+
+    if (results._object.pageCount === 0) {
+      this.isPagerVisible = false;
+    }
 
     setResultsLoadingStatus();
 
