@@ -1,0 +1,6 @@
+name: 'BNM - Export'
+type: module
+description: 'BNM - Export provides functionalities to export content to csv file.'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: 'BNM'
