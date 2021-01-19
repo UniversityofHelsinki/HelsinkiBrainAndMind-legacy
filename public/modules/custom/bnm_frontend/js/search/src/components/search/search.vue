@@ -41,6 +41,7 @@ export default {
   },
   methods: {
     async handleSearchButtonClick() {
+      this.handleAddKeyword(this.currentKeyword);
       const keywords = this.selectedKeywords.join(',');
       const affiliate = this.selectedOption;
       const apiEndpoint = 'researchgroup_search';
