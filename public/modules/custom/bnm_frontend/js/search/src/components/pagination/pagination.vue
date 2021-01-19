@@ -38,14 +38,20 @@ export default {
     }
   },
   methods: {
-    nextPage() {
-      const { setPaginationNextPage } = useInitialData();
-      setPaginationNextPage();
-    },
     previousPage() {
       const { setPaginationPreviousPage } = useInitialData();
       setPaginationPreviousPage();
-    }
+
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    },
+    nextPage() {
+      const { setPaginationNextPage } = useInitialData();
+      setPaginationNextPage();
+
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    },
   },
   mounted() {
     const { results } = useInitialData();
