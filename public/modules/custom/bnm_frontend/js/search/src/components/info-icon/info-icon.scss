@@ -1,0 +1,36 @@
+.info-icon__button {
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover,
+  &:focus {
+    & + .info-icon__description {
+      visibility: visible;
+    }
+  }
+
+  svg {
+    fill: $color-violet-1;
+  }
+}
+
+.info-icon__description {
+  @include shadow();
+  background-color: $color-white;
+  border-radius: 3px;
+  border: 2px solid $color-green-2;
+  line-height: 22px;
+  margin: 0;
+  padding: $spacing-tiny;
+  position: absolute;
+  right: 0;
+  top: 28px;
+  visibility: hidden;
+  z-index: 10;
+}
