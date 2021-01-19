@@ -51,14 +51,18 @@ export default function useInitialData(environment){
     state.resultsLoadingStatus = !state.resultsLoadingStatus;
   };
 
-  const setPagerNextPage = () => {
+  const setPaginationNextPage = () => {
     if (state.currentPage === state.pageCount) return;
     state.currentPage = state.currentPage + 1;
   }
 
-  const setPagerPreviousPage = () => {
+  const setPaginationPreviousPage = () => {
     if (state.currentPage === 0) return;
     state.currentPage = state.currentPage - 1;
+  }
+
+  const setPaginationTriggerPage = (pageNumber) => {
+    state.currentPage = pageNumber - 1;
   }
 
   return {
@@ -67,7 +71,8 @@ export default function useInitialData(environment){
     fetchResults,
     resetResults,
     setResultsLoadingStatus,
-    setPagerNextPage,
-    setPagerPreviousPage
+    setPaginationNextPage,
+    setPaginationPreviousPage,
+    setPaginationTriggerPage
   }
 }
