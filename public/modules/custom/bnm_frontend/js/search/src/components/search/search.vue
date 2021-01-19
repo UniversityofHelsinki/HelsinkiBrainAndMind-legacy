@@ -1,10 +1,10 @@
 <template>
   <Container class="search">
+    <SearchDropdown @handleChange="handleDropdownChange" class="search__item" :selectedOption="this.selectedOption"></SearchDropdown>
     <div class="search__item">
       <SearchField @handleKeywordSubmit="handleAddKeyword" @handleUpdate="handleInputValueChange" class="search__item" :currentKeyword="currentKeyword" ref="suggestionReset"></SearchField>
       <SearchFieldKeywords :keywords="selectedKeywords" v-if="selectedKeywords.length > 0" @handleRemoveKeyword="handleRemoveKeyword"></SearchFieldKeywords>
     </div>
-    <SearchDropdown @handleChange="handleDropdownChange" class="search__item" :selectedOption="this.selectedOption"></SearchDropdown>
     <ButtonGroup class="search__item" :isReversed="true">
       <Button @handleClick="handleSearchButtonClick" :isPrimary="true" :isSubmit="true">Search</Button>
       <Button @handleClick="handleResetButtonClick" :isSecondary="true">Reset</Button>
@@ -41,6 +41,7 @@ export default {
   },
   methods: {
     async handleSearchButtonClick() {
+      this.handleAddKeyword(this.currentKeyword);
       const keywords = this.selectedKeywords.join(',');
       const affiliate = this.selectedOption;
       const apiEndpoint = 'researchgroup_search';
