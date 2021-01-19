@@ -32,7 +32,6 @@ export default {
       options: []
     }
   },
-
   methods: {
     handleDropdownChange(event){
       this.$emit('handleChange', event.target.value);

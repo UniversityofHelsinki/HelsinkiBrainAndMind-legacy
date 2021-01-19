@@ -1,6 +1,6 @@
 <template>
   <div class="info-icon">
-    <button :aria-label="getName()" :onfocus="setAriaAttributes" :onblur="removeAriaAttributes" :onmouseover="setAriaAttributes" :onmouseleave="removeAriaAttributes" class="info-icon__button" aria-expanded="false" :aria-describedby="this.getId()">
+    <button :aria-label="getName()" @blur="setExpandedState()" @focus="setExpandedState()" @mouseleave="setExpandedState()" @mouseenter="setExpandedState()" class="info-icon__button" :aria-expanded="isExpanded" :aria-describedby="this.getId()">
       <component :is="icon"></component>
     </button>
     <component class="info-icon__description" :id="this.getId()" role="tooltip" :is="text" ></component>
@@ -20,19 +20,20 @@
       TextKeywordHelp,
       TextOrganizationsHelp
     },
+    data() {
+      return {
+        isExpanded: false
+      }
+    },
     methods: {
-      getId(){
+      getId() {
         return this.text;
       },
-      getName(){
+      getName() {
         return this.iconName;
-        //return `How to use ${this.iconName}`;
       },
-      setAriaAttributes(event){
-        event.target.setAttribute('aria-expanded', 'true')
-      },
-      removeAriaAttributes(event){
-        event.target.setAttribute('aria-expanded', 'false')
+      setExpandedState() {
+        this.isExpanded = !this.isExpanded;
       }
     },
     props: {
