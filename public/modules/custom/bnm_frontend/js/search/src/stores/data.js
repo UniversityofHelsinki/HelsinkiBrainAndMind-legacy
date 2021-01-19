@@ -44,6 +44,8 @@ export default function useInitialData(environment){
     });
   };
 
+  const getResultsCount = () => state.results.flat().length;
+
   const resetResults = () => {
     state.results = [];
   }
@@ -74,6 +76,7 @@ export default function useInitialData(environment){
     setResultsLoadingStatus,
     setPaginationNextPage,
     setPaginationPreviousPage,
-    setPaginationTriggerPage
+    setPaginationTriggerPage,
+    getResultsCount
   }
 }
