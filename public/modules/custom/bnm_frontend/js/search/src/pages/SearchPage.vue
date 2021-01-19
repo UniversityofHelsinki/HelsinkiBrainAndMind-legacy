@@ -5,7 +5,7 @@
     </Container>
     <Loader v-if="this.isLoading"></Loader>
     <SearchResults :results="results" v-if="!this.isLoading"></SearchResults>
-    <Pagination v-if="isPaginationVisible && results.length !== 0"></Pagination>
+    <Pagination v-if="isPaginationVisible && results.length !== 0 && !this.isLoading"></Pagination>
     <Footer></Footer>
 </template>
 

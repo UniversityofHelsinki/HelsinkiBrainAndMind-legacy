@@ -34,6 +34,7 @@ export default function useInitialData(environment){
     searchResultRequest(endpoint, query, environment)
     .then((response) => {
       setResultsLoadingStatus();
+      state.currentPage = 0;
       state.pageCount = chunkArray(response.data, 20).length - 1;
       state.results = chunkArray(response.data, 20);
     })
