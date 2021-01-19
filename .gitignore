@@ -27,6 +27,8 @@ drush/sites/.checksums
 # Ingore files that are only for the current local environment
 public/sites/default/local.settings.php
 public/sites/default/local.services.yml
+public/sites/default/settings.php
+public/sites/default/services.yml
 
 # Ignore the folder created by PhpStorm
 .idea/*

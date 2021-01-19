@@ -3,7 +3,7 @@
     <div class="search-dropdown">
       <div class="search-dropdown__header">
         <label class="search-dropdown__label"  for="dropdown">
-          Affiliations
+          Organization
         </label>
         <InfoIcon icon="Question" text="textOrganizationsHelp" iconName="Organizations"></InfoIcon>
       </div>
@@ -59,7 +59,7 @@ export default {
           })
 
           return [
-            {id: 0, name: '--------------------------------', isDisabled: true},
+            {id: Math.round(Math.random() * 100) + 1, name: '--------------------------------', isDisabled: true},
             {id, name: `${name} (all)`},
             ...children
           ];
