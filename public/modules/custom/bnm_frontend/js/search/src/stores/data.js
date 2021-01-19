@@ -20,10 +20,10 @@ export default function useInitialData(environment){
     .then((response) => {
       state.affiliates = response.data.affiliates;
       state.footer_menu = response.data.footer_menu;
-      state.results = response.data.initial_search_results;
+      state.results = chunkArray(response.data.initial_search_results, 20);
       state.resultsLoadingStatus = false;
+      state.pageCount = chunkArray(response.data.initial_search_results, 20).length - 1;
       state.currentPage = 0;
-      state.pageCount = 0;
     })
     .catch((error) => {
       return error
