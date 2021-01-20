@@ -84,8 +84,13 @@ class UnderscoreProcessor extends FieldsProcessorPluginBase {
     /** @var \Drupal\search_api\Item\ItemInterface $item */
     foreach ($items as $item) {
       foreach ($item->getFields() as $name => $field) {
-        if ($this->testField($name, $field)) {
-          $this->processField($field);
+        if ($this->testField($name, $field) && !empty($field->getValues())) {
+          //process words one by one
+          foreach (explode(' ', reset($field->getValues())) as $word) {
+            $obj = clone $field;
+            $obj->setValues([$word]);
+            $this->processField($obj);
+          }
         }
       }
     }
