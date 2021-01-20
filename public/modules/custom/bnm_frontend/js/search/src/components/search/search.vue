@@ -69,6 +69,7 @@ export default {
       if (this.selectedKeywords.includes(keyword) || keyword === '') return;
 
       this.selectedKeywords = [...this.selectedKeywords, keyword]
+      this.handleSearchButtonClick();
       this.currentKeyword = '';
     },
     handleRemoveKeyword(keyword) {
