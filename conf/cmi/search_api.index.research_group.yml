@@ -88,6 +88,7 @@ processor_settings:
   ignore_character:
     all_fields: false
     fields:
+      - field_research_group_name
       - keyword
       - title
     ignorable: '[''¿¡!?,.:;]'

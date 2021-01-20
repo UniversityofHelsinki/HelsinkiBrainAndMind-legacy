@@ -83,7 +83,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
 
     $items['footer_menu'] = $this->getMenuTreeLinks('footer');
     $items['affiliates'] = $this->getAffialites();
-    $items['initial_search_results'] = $this->getInitialSearchResults($request, 20);
+    $items['initial_search_results'] = $this->getInitialSearchResults($request);
 
     return new JsonResponse($items);
   }
@@ -224,9 +224,12 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
 
   private function getKeywords($keywords){
     $keywords_list = [];
+
     foreach ($keywords as $keyword) {
-      $keywords_list[] = Term::load($keyword->target_id)->getName();
+      $target_id = $keyword->target_id;
+      if (Term::load($target_id)) $keywords_list[] = Term::load($target_id)->getName();
     }
+
     return $keywords_list;
   }
 }
