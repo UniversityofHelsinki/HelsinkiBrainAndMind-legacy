@@ -3,7 +3,7 @@
     <div class="search-dropdown">
       <div class="search-dropdown__header">
         <label class="search-dropdown__label"  for="dropdown">
-          Organization
+          Organisation
         </label>
         <InfoIcon icon="Question" text="textOrganizationsHelp" iconName="Organizations"></InfoIcon>
       </div>

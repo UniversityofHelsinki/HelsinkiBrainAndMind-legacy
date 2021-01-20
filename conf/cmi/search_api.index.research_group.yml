@@ -90,6 +90,7 @@ processor_settings:
     fields:
       - field_research_group_name
       - keyword
+      - title
     ignorable: '[''¿¡!?,.:;]'
     ignorable_classes: {  }
     weights:
