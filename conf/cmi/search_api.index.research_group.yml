@@ -81,12 +81,14 @@ processor_settings:
     all_fields: 0
     fields:
       - keyword
+      - title
     weights:
       preprocess_index: -15
   entity_status: {  }
   ignore_character:
     all_fields: false
     fields:
+      - field_research_group_name
       - keyword
     ignorable: '[''¿¡!?,.:;]'
     ignorable_classes: {  }
