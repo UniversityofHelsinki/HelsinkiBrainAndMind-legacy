@@ -85,12 +85,15 @@ class UnderscoreProcessor extends FieldsProcessorPluginBase {
     foreach ($items as $item) {
       foreach ($item->getFields() as $name => $field) {
         if ($this->testField($name, $field) && !empty($field->getValues())) {
-          //process words one by one
+          // process words one by one
           foreach (explode(' ', reset($field->getValues())) as $word) {
             $obj = clone $field;
             $obj->setValues([$word]);
             $this->processField($obj);
           }
+
+          // Index also the full word
+          $this->processField($field);
         }
       }
     }
