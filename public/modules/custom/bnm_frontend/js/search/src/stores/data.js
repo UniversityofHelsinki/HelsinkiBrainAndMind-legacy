@@ -20,10 +20,10 @@ export default function useInitialData(environment){
     .then((response) => {
       state.affiliates = response.data.affiliates;
       state.footer_menu = response.data.footer_menu;
-      state.results = response.data.initial_search_results;
+      state.results = chunkArray(response.data.initial_search_results, 21);
       state.resultsLoadingStatus = false;
+      state.pageCount = chunkArray(response.data.initial_search_results, 21).length - 1;
       state.currentPage = 0;
-      state.pageCount = 0;
     })
     .catch((error) => {
       return error
@@ -35,8 +35,8 @@ export default function useInitialData(environment){
     .then((response) => {
       setResultsLoadingStatus();
       state.currentPage = 0;
-      state.pageCount = chunkArray(response.data, 20).length - 1;
-      state.results = chunkArray(response.data, 20);
+      state.pageCount = chunkArray(response.data, 21).length - 1;
+      state.results = chunkArray(response.data, 21);
     })
     .catch((error) => {
       // eslint-disable-next-line

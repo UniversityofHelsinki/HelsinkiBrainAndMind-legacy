@@ -1,6 +1,6 @@
 <template>
   <Container v-if="results.length > 0" class="search-results">
-    <h2 class="search-results__heading">Search found: {{ this.resultsCount }}</h2>
+    <h2 class="search-results__heading">Results found: {{ this.resultsCount }}</h2>
     <Listing :col3="true">
       <ListingItem v-for="result in results" :key="result">
         <ResearchGroupTeaser v-bind="result"></ResearchGroupTeaser>

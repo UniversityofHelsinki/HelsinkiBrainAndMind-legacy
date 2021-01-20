@@ -59,9 +59,9 @@ export default {
         this.getSearchResults(results._object.results);
       }
 
-    if (results._object.pageCount === 0) {
-      this.isPaginationVisible = false;
-    }
+      if (results._object.pageCount === 0) {
+        this.isPaginationVisible = false;
+      }
 
       this.setLoadingStatus(results._object.resultsLoadingStatus);
     });
@@ -74,7 +74,20 @@ export default {
 
     await fetchInitialData(this.$environment)
     .then(() => {
+      const hasSubArray = results._object.results.some(item => Array.isArray(item))
+
+      this.isPaginationVisible = false;
+
+      if (hasSubArray) {
+        this.getSearchResults(results._object.results[results._object.currentPage])
+        this.isPaginationVisible = true;
+      } else {
         this.getSearchResults(results._object.results);
+      }
+
+      if (results._object.pageCount === 0) {
+        this.isPaginationVisible = false;
+      }
     })
     .catch((error) => {
       // eslint-disable-next-line
