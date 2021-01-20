@@ -6,7 +6,8 @@
       <nav role="navigation" aria-label="Pagination Navigation">
         <ul class="pagination-triggers">
           <li v-for="paginationTrigger in paginationTriggers" :key="paginationTrigger" class="pagination-triggers__item">
-            <PaginationTrigger :pageNumber="paginationTrigger" class="pagination-triggers__button" :class="{ 'is-active': paginationTrigger === currentPage}" :aria-label="paginationTrigger === currentPage ? 'Current page, Page ' + currentPage : 'Go to page ' +  paginationTrigger" :aria-current="paginationTrigger === currentPage ? true : false"></PaginationTrigger>
+            <span v-if="paginationTrigger === '...'" role="">{{ paginationTrigger }}</span>
+            <PaginationTrigger v-if="paginationTrigger !== '...'" :pageNumber="paginationTrigger" class="pagination-triggers__button" :class="{ 'is-active': paginationTrigger === currentPage}" :aria-label="paginationTrigger === currentPage ? 'Current page, Page ' + currentPage : 'Go to page ' +  paginationTrigger" :aria-current="paginationTrigger === currentPage ? true : false"></PaginationTrigger>
           </li>
         </ul>
       </nav>
@@ -72,13 +73,13 @@ export default {
       const pageCount = results._object.pageCount + 1;
       const visiblePagesCount = 5
       const visiblePagesThreshold = (visiblePagesCount - 1) / 2
-      const pagintationTriggersArray = Array(visiblePagesCount - 1).fill(0)
+      const paginationTriggersArray = Array(visiblePagesCount - 1).fill(0)
 
       if (currentPage <= visiblePagesThreshold + 1) {
-        pagintationTriggersArray[0] = 1
-        const pagintationTriggers = pagintationTriggersArray.map(
+        paginationTriggersArray[0] = 1
+        const paginationTriggers = paginationTriggersArray.map(
           (paginationTrigger, index) => {
-            return pagintationTriggersArray[0] + index
+            return paginationTriggersArray[0] + index
           }
         )
 
@@ -92,32 +93,38 @@ export default {
           return stack;
         }
 
-        pagintationTriggers.push(pageCount)
+        paginationTriggers.push('...', pageCount)
 
-        return pagintationTriggers
+        return paginationTriggers
       }
 
       if (currentPage >= pageCount - visiblePagesThreshold + 1) {
-        const pagintationTriggers = pagintationTriggersArray.map(
+        const paginationTriggers = paginationTriggersArray.map(
           (paginationTrigger, index) => {
             return pageCount - index
           }
         )
-        pagintationTriggers.reverse().unshift(1)
+        paginationTriggers.reverse().unshift(1, '...')
 
-        return pagintationTriggers
+        return paginationTriggers
       }
 
-      pagintationTriggersArray[0] = currentPage - visiblePagesThreshold + 1
-      const pagintationTriggers = pagintationTriggersArray.map(
+      paginationTriggersArray[0] = currentPage - visiblePagesThreshold + 1
+      const paginationTriggers = paginationTriggersArray.map(
         (paginationTrigger, index) => {
-          return pagintationTriggersArray[0] + index
+          return paginationTriggersArray[0] + index
         }
       )
-      pagintationTriggers.unshift(1);
-      pagintationTriggers[pagintationTriggers.length - 1] = pageCount
+      paginationTriggers.unshift(1, '...');
 
-      return pagintationTriggers
+      if (pageCount - 2 !== currentPage) {
+        paginationTriggers[paginationTriggers.length - 1] = '...';
+        paginationTriggers.push(pageCount);
+      } else {
+        paginationTriggers[paginationTriggers.length - 1] = pageCount;
+      }
+
+      return paginationTriggers
     }
   }
 }
