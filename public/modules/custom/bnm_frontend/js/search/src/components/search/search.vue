@@ -6,7 +6,7 @@
       <SearchFieldKeywords :keywords="selectedKeywords" v-if="selectedKeywords.length > 0" @handleRemoveKeyword="handleRemoveKeyword"></SearchFieldKeywords>
     </div>
     <ButtonGroup class="search__item" :isReversed="true">
-      <Button @handleClick="handleSearchButtonClick" :isPrimary="true" :isSubmit="true">Search</Button>
+      <Button @handleClick="handleSearchButtonClick" @handleMouseClick="handleMouseClick" :isPrimary="true" :isSubmit="true">Search</Button>
       <Button @handleClick="handleResetButtonClick" :isSecondary="true">Reset</Button>
     </ButtonGroup>
   </Container>
@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     async handleSearchButtonClick() {
-      this.handleAddKeyword(this.currentKeyword);
       const keywords = this.selectedKeywords.join(',');
       const affiliate = this.selectedOption;
       const apiEndpoint = 'researchgroup_search';
@@ -64,6 +63,11 @@ export default {
     },
     handleInputValueChange(keyword) {
       this.currentKeyword = keyword;
+    },
+    handleMouseClick() {
+      if (this.selectedKeywords.includes(this.currentKeyword) || this.currentKeyword === '') return;
+
+      this.handleAddKeyword(this.currentKeyword);
     },
     handleAddKeyword(keyword) {
       if (this.selectedKeywords.includes(keyword) || keyword === '') return;

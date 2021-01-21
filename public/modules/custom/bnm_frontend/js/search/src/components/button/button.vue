@@ -1,5 +1,5 @@
 <template>
-  <button @click="handleClick" class="button" :class="{ 'button--primary': isPrimary, 'button--secondary': isSecondary }" :type="isSubmit ? 'submit' : 'button'">
+  <button @mouseup="handleMouseClick" @click="handleClick" class="button" :class="{ 'button--primary': isPrimary, 'button--secondary': isSecondary }" :type="isSubmit ? 'submit' : 'button'">
     <slot/>
   </button>
 </template>
@@ -17,6 +17,9 @@ export default {
   methods: {
     handleClick(event){
       this.$emit('handleClick', event);
+    },
+    handleMouseClick(event){
+      this.$emit('handleMouseClick', event);
     }
   },
 }
