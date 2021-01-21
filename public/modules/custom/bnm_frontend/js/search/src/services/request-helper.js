@@ -23,10 +23,10 @@ export function getFooterData(environment){
   return initialDataRequest(environment);
 }
 
-function request(baseurl = 'https://hbm-prod-20.it.helsinki.fi') {
+function request(baseurl = 'https://research.helsinkibrainandmind.fi') {
   if (baseurl === null || baseurl.includes('localhost')) {
     // Needs to be changed/updated if app is standalone.
-    baseurl = 'https://bnm.docker.sh/';
+    baseurl = 'https://bnm.docker.sh';
   }
 
   const headers = {
