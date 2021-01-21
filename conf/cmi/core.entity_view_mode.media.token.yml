@@ -1,0 +1,10 @@
+uuid: ed200c12-a169-4784-b4c6-6bce066cadb1
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.token
+label: Token
+targetEntityType: media
+cache: true

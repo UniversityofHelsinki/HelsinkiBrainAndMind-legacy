@@ -1,0 +1,19 @@
+uuid: 32b8c7b2-b272-4f2c-991d-f4444a63495d
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: sL588ui1E_8-2c_UupwyYxcqX2OVyMFp3HTLbbFqvPc
+id: global
+label: Global
+tags:
+  description: 'Helsinki Brain & Mind Researcher portal is a search tool listing PI-level neuroscience researchers and clinicians at the University of Helsinki, Aalto University and HUS.'
+  canonical_url: '[site:url]'
+  title: 'Researcher portal | Helsinki Brain & Mind'
+  og_description: 'Helsinki Brain & Mind Researcher portal is a search tool listing PI-level neuroscience researchers and clinicians at the University of Helsinki, Aalto University and HUS.'
+  og_title: 'Researcher portal'
+  og_url: '[site:url]'
+  twitter_cards_title: 'Researcher portal | Helsinki Brain & Mind'
+  twitter_cards_page_url: '[site:url]'
+  twitter_cards_description: 'Helsinki Brain & Mind Researcher portal is a search tool listing PI-level neuroscience researchers and clinicians at the University of Helsinki, Aalto University and HUS.'
+  twitter_cards_type: summary
