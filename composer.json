@@ -25,6 +25,7 @@
         "drupal/restui": "^1.18",
         "drupal/search_api": "^1.18",
         "drupal/search_api_autocomplete": "^1.4",
+        "drupal/simple_sitemap": "^3.8",
         "drupal/taxonomy_unique": "^2.3",
         "drush/drush": "^10.3"
     },
