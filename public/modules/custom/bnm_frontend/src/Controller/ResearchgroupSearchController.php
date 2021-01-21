@@ -14,6 +14,9 @@ class ResearchgroupSearchController extends ControllerBase {
    */
   public function content() {
     $host = \Drupal::request()->getSchemeAndHttpHost();
+    $production_url = 'https://research.helsinkibrainandmind.fi/';
+    $host = $host === 'https://hbm-prod-20.it.helsinki.fi/initial-frontend-data' ? $production_url : $host;
+
     $build = [
       '#markup' => '<div id="app" data-environment="'.$host.'"></div>',
       '#cache' => ['max-age' => 0],
