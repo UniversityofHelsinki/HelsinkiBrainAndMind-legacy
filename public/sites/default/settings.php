@@ -25,3 +25,7 @@ if (isset($_SERVER['WODBY_APP_NAME'])) {
 }
 
 $settings['config_sync_directory'] = '../conf/cmi';
+
+if (file_exists(__DIR__ . '/settings.local.php')) {
+  include __DIR__ . '/settings.local.php';
+}
