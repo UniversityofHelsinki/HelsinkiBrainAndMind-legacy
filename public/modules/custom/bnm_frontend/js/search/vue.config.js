@@ -14,5 +14,4 @@ module.exports = {
       }
     }
   },
-  transpileDependencies: ['axios', 'core-js', 'modern-normalize', 'vue-axios', 'vue']
 };
