@@ -17,7 +17,6 @@
     "vue-axios": "^3.2.0"
   },
   "devDependencies": {
-    "@babel/plugin-transform-parameters": "^7.12.1",
     "@vue/cli-plugin-babel": "^4.5.9",
     "@vue/cli-plugin-eslint": "^4.5.9",
     "@vue/cli-service": "^4.5.9",
