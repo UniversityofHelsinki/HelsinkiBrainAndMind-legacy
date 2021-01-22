@@ -4,7 +4,6 @@ module:
   block: 0
   block_content: 0
   bnm_content: 0
-  bnm_export: 0
   bnm_frontend: 0
   bnm_import: 0
   bnm_rest: 0
