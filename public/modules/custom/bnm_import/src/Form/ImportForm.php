@@ -2,10 +2,12 @@
 
 namespace Drupal\bnm_import\Form;
 
+use Drupal;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Response;
 
 class ImportForm extends FormBase {
 
@@ -22,14 +24,27 @@ class ImportForm extends FormBase {
 
     $form['submit'] = [
       '#type' => 'submit',
+      '#name' => 'submit',
       '#value' => $this->t('Import'),
       '#button_type' => 'primary',
     ];
+
+    $form['actions']['form_2_submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Export CSV'),
+      '#name' => 'export_csv',
+      '#submit' => array('::createCsv')
+    );
 
     return $form;
   }
 
   public function validateForm(array &$form, FormStateInterface $form_state) {
+
+    if ($form_state->getTriggeringElement()['#name'] === 'export_csv') {
+      return;
+    }
+
     $csv_handler = \Drupal::service('bnm_import.csv_validator');
     $all_files = $this->getRequest()->files->get('files', []);
     /** @var UploadedFile $file */
@@ -77,7 +92,30 @@ class ImportForm extends FormBase {
       fclose($fh);
       \Drupal::messenger()->addError("Unexpected error: {$exception->getMessage()}");
     }
+  }
 
+  public function createCsv(array &$form, FormStateInterface $form_state) {
+    $csv_creator = \Drupal::service('bnm_import.csv_creator');
+    $config = Drupal::config('bnm_import.group_field_map')->get('field_map');
+
+    $csv_headers = array_merge($config['required'], $config['optional']);
+    $nodes = Drupal\node\Entity\Node::loadMultiple();
+    $keywords = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('Keywords');
+    $organisations = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('Affiliations');
+
+    try {
+      $csv_data = $csv_creator->createCsvData($nodes, $keywords, $organisations, $csv_headers);
+      $csv = $csv_creator->createCsvFile($csv_data);
+
+      $response = new Response($csv);
+      $response->headers->set('Content-type', 'text/csv');
+      $response->headers->set('Content-Disposition', 'attachment; filename=apartments.csv');
+      $form_state->setRebuild();
+      $form_state->setResponse($response);
+    }
+    catch (\Exception $exception) {
+      \Drupal::messenger()->addError('Error while creating csv file.');
+    }
   }
 
 }
