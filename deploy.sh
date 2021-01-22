@@ -4,7 +4,7 @@ ROOT_DIR=/var/www/hbm
 DOCROOT_DIR=/var/www/hbm/public
 SHARED_DIR=/var/www/hbm/shared/
 BACKUP_DIR=/var/www/hbm/shared/backups
-GIT_DIR=/var/www/hbm/deployment/git
+GIT_DIR=/var/www/hbm
 FILES_DIR=/var/www/hbm/shared/files
 DATE=$(date +"%m-%d-%Y")
 
@@ -20,7 +20,6 @@ run_deployment() {
   backup_database
   run_git
   run_composer
-  create_symlinks_docroot
   create_symlinks_settings
   run_drush
   echo "### Deploy done. ###"
@@ -75,15 +74,6 @@ run_drush() {
   drush cim -y
   # Clear/rebuild the cache again
   drush cr
-}
-
-create_symlinks_docroot() {
-  echo "Creating symlink for web & vendor folders."
-  cd ${ROOT_DIR}
-  rm -f public
-  ln -s ${GIT_DIR}/public public
-  rm -f vendor
-  ln -s ${GIT_DIR}/vendor vendor
 }
 
 create_symlinks_settings() {
