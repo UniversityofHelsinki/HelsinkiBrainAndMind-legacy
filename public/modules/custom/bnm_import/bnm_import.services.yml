@@ -1,3 +1,5 @@
 services:
   bnm_import.csv_validator:
     class: Drupal\bnm_import\CsvFileHandler
+  bnm_import.csv_creator:
+    class: Drupal\bnm_import\CsvCreator
