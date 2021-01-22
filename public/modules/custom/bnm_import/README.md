@@ -1,5 +1,5 @@
-# BNM Import
-Contains functionalities related to csv importing
+# BNM Import ( and export )
+Contains functionalities related to csv importing and exporting
 
 ### Csv field mapping
-csv import field mapping can be found from configuration file.
+field mapping used for importing and exporting can be found from configuration file.
