@@ -1,4 +1,3 @@
-import 'core-js';
 import { createApp } from 'vue'
 import App from './App.vue'
 import '../node_modules/modern-normalize/modern-normalize.css';
