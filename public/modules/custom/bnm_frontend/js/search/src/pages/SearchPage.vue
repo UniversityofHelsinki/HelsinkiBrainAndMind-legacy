@@ -1,4 +1,7 @@
 <template>
+    <Hero :title="'Helsinki Brain & Mind Researcher Portal'">
+      This portal lists PI-level neuroscience researchers and clinicians at the University of Helsinki, Aalto University and HUS. For any comments and feedback regarding the portal, please email helsinkibrainandmind@helsinki.fi
+    </Hero>
     <Search @searchCompleted="getSearchResults"></Search>
     <Container v-if="results.length === 0 && !this.isLoading">
       <h2>No results.</h2>
@@ -17,6 +20,7 @@ import Container from '../components/container/container.vue';
 import Footer from '../components/footer/footer.vue';
 import Pagination from '../components/pagination/pagination.vue'
 import useInitialData from '../stores/data';
+import Hero from '../components/hero/hero';
 import { watch } from '@vue/runtime-core';
 
 export default {
@@ -27,7 +31,8 @@ export default {
     Loader,
     Container,
     Footer,
-    Pagination
+    Pagination,
+    Hero
   },
   data() {
     return {
