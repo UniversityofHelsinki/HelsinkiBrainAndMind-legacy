@@ -28,6 +28,8 @@ public/sites/default/local.settings.php
 public/sites/default/local.services.yml
 public/sites/default/settings.php
 public/sites/default/services.yml
+public/sites/settings.php
+public/sites/default/settings.local.php
 
 # Ignore the folder created by PhpStorm
 .idea/*

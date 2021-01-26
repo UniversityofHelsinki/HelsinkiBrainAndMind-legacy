@@ -9,7 +9,7 @@
 }
 
 .hero__lead {
-  @include font-size(22px);
+  @include font-size(20px);
   line-height: 34px;
   word-break: break-word;
 }

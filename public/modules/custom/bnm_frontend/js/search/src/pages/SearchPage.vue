@@ -1,6 +1,6 @@
 <template>
-    <Hero :title="'Helsinki Brain & Mind Researcher Portal'">
-      This portal lists PI-level neuroscience researchers and clinicians at the University of Helsinki, Aalto University and HUS. For any comments and feedback regarding the portal, please email helsinkibrainandmind@helsinki.fi
+    <Hero :title="'Helsinki Brain & Mind Research Portal'">
+      This portal lists PI-level neuroscience researchers and clinicians at the University of Helsinki, Aalto University and the Hospital District of Helsinki and Uusimaa. For any comments and feedback regarding the portal, please email helsinkibrainandmind@helsinki.fi.
     </Hero>
     <Search @searchCompleted="getSearchResults"></Search>
     <Container v-if="results.length === 0 && !this.isLoading">
