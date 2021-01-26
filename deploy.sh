@@ -2,7 +2,7 @@
 
 ROOT_DIR=/var/www/hbm
 DOCROOT_DIR=/var/www/hbm/public
-SHARED_DIR=/var/www/hbm/shared/
+SHARED_DIR=/var/www/hbm/shared
 BACKUP_DIR=/var/www/hbm/shared/backups
 GIT_DIR=/var/www/hbm
 FILES_DIR=/var/www/hbm/shared/files
@@ -44,7 +44,7 @@ backup_database() {
     echo "Create a new database dump"
     cd ${DOCROOT_DIR}
     drush sql-dump --structure-tables-key='common' --gzip --result-file=${BACKUP_DIR}/dump-${DATE}.sql
-    ls -t ${BACKUP_DIR}/*.sql.gz | tail -n +6 | xargs rm
+    ls -t ${BACKUP_DIR}/*.sql.gz | tail -n +11 | xargs rm
   fi
 }
 
