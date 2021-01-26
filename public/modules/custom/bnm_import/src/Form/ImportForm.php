@@ -109,7 +109,7 @@ class ImportForm extends FormBase {
 
       $response = new Response($csv);
       $response->headers->set('Content-type', 'text/csv');
-      $response->headers->set('Content-Disposition', 'attachment; filename=apartments.csv');
+      $response->headers->set('Content-Disposition', 'attachment; filename=users.csv');
       $form_state->setRebuild();
       $form_state->setResponse($response);
     }
