@@ -123,14 +123,6 @@ class CsvCreator
   }
 
   private function getLinkOrder() {
-    /*
-    $links = [
-      'Link 1 (Research group website)' => 1,
-      'Link 2 (research portal)' => 2,
-      'Link 3 (Clinical researcher website)' => 3,
-      'Link 4 (other website)' => 4
-    ];
-    */
     $links = [
       'Research group website' => 1,
       'Research portal' => 2,
