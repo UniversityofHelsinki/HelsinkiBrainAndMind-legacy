@@ -44,6 +44,7 @@ backup_database() {
     echo "Create a new database dump"
     cd ${DOCROOT_DIR}
     drush sql-dump --structure-tables-key='common' --gzip --result-file=${BACKUP_DIR}/dump-${DATE}.sql
+    chown nginx:nginx ${BACKUP_DIR}/dump-${DATE}.sql.gz
     ls -t ${BACKUP_DIR}/*.sql.gz | tail -n +11 | xargs rm
   fi
 }
