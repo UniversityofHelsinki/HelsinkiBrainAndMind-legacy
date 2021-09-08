@@ -12,6 +12,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
+        "composer-runtime-api": "^2",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
         "druidfi/omen": "^0.3.2",
