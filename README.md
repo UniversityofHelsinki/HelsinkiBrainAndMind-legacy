@@ -1,12 +1,12 @@
-# HY Brain&Mind Drupal 9 project
+# HY Brain & Mind
 
-Description of your project.
+HY Brain & Mind Drupal 9 project.
 
 ## Environments
 
 Env | Branch | Drush alias | URL
 --- | ------ | ----------- | ---
-local | development | - | https://bnm.docker.sh
+local | development | - | https://bnm.docker.so
 development | development | - | http://hbm-dev-20.it.helsinki.fi/
 production (alias) | master | - | https://hbm-prod-20.it.helsinki.fi/
 production | master | - | https://research.helsinkibrainandmind.fi/
@@ -24,23 +24,21 @@ You need to have these applications installed to operate on all environments:
 For the first time (new project):
 
 ```
-$ make new
+make new
 ```
 
 And following times to create and start the environment:
 
 ```
-$ make fresh
+make fresh
 ```
-
-NOTE: Change these according of the state of your project.
 
 ## Login to Drupal container
 
 This will log you inside the app container:
 
 ```
-$ make shell
+make shell
 ```
 
 ## VueJS environment
@@ -59,25 +57,29 @@ You need to have these applications installed to develop this application:
 #### Installing
 
 Navigate to the VueJS applications directory:
+
 ```
-$ cd public/modules/custom/bnm_frontend/js/search/
+cd public/modules/custom/bnm_frontend/js/search/
 ```
 
 Install node dependencies:
+
 ```
-$ npm i
+npm i
 ```
 
 Start development:
+
 ```
-$ npm run serve
+npm run serve
 ```
 
 #### Ready with your modifications and want to create a releasable PR version of your code?
 
 Compile your application in production mode:
+
 ```
-$ npm run build
+npm run build
 ```
 
 #### Compiled webpack bundles
