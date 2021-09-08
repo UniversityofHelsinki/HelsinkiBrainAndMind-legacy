@@ -1,5 +1,5 @@
 {
-    "name": "druidfi/hy-brain_and_mind",
+    "name": "hbm/brain-and-mind",
     "description": "Helsinki University - Brain and Mind Drupal 9 project",
     "type": "project",
     "license": "MIT",
@@ -12,9 +12,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "composer/installers": "^1.9",
+        "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
-        "druidfi/omen": "^0.2.0",
+        "druidfi/omen": "^0.3.2",
         "drupal/core-composer-scaffold": "9.1.11",
         "drupal/core-recommended": "9.1.11",
         "drupal/gin": "3.x-dev@dev",
@@ -28,7 +28,7 @@
         "drupal/simple_sitemap": "^3.8",
         "drupal/system_status": "^2.9",
         "drupal/taxonomy_unique": "^2.3",
-        "drush/drush": "^10.3"
+        "drush/drush": "^10.6"
     },
     "require-dev": {
         "drupal/core-dev": "9.1.11"
@@ -70,7 +70,5 @@
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         }
-    ],
-    "scripts": {
-    }
+    ]
 }
