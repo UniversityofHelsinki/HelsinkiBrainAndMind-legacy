@@ -26,7 +26,7 @@ export function getFooterData(environment){
 function request(baseurl = 'https://research.helsinkibrainandmind.fi') {
   if (baseurl === null || baseurl.includes('localhost')) {
     // Needs to be changed/updated if app is standalone.
-    baseurl = 'https://bnm.docker.sh';
+    baseurl = 'https://bnm.docker.so';
   }
 
   const headers = {

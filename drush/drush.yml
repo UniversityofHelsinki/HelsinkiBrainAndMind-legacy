@@ -1,15 +1,6 @@
 #
 # See https://github.com/drush-ops/drush/blob/master/examples/example.drush.yml
 #
-
-# This section is for setting command-specific options.
-command:
-  site:
-    install:
-      options:
-        # Set a predetermined username and password when using site-install.
-        account-name: 'druidfi'
-
 sql:
   # List of tables whose *data* is skipped by the 'sql-dump' and 'sql-sync'
   # commands when the "--structure-tables-key=common" option is provided.

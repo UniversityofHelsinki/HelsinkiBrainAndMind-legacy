@@ -12,18 +12,6 @@
 //
 extract((new Druidfi\Omen\DrupalEnvDetector(__DIR__))->getConfiguration());
 
-/**
- * Only in Wodby environment. @see https://wodby.com/docs/stacks/drupal/#overriding-settings-from-wodbysettingsphp
- */
-
-if (isset($_SERVER['WODBY_APP_NAME'])) {
-  // The include won't be added automatically if it's already there.
-  include '/var/www/conf/wodby.settings.php';
-
-  // Override setting from wodby.settings.php.
-  $settings['config_sync_directory'] = '../conf/cmi';
-}
-
 $settings['config_sync_directory'] = '../conf/cmi';
 
 if (file_exists(__DIR__ . '/settings.local.php')) {
