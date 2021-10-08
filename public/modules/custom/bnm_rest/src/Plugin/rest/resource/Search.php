@@ -71,6 +71,16 @@ final class Search extends ResourceBase {
     $q = $request->get('q');
     $affiliate = $request->get('affiliate');
     $index = Index::load('research_group');
+    $parentid = NULL;
+    $affiliate_depth = 1;
+
+    if ($affiliate && $affiliate != 0) {
+      $affiliate_depth = taxonomy_term_depth_get_by_tid($affiliate);
+      $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('affiliations', $affiliate, 3, true);
+      $children_ids = array_map(function ($item) {
+        return $item->id();
+      }, $children);
+    }
 
     /** @var \Drupal\search_api\Query\Query $query */
     $query = $index->query();
@@ -89,29 +99,22 @@ final class Search extends ResourceBase {
 
       if(!$affiliate || $affiliate == 0){
       } else {
-
-
-        // if is parent affiliation, check if node is one of children
-        $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('affiliations', $affiliate, 3, true);
-        if($children) {
-          $children_ids = array_map(function ($item) {
-            return $item->id();
-          }, $children);
-
+        if($children && $affiliate_depth == '1') {
           $is_child = in_array($node->field_faculty_unit->target_id, $children_ids, false) ? true : false;
-
           if(!$is_child){
-            $is_child = in_array($node->field_unit->target_id, $children_ids, false) ? true : false;
-
-            if(!$is_child){
-              continue;
-            }
+            continue;
           }
         } else {
           //is a child affiliation, show only if get parameter id == node field_faculty_unit value
-          $search = [$node->field_faculty_unit->target_id, $node->field_unit->target_id ];
-          if(!in_array($affiliate, $search)){
-            continue;
+          if ($affiliate_depth == '3') {
+            if($node->field_unit->target_id != $affiliate){
+              continue;
+            }
+          }
+          else {
+            if($node->field_faculty_unit->target_id != $affiliate){
+              continue;
+            }
           }
         }
       }

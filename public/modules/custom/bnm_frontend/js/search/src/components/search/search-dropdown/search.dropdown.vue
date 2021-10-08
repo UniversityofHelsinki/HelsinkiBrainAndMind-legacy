@@ -55,6 +55,7 @@ export default {
             if (depth >= 2) {
               delete children.children;
             }
+
             return children;
           })
 
