@@ -92,19 +92,25 @@ final class Search extends ResourceBase {
 
 
         // if is parent affiliation, check if node is one of children
-        $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('affiliations', $affiliate, 2, true);
+        $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('affiliations', $affiliate, 3, true);
         if($children) {
           $children_ids = array_map(function ($item) {
             return $item->id();
           }, $children);
 
           $is_child = in_array($node->field_faculty_unit->target_id, $children_ids, false) ? true : false;
+
           if(!$is_child){
-            continue;
+            $is_child = in_array($node->field_unit->target_id, $children_ids, false) ? true : false;
+
+            if(!$is_child){
+              continue;
+            }
           }
         } else {
           //is a child affiliation, show only if get parameter id == node field_faculty_unit value
-          if($node->field_faculty_unit->target_id != $affiliate){
+          $search = [$node->field_faculty_unit->target_id, $node->field_unit->target_id ];
+          if(!in_array($affiliate, $search)){
             continue;
           }
         }
