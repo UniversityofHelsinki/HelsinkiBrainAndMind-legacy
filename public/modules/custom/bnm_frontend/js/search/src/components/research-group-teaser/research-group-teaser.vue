@@ -12,11 +12,20 @@
       </p>
     </div>
     <DescriptionList>
+      <DescriptionListItem label="Title" v-if="field_title">
+        {{ field_title }}
+      </DescriptionListItem>
       <DescriptionListItem label="Group name" v-if="field_research_group_name">
         {{ field_research_group_name }}
       </DescriptionListItem>
-      <DescriptionListItem label="Main affiliation" v-if="field_main_affiliation && field_faculty_unit">
-        {{ field_main_affiliation }}, {{ field_faculty_unit }}
+      <DescriptionListItem label="Main affiliation" v-if="field_main_affiliation">
+        {{ field_main_affiliation }}
+      </DescriptionListItem>
+      <DescriptionListItem label="Faculty" v-if="field_faculty_unit">
+        {{ field_faculty_unit }}
+      </DescriptionListItem>
+      <DescriptionListItem label="Unit" v-if="field_unit">
+        {{ field_unit }}
       </DescriptionListItem>
       <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
         {{ field_other_affiliations }}
@@ -92,6 +101,8 @@ export default {
     field_main_affiliation: String,
     field_other_affiliations: String,
     field_research_group_name: String,
+    field_title: String,
+    field_unit: String
   },
   data: function () {
     return {

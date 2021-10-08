@@ -31,7 +31,7 @@ class CsvCreator
 
     $organisations_by_tid = [];
     foreach($organisations as $organisation){
-      $organisations_by_tid[$organisation->tid] = $organisation;
+      $organisations_by_tid[$organisation->depth][$organisation->tid] = $organisation;
     }
 
     foreach ($nodes as $node) {
@@ -47,10 +47,13 @@ class CsvCreator
           $row[] = rtrim($keyword_string, ', ');
         }
         else if($heading === 'Organisation') {
-          $row[] = $organisations_by_tid[$node->{$header['field']}->getValue()[0]['target_id']]->name;
+          $row[] = $organisations_by_tid[0][$node->{$header['field']}->getValue()[0]['target_id']]->name;
         }
         else if($heading === 'Faculty') {
-          $row[] = $organisations_by_tid[$node->{$header['field']}->getValue()[0]['target_id']]->name;
+          $row[] = $organisations_by_tid[1][$node->{$header['field']}->getValue()[0]['target_id']]->name;
+        }
+        else if($heading === 'Unit') {
+          $row[] = $organisations_by_tid[2][$node->{$header['field']}->getValue()[0]['target_id']]->name;
         }
         else if( strpos($heading, 'Link') !== false) {
 

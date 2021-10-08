@@ -44,27 +44,28 @@ export default {
     watch(() => {
       const affiliates = results._object.affiliates;
       const parentOptions = affiliates.filter(option => option.children);
-
       let stack = [];
 
       if (parentOptions.length === 0) {
         this.options = affiliates;
       } else {
-        stack = parentOptions.map(({id, name, children: childrenIds}) => {
+        stack = parentOptions.map(({id, name, depth, children: childrenIds}) => {
           const children = childrenIds.map((childrenId) => {
             const children = affiliates.find(({id}) => id === childrenId)
-            delete children.children;
+            if (depth >= 2) {
+              delete children.children;
+            }
             return children;
           })
 
           return [
-            {id: Math.round(Math.random() * 100) + 1, name: '--------------------------------', isDisabled: true},
+            depth === '1' && {id: Math.round(Math.random() * 100) + 1, name: '--------------------------------', isDisabled: true},
             {id, name: `${name} (all)`},
             ...children
           ];
         })
 
-        this.options = stack.flat();
+        this.options = stack.flat().filter(Boolean);
       }
     })
   }

@@ -98,9 +98,20 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     /** @var Term $term */
     foreach($affiliates as $term) {
       $children = $this->manager->loadChildren($term->id());
+      $depth = taxonomy_term_depth_get_by_tid($term->id());
+      $name = $term->getName();
+
+      if ($depth === '2') {
+        $name = "-- $name";
+      }
+      else if ($depth === '3') {
+        $name = "---- $name";
+      }
+
       $item = [
         'id' => $term->id(),
-        'name' => $term->getName()
+        'name' => $name,
+        //'depth' => $depth,
       ];
       $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
       $stack[] = $item;
@@ -180,6 +191,9 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       $faculty_field_entity = $node->field_faculty_unit->entity;
       $faculty = $faculty_field_entity ? $faculty_field_entity->getName() : NULL;
 
+      $unit_field_entity = $node->field_unit->entity;
+      $unit = $unit_field_entity ? $unit_field_entity->getName() : NULL;
+
       $stack[] = [
         'id' => $node->id(),
         'url' => '',
@@ -194,7 +208,8 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         'field_links' => $links,
         'field_keywords' => $keywords_list,
         'field_main_affiliation' => $main_affiliation,
-        'field_industrial_collaboration' => $node->field_industrial_collaboration->value
+        'field_industrial_collaboration' => $node->field_industrial_collaboration->value,
+        'field_unit' => $unit
       ];
     }
 

@@ -118,6 +118,9 @@ final class Search extends ResourceBase {
       $faculty_field_entity = $node->field_faculty_unit->entity;
       $faculty = $faculty_field_entity ? $faculty_field_entity->getName() : NULL;
 
+      $unit_field_entity = $node->field_unit->entity;
+      $unit = $unit_field_entity ? $unit_field_entity->getName() : NULL;
+
       $main_affiliation_entity = $node->field_main_affiliation->entity;
 
 
@@ -135,7 +138,8 @@ final class Search extends ResourceBase {
         'field_links' => $links,
         'field_keywords' => $keywords_list,
         'field_main_affiliation' => $main_affiliation_entity->getName(),
-        'field_industrial_collaboration' => $node->field_industrial_collaboration->value
+        'field_industrial_collaboration' => $node->field_industrial_collaboration->value,
+        'field_unit' => $unit
       ];
     }
 

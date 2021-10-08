@@ -29,6 +29,7 @@
         "drupal/search_api_autocomplete": "^1.4",
         "drupal/simple_sitemap": "^3.8",
         "drupal/system_status": "^2.9",
+        "drupal/taxonomy_term_depth": "^2.5",
         "drupal/taxonomy_unique": "^2.3",
         "drush/drush": "^10.6"
     },

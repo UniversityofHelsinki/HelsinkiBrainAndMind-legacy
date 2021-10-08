@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.research_group.field_main_affiliation
     - field.field.node.research_group.field_other_affiliations
     - field.field.node.research_group.field_research_group_name
+    - field.field.node.research_group.field_unit
     - node.type.research_group
   module:
     - text
@@ -48,4 +49,5 @@ hidden:
   field_main_affiliation: true
   field_other_affiliations: true
   field_research_group_name: true
+  field_unit: true
   search_api_excerpt: true
