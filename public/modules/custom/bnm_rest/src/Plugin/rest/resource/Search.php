@@ -115,11 +115,19 @@ final class Search extends ResourceBase {
 
       $keywords_list = $this->getKeywords($node->field_keywords);
 
-      $faculty_field_entity = $node->field_faculty_unit->entity;
-      $faculty = $faculty_field_entity ? $faculty_field_entity->getName() : NULL;
+      $faculty_affiliations = [];
+      foreach($node->field_faculty_unit as $faculty_affiliation) {
+        $faculty_affiliations[] = Term::load($faculty_affiliation->target_id)->getName();
+      }
 
-      $main_affiliation_entity = $node->field_main_affiliation->entity;
+      $faculty_affiliations = implode(', ', $faculty_affiliations);
 
+      $main_affiliations = [];
+      foreach($node->field_main_affiliation as $main_affiliation) {
+        $main_affiliations[] = Term::load($main_affiliation->target_id)->getName();
+      }
+
+      $main_affiliations = implode(', ', $main_affiliations);
 
       $return[] = [
         'id' => $node->id(),
@@ -127,14 +135,14 @@ final class Search extends ResourceBase {
         'title' => $node->title->value,
         'body' => $node->body->value,
         'field_email' => $node->field_email->value ,
-        'field_faculty_unit' => $faculty,
+        'field_faculty_unit' => $faculty_affiliations,
         'field_other_affiliations' => $node->field_other_affiliations->value,
         'field_research_group_name' => $node->field_research_group_name->value,
         'field_firstname' => $node->field_firstname->value,
         'field_lastname' => $node->field_lastname->value,
         'field_links' => $links,
         'field_keywords' => $keywords_list,
-        'field_main_affiliation' => $main_affiliation_entity->getName(),
+        'field_main_affiliation' => $main_affiliations,
         'field_industrial_collaboration' => $node->field_industrial_collaboration->value
       ];
     }

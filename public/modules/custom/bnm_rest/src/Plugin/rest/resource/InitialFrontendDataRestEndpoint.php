@@ -171,14 +171,21 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         continue;
       }
 
-      $main_affiliation = Term::load($node->field_main_affiliation->target_id)->getName();
+      $faculty_affiliations = [];
+      foreach($node->field_faculty_unit as $faculty_affiliation) {
+        $faculty_affiliations[] = Term::load($faculty_affiliation->target_id)->getName();
+      }
+
+      $faculty_affiliations = implode(', ', $faculty_affiliations);
+
+      $main_affiliations = [];
+      foreach($node->field_main_affiliation as $main_affiliation) {
+        $main_affiliations[] = Term::load($main_affiliation->target_id)->getName();
+      }
 
       $links = $this->getLinks($node->field_links);
 
       $keywords_list = $this->getKeywords($node->field_keywords);
-
-      $faculty_field_entity = $node->field_faculty_unit->entity;
-      $faculty = $faculty_field_entity ? $faculty_field_entity->getName() : NULL;
 
       $stack[] = [
         'id' => $node->id(),
@@ -186,14 +193,14 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         'title' => $node->title->value,
         'body' => $node->body->value,
         'field_email' => $node->field_email->value ,
-        'field_faculty_unit' => $faculty,
+        'field_faculty_unit' => $faculty_affiliations,
         'field_other_affiliations' => $node->field_other_affiliations->value,
         'field_research_group_name' => $node->field_research_group_name->value,
         'field_firstname' => $node->field_firstname->value,
         'field_lastname' => $node->field_lastname->value,
         'field_links' => $links,
         'field_keywords' => $keywords_list,
-        'field_main_affiliation' => $main_affiliation,
+        'field_main_affiliation' => $main_affiliations,
         'field_industrial_collaboration' => $node->field_industrial_collaboration->value
       ];
     }
