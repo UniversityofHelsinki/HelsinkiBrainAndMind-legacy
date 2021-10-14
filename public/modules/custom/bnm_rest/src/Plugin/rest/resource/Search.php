@@ -120,14 +120,34 @@ final class Search extends ResourceBase {
         $faculty_affiliations[] = Term::load($faculty_affiliation->target_id)->getName();
       }
 
-      $faculty_affiliations = implode(', ', $faculty_affiliations);
-
       $main_affiliations = [];
       foreach($node->field_main_affiliation as $main_affiliation) {
         $main_affiliations[] = Term::load($main_affiliation->target_id)->getName();
       }
 
-      $main_affiliations = implode(', ', $main_affiliations);
+      $affiliations = '';
+      $main_last_key = end(array_keys($main_affiliations));
+      $faculty_count = 0;
+
+      foreach($main_affiliations as $key => $main) {
+        $affiliations .= "$main_affiliations[$key]";
+
+         if (isset($faculty_affiliations[$key])) {
+           $affiliations .= ", $faculty_affiliations[$key]";
+         }
+
+        if ($key != $main_last_key) {
+          $affiliations .= ", ";
+        }
+
+        $faculty_count++;
+      }
+
+      if (count($faculty_affiliations) > $faculty_count) {
+        for ($x = $faculty_count; $x <= count($faculty_affiliations); $x++) {
+          $affiliations .= ", $faculty_affiliations[$x]";
+        }
+      }
 
       $return[] = [
         'id' => $node->id(),
@@ -135,14 +155,13 @@ final class Search extends ResourceBase {
         'title' => $node->title->value,
         'body' => $node->body->value,
         'field_email' => $node->field_email->value ,
-        'field_faculty_unit' => $faculty_affiliations,
         'field_other_affiliations' => $node->field_other_affiliations->value,
         'field_research_group_name' => $node->field_research_group_name->value,
         'field_firstname' => $node->field_firstname->value,
         'field_lastname' => $node->field_lastname->value,
         'field_links' => $links,
         'field_keywords' => $keywords_list,
-        'field_main_affiliation' => $main_affiliations,
+        'field_affiliations' => $affiliations,
         'field_industrial_collaboration' => $node->field_industrial_collaboration->value
       ];
     }

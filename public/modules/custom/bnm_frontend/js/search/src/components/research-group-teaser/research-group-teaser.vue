@@ -15,8 +15,8 @@
       <DescriptionListItem label="Group name" v-if="field_research_group_name">
         {{ field_research_group_name }}
       </DescriptionListItem>
-      <DescriptionListItem label="Main affiliation" v-if="field_main_affiliation && field_faculty_unit">
-        {{ field_main_affiliation }}, {{ field_faculty_unit }}
+      <DescriptionListItem label="Main affiliation" v-if="field_affiliations">
+        {{ field_affiliations }}
       </DescriptionListItem>
       <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
         {{ field_other_affiliations }}
@@ -83,13 +83,12 @@ export default {
   props: {
     body: String,
     field_email: String,
-    field_faculty_unit: String,
     field_firstname: String,
     field_industrial_collaboration: String,
     field_keywords: Array,
     field_lastname: String,
     field_links: Array,
-    field_main_affiliation: String,
+    field_affiliations: String,
     field_other_affiliations: String,
     field_research_group_name: String,
   },
