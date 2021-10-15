@@ -49,3 +49,10 @@ field_map:
       field: field_links
       type: link
       title: Other website
+    Link 5 (ORCID):
+      field: field_links
+      type: link
+      title: ORCID
+    Description:
+      field: body
+      title: Description
