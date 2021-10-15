@@ -60,7 +60,7 @@ class CsvCreator
           }
 
           if ($values) {
-            $row[] = implode(', ', $values);
+            $row[] = implode('; ', $values);
           }
           else {
             $row[] = '';
