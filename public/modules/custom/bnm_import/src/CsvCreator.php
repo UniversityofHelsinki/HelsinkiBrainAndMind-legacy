@@ -52,6 +52,20 @@ class CsvCreator
         else if($heading === 'Faculty') {
           $row[] = $organisations_by_tid[$node->{$header['field']}->getValue()[0]['target_id']]->name;
         }
+        else if($heading === 'Title') {
+          $values = [];
+
+          foreach($node->{$header['field']}->getValue() as $titles => $title) {
+            $values[] = $title["value"];
+          }
+
+          if ($values) {
+            $row[] = implode('; ', $values);
+          }
+          else {
+            $row[] = '';
+          }
+        }
         else if( strpos($heading, 'Link') !== false) {
 
           if($links_set) {

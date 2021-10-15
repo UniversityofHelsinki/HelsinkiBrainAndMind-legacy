@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.research_group.field_main_affiliation
     - field.field.node.research_group.field_other_affiliations
     - field.field.node.research_group.field_research_group_name
+    - field.field.node.research_group.field_title
     - node.type.research_group
   module:
     - link
@@ -49,7 +50,7 @@ content:
     type: email_default
     region: content
   field_faculty_unit:
-    weight: 12
+    weight: 13
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -67,13 +68,13 @@ content:
     type: string_textfield
     region: content
   field_industrial_collaboration:
-    weight: 17
+    weight: 18
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_keywords:
-    weight: 15
+    weight: 16
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -91,7 +92,7 @@ content:
     type: string_textfield
     region: content
   field_links:
-    weight: 16
+    weight: 17
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -99,7 +100,7 @@ content:
     type: link_default
     region: content
   field_main_affiliation:
-    weight: 11
+    weight: 12
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -109,7 +110,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_other_affiliations:
-    weight: 14
+    weight: 15
     settings:
       size: 60
       placeholder: ''
@@ -117,7 +118,15 @@ content:
     type: string_textfield
     region: content
   field_research_group_name:
-    weight: 13
+    weight: 14
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_title:
+    weight: 11
     settings:
       size: 60
       placeholder: ''
