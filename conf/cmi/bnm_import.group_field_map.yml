@@ -19,6 +19,12 @@ field_map:
       type: taxonomy
       taxonomy_type: affiliations
       child: true
+    'Research group name':
+      field: field_research_group_name
+      type: string
+    'Other affiliations':
+      field: field_other_affiliations
+      type: string
     'Key words':
       field: field_keywords
       type: taxonomy
@@ -39,11 +45,12 @@ field_map:
       field: field_links
       type: link
       title: 'Other website'
-    'Other affiliations':
-      field: field_other_affiliations
-      type: string
-    'Research group name':
-      field: field_research_group_name
-      type: string
+    'Link 5 (ORCID)':
+      field: field_links
+      type: link
+      title: ORCID
+    Description:
+      field: body
+      title: Description
 _core:
-  default_config_hash: 2NTx37XUtxuabbQBQTwtd-S8E9nR4ovtFEO5bRYvHks
+  default_config_hash: mr6rMHCSgR9ajHvcDRD5PYKJawUAZVTvN3cF6EvcOR4
