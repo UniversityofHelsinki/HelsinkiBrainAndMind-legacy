@@ -14,6 +14,10 @@ field_map:
       type: taxonomy
       taxonomy_type: affiliations
   optional:
+    Title:
+      field: field_title
+      type: string
+      title: Title
     Faculty:
       field: field_faculty_unit
       type: taxonomy
