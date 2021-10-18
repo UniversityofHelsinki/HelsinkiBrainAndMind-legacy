@@ -49,5 +49,12 @@ field_map:
       field: field_links
       type: link
       title: 'Other website'
+    'Link 5 (ORCID)':
+      field: field_links
+      type: link
+      title: ORCID
+    Description:
+      field: body
+      title: Description
 _core:
-  default_config_hash: jacMmId_jcQ058R55FRO_Khh7DLRQo47MZyJrD_kXik
+  default_config_hash: mr6rMHCSgR9ajHvcDRD5PYKJawUAZVTvN3cF6EvcOR4
