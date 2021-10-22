@@ -135,7 +135,8 @@ final class Search extends ResourceBase {
         'field_links' => $links,
         'field_keywords' => $keywords_list,
         'field_main_affiliation' => $main_affiliation_entity->getName(),
-        'field_industrial_collaboration' => $node->field_industrial_collaboration->value
+        'field_industrial_collaboration' => $node->field_industrial_collaboration->value,
+        'field_title' => $node->field_title->value
       ];
     }
 
