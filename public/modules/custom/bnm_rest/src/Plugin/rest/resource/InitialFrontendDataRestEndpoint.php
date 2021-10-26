@@ -180,6 +180,21 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       $faculty_field_entity = $node->field_faculty_unit->entity;
       $faculty = $faculty_field_entity ? $faculty_field_entity->getName() : NULL;
 
+      $titles = [];
+
+      if (!$node->field_title->isEmpty()) {
+        foreach ($node->field_title->getValue() as $value) {
+          $titles[] = $value['value'];
+        }
+      }
+
+      if (count($titles) > 0) {
+        $titles = implode(', ', $titles);
+      }
+      else {
+        $titles = '';
+      }
+
       $stack[] = [
         'id' => $node->id(),
         'url' => '',
@@ -195,7 +210,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         'field_keywords' => $keywords_list,
         'field_main_affiliation' => $main_affiliation,
         'field_industrial_collaboration' => $node->field_industrial_collaboration->value,
-        'field_title' => $node->field_title->value
+        'field_title' => $titles
       ];
     }
 
