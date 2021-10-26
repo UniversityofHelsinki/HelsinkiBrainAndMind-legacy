@@ -12,6 +12,9 @@
       </p>
     </div>
     <DescriptionList>
+      <DescriptionListItem label="Title" v-if="field_title">
+        {{ field_title }}
+      </DescriptionListItem>
       <DescriptionListItem label="Group name" v-if="field_research_group_name">
         {{ field_research_group_name }}
       </DescriptionListItem>
@@ -92,6 +95,7 @@ export default {
     field_main_affiliation: String,
     field_other_affiliations: String,
     field_research_group_name: String,
+    field_title: String
   },
   data: function () {
     return {

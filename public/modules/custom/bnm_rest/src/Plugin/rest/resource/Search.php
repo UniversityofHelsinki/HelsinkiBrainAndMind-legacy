@@ -120,6 +120,20 @@ final class Search extends ResourceBase {
 
       $main_affiliation_entity = $node->field_main_affiliation->entity;
 
+      $titles = [];
+
+      if (!$node->field_title->isEmpty()) {
+        foreach ($node->field_title->getValue() as $value) {
+          $titles[] = $value['value'];
+        }
+      }
+
+      if (count($titles) > 0) {
+        $titles = implode(', ', $titles);
+      }
+      else {
+        $titles = '';
+      }
 
       $return[] = [
         'id' => $node->id(),
@@ -135,7 +149,8 @@ final class Search extends ResourceBase {
         'field_links' => $links,
         'field_keywords' => $keywords_list,
         'field_main_affiliation' => $main_affiliation_entity->getName(),
-        'field_industrial_collaboration' => $node->field_industrial_collaboration->value
+        'field_industrial_collaboration' => $node->field_industrial_collaboration->value,
+        'field_title' => $titles
       ];
     }
 
