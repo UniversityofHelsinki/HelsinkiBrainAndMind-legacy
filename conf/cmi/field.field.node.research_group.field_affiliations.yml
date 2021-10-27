@@ -1,0 +1,29 @@
+uuid: 4466354b-a5d4-43e6-95b0-a9359bf64983
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_affiliations
+    - node.type.research_group
+    - taxonomy.vocabulary.affiliations
+id: node.research_group.field_affiliations
+field_name: field_affiliations
+entity_type: node
+bundle: research_group
+label: Affiliations
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      affiliations: affiliations
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

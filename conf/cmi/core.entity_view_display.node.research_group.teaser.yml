@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.research_group.body
+    - field.field.node.research_group.field_affiliations
     - field.field.node.research_group.field_email
     - field.field.node.research_group.field_faculty_unit
     - field.field.node.research_group.field_firstname
@@ -39,6 +40,7 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_affiliations: true
   field_email: true
   field_faculty_unit: true
   field_firstname: true
