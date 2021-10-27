@@ -40,6 +40,9 @@ function bnm_content_hide_node_title(&$form, $form_state) {
  * Implements hook_entity_presave().
  *
  * Replace title with firstname and lastname fields from the form
+ * 
+ * Use affiliations field to populate term references used in search
+ * 
  */
 function bnm_content_entity_presave(EntityInterface $entity) {
   if (
@@ -52,6 +55,22 @@ function bnm_content_entity_presave(EntityInterface $entity) {
       $lastname = $entity->field_lastname->first()->getValue();
       $title = reset($firstname) . ' ' . reset($lastname);
       $entity->setTitle($title);
+
+
+      $terms = $entity->get('field_affiliations')->referencedEntities();
+      /**
+       * EXAMPLE CODE TO WORK ON FURTHER
+       * This is how it would work for 2 level single value content that
+       * is in current prod (27.10.2021). Even if fiels_affiliates allows
+       * multiple values only the first is stored to the search/display
+       * fields. When merging HBM-101 and HBM-105 one needs to rewrite this
+       * to accomodate a) more hierarchy levels b) multiple values
+       */
+      $term = reset($terms);
+      $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($term->id());
+      $parent = reset($parents);
+      $entity->set('field_main_affiliation', $parent);
+      $entity->set('field_faculty_unit', $term);
     }
   }
 }
