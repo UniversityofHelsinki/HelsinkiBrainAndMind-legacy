@@ -171,7 +171,39 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         continue;
       }
 
-      $main_affiliation = Term::load($node->field_main_affiliation->target_id)->getName();
+      $faculty_affiliations = [];
+      foreach($node->field_faculty_unit as $faculty_affiliation) {
+        $faculty_affiliations[] = Term::load($faculty_affiliation->target_id)->getName();
+      }
+
+      $main_affiliations = [];
+      foreach($node->field_main_affiliation as $main_affiliation) {
+        $main_affiliations[] = Term::load($main_affiliation->target_id)->getName();
+      }
+
+      $affiliations = '';
+      $main_last_key = end(array_keys($main_affiliations));
+      $faculty_count = 0;
+
+      foreach($main_affiliations as $key => $main) {
+        $affiliations .= "$main_affiliations[$key]";
+
+        if (isset($faculty_affiliations[$key])) {
+          $affiliations .= ", $faculty_affiliations[$key]";
+        }
+
+        if ($key != $main_last_key) {
+          $affiliations .= ", ";
+        }
+
+        $faculty_count++;
+      }
+
+      if (count($faculty_affiliations) > $faculty_count) {
+        for ($x = $faculty_count; $x <= count($faculty_affiliations); $x++) {
+          $affiliations += ", $faculty_affiliations[$x]";
+        }
+      }
 
       $links = $this->getLinks($node->field_links);
 
@@ -208,7 +240,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         'field_lastname' => $node->field_lastname->value,
         'field_links' => $links,
         'field_keywords' => $keywords_list,
-        'field_main_affiliation' => $main_affiliation,
+        'field_main_affiliation' => $affiliations,
         'field_industrial_collaboration' => $node->field_industrial_collaboration->value,
         'field_title' => $titles
       ];
