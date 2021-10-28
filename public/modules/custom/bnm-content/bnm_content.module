@@ -18,7 +18,30 @@ const FORMS_TO_HIDE_TITLE_FROM = [
 * {@inheritdoc}
 */
 function bnm_content_form_alter(&$form, $form_state) {
-bnm_content_hide_node_title($form, $form_state);
+  bnm_content_hide_node_title($form, $form_state);
+
+  if ($form['#form_id'] == 'node_research_group_edit_form') {
+    foreach ($form['field_main_affiliation']['widget'] as $key => $value) {
+      if (is_int($key)) {
+        $form['field_main_affiliation']['widget'][$key]['#disabled'] = TRUE;
+      }
+    }
+    unset($form['field_main_affiliation']['widget']['add_more']);
+
+    foreach ($form['field_faculty_unit']['widget'] as $key => $value) {
+      if (is_int($key)) {
+        $form['field_faculty_unit']['widget'][$key]['#disabled'] = TRUE;
+      }
+    }
+    unset($form['field_faculty_unit']['widget']['add_more']);
+
+    foreach ($form['field_unit']['widget'] as $key => $value) {
+      if (is_int($key)) {
+        $form['field_unit']['widget'][$key]['#disabled'] = TRUE;
+      }
+    }
+    unset($form['field_unit']['widget']['add_more']);
+  }
 }
 
 /**
@@ -58,19 +81,43 @@ function bnm_content_entity_presave(EntityInterface $entity) {
 
 
       $terms = $entity->get('field_affiliations')->referencedEntities();
-      /**
-       * EXAMPLE CODE TO WORK ON FURTHER
-       * This is how it would work for 2 level single value content that
-       * is in current prod (27.10.2021). Even if fiels_affiliates allows
-       * multiple values only the first is stored to the search/display
-       * fields. When merging HBM-101 and HBM-105 one needs to rewrite this
-       * to accomodate a) more hierarchy levels b) multiple values
-       */
-      $term = reset($terms);
-      $parents = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($term->id());
-      $parent = reset($parents);
-      $entity->set('field_main_affiliation', $parent);
-      $entity->set('field_faculty_unit', $term);
+      $faculty_units = [];
+      $mains = [];
+      $units = [];
+
+      // Loop all terms.
+      foreach ($terms as $term) {
+        // Term is last item of term "tree" so term can be level 1, 2 or 3.
+        // Get term parent.
+        $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($term->id());
+        $parent = reset($parent);
+
+        // Check that term has level value and get term level.
+        if (!$parent->get('depth_level')->isEmpty()) {
+          $level = $parent->depth_level->first()->getValue()['value'];
+
+          // Check if term affiliations value is level 3 term.
+          if ($level == '2') {
+            // Parent is level 2 so we need still level 1 parent.
+            // Rootparent is level 1 term.
+            $rootparent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($parent->id());
+            $mains[] = reset($rootparent);
+            // Parent is level 2 term.
+            $faculty_units[] = $parent;
+            // Term is level 3.
+            $units[] = $term;
+          } else {
+            // Parent is level 1 term.
+            $mains[] = $parent;
+            // Term is levell 2 term and this affiliations don't have level 2 terms.
+            $faculty_units[] = $term;
+          }
+        }
+      }
+
+      $entity->set('field_main_affiliation', $mains);
+      $entity->set('field_faculty_unit', $faculty_units);
+      $entity->set('field_unit', $units);
     }
   }
 }

@@ -71,6 +71,16 @@ final class Search extends ResourceBase {
     $q = $request->get('q');
     $affiliate = $request->get('affiliate');
     $index = Index::load('research_group');
+    $parentid = NULL;
+    $affiliate_depth = 1;
+
+    if ($affiliate && $affiliate != 0) {
+      $affiliate_depth = taxonomy_term_depth_get_by_tid($affiliate);
+      $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('affiliations', $affiliate, 3, true);
+      $children_ids = array_map(function ($item) {
+        return $item->id();
+      }, $children);
+    }
 
     /** @var \Drupal\search_api\Query\Query $query */
     $query = $index->query();
@@ -89,45 +99,103 @@ final class Search extends ResourceBase {
 
       if(!$affiliate || $affiliate == 0){
       } else {
-
-
-        // if is parent affiliation, check if node is one of children
-        $children = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('affiliations', $affiliate, 2, true);
-        if($children) {
-          $children_ids = array_map(function ($item) {
-            return $item->id();
-          }, $children);
-
+        if($children && $affiliate_depth == '1') {
           $is_child = in_array($node->field_faculty_unit->target_id, $children_ids, false) ? true : false;
           if(!$is_child){
             continue;
           }
         } else {
           //is a child affiliation, show only if get parameter id == node field_faculty_unit value
-          if($node->field_faculty_unit->target_id != $affiliate){
-            continue;
+          if ($affiliate_depth == '3') {
+            if($node->field_unit->target_id != $affiliate){
+              continue;
+            }
+          }
+          else {
+            if($node->field_faculty_unit->target_id != $affiliate){
+              continue;
+            }
           }
         }
       }
 
-
       $links = $this->getLinks($node->field_links);
-
       $keywords_list = $this->getKeywords($node->field_keywords);
+      $affiliationstemp = [];
+      $units = [];
 
-      $faculty_affiliations = [];
-      foreach($node->field_faculty_unit as $faculty_affiliation) {
-        $faculty_affiliations[] = Term::load($faculty_affiliation->target_id)->getName();
+      foreach($node->field_affiliations as $key => $affiliation) {
+        // Get term object.
+        $term = Term::load($affiliation->target_id);
+        // Term name.
+        $term_name = $term->getName();
+
+        // Check that term is deeper than level 1.
+        if ($term->depth_level->first()->getValue()['value'] > '1') {
+          // Get parent term.
+          $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($term->id());
+          $parent = reset($parent);
+          // Parent term name.
+          $parent_name = $parent->getName();
+
+          // Check if term third level term.
+          if ($parent->depth_level->first()->getValue()['value'] == '2' ) {
+            // Get root term.
+            $rootparent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($parent->id());
+            $rootparent = reset($rootparent);
+            // Root term name.
+            $parent_name = $rootparent->getName();
+            // Deepest term is level third so set unit value.
+            $units[$key] = $term->getName();
+            // Deepest term is level third so term name is parent value.
+            $term_name = $parent->getName();
+          }
+
+          $affiliationstemp[$key] = "$parent_name, $term_name";
+        }
       }
 
-      $main_affiliations = [];
-      foreach($node->field_main_affiliation as $main_affiliation) {
-        $main_affiliations[] = Term::load($main_affiliation->target_id)->getName();
-      }
+      // Convert affiliations array to string.
+      $affiliations = implode(', ', $affiliationstemp);
+      // Convert units array to string.
+      $units = implode(', ', $units);
 
-      $affiliations = '';
-      $main_last_key = end(array_keys($main_affiliations));
-      $faculty_count = 0;
+      // "Old way" to map affiliations values if shs field is empty.
+      if (empty($affiliations)) {
+        $faculty_affiliations = [];
+        foreach($node->field_faculty_unit as $faculty_affiliation) {
+          $faculty_affiliations[] = Term::load($faculty_affiliation->target_id)->getName();
+        }
+
+        $main_affiliations = [];
+        foreach($node->field_main_affiliation as $main_affiliation) {
+          $main_affiliations[] = Term::load($main_affiliation->target_id)->getName();
+        }
+
+        $affiliations = '';
+        $main_last_key = end(array_keys($main_affiliations));
+        $faculty_count = 0;
+
+        foreach($main_affiliations as $key => $main) {
+          $affiliations .= "$main_affiliations[$key]";
+
+          if (isset($faculty_affiliations[$key])) {
+            $affiliations .= ", $faculty_affiliations[$key]";
+          }
+
+          if ($key != $main_last_key) {
+            $affiliations .= ", ";
+          }
+
+          $faculty_count++;
+        }
+
+        if (count($faculty_affiliations) > $faculty_count) {
+          for ($x = $faculty_count; $x <= count($faculty_affiliations); $x++) {
+            $affiliations += ", $faculty_affiliations[$x]";
+          }
+        }
+      }
 
       $titles = [];
 
@@ -143,25 +211,6 @@ final class Search extends ResourceBase {
       else {
         $titles = '';
       }
-      foreach($main_affiliations as $key => $main) {
-        $affiliations .= "$main_affiliations[$key]";
-
-         if (isset($faculty_affiliations[$key])) {
-           $affiliations .= ", $faculty_affiliations[$key]";
-         }
-
-        if ($key != $main_last_key) {
-          $affiliations .= ", ";
-        }
-
-        $faculty_count++;
-      }
-
-      if (count($faculty_affiliations) > $faculty_count) {
-        for ($x = $faculty_count; $x <= count($faculty_affiliations); $x++) {
-          $affiliations .= ", $faculty_affiliations[$x]";
-        }
-      }
 
       $return[] = [
         'id' => $node->id(),
@@ -169,14 +218,14 @@ final class Search extends ResourceBase {
         'title' => $node->title->value,
         'body' => $node->body->value,
         'field_email' => $node->field_email->value ,
-        'field_faculty_unit' => $faculty,
         'field_other_affiliations' => $node->field_other_affiliations->value,
         'field_research_group_name' => $node->field_research_group_name->value,
         'field_firstname' => $node->field_firstname->value,
         'field_lastname' => $node->field_lastname->value,
         'field_links' => $links,
         'field_keywords' => $keywords_list,
-        'field_main_affiliation' => $affiliations,
+        'field_unit' => $units,
+        'field_affiliations' => $affiliations,
         'field_industrial_collaboration' => $node->field_industrial_collaboration->value,
         'field_title' => $titles
       ];

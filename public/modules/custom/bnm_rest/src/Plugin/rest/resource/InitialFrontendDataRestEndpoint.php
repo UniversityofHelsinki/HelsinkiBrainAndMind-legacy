@@ -98,9 +98,20 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     /** @var Term $term */
     foreach($affiliates as $term) {
       $children = $this->manager->loadChildren($term->id());
+      $depth = taxonomy_term_depth_get_by_tid($term->id());
+      $name = $term->getName();
+
+      if ($depth === '2') {
+        $name = "-- $name";
+      }
+      else if ($depth === '3') {
+        $name = "---- $name";
+      }
+
       $item = [
         'id' => $term->id(),
-        'name' => $term->getName()
+        'name' => $name,
+        //'depth' => $depth,
       ];
       $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
       $stack[] = $item;
@@ -171,46 +182,82 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         continue;
       }
 
-      $faculty_affiliations = [];
-      foreach($node->field_faculty_unit as $faculty_affiliation) {
-        $faculty_affiliations[] = Term::load($faculty_affiliation->target_id)->getName();
-      }
-
-      $main_affiliations = [];
-      foreach($node->field_main_affiliation as $main_affiliation) {
-        $main_affiliations[] = Term::load($main_affiliation->target_id)->getName();
-      }
-
-      $affiliations = '';
-      $main_last_key = end(array_keys($main_affiliations));
-      $faculty_count = 0;
-
-      foreach($main_affiliations as $key => $main) {
-        $affiliations .= "$main_affiliations[$key]";
-
-        if (isset($faculty_affiliations[$key])) {
-          $affiliations .= ", $faculty_affiliations[$key]";
-        }
-
-        if ($key != $main_last_key) {
-          $affiliations .= ", ";
-        }
-
-        $faculty_count++;
-      }
-
-      if (count($faculty_affiliations) > $faculty_count) {
-        for ($x = $faculty_count; $x <= count($faculty_affiliations); $x++) {
-          $affiliations += ", $faculty_affiliations[$x]";
-        }
-      }
-
       $links = $this->getLinks($node->field_links);
-
       $keywords_list = $this->getKeywords($node->field_keywords);
+      $affiliationstemp = [];
+      $units = [];
 
-      $faculty_field_entity = $node->field_faculty_unit->entity;
-      $faculty = $faculty_field_entity ? $faculty_field_entity->getName() : NULL;
+      foreach($node->field_affiliations as $key => $affiliation) {
+        // Get term object.
+        $term = Term::load($affiliation->target_id);
+        // Term name.
+        $term_name = $term->getName();
+        // Check that term is deeper than level 1.
+        if ($term->depth_level->first()->getValue()['value'] > '1') {
+          // Get parent term.
+          $parent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($term->id());
+          $parent = reset($parent);
+          // Parent term name.
+          $parent_name = $parent->getName();
+
+          // Check if term third level term.
+          if ($parent->depth_level->first()->getValue()['value'] == '2' ) {
+            // Get root term.
+            $rootparent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($parent->id());
+            $rootparent = reset($rootparent);
+            // Root term name.
+            $parent_name = $rootparent->getName();
+            // Deepest term is level third so set unit value.
+            $units[$key] = $term->getName();
+            // Deepest term is level third so term name is parent value.
+            $term_name = $parent->getName();
+          }
+
+          $affiliationstemp[$key] = "$parent_name, $term_name";
+        }
+      }
+
+      // Convert affiliations array to string.
+      $affiliations = implode(', ', $affiliationstemp);
+      // Convert units array to string.
+      $units = implode(', ', $units);
+
+      // "Old way" to map affiliations values if shs field is empty.
+      if (empty($affiliations)) {
+        $faculty_affiliations = [];
+        foreach($node->field_faculty_unit as $faculty_affiliation) {
+          $faculty_affiliations[] = Term::load($faculty_affiliation->target_id)->getName();
+        }
+
+        $main_affiliations = [];
+        foreach($node->field_main_affiliation as $main_affiliation) {
+          $main_affiliations[] = Term::load($main_affiliation->target_id)->getName();
+        }
+
+        $affiliations = '';
+        $main_last_key = is_array($main_affiliations) ? end(array_keys($main_affiliations)) : 0;
+        $faculty_count = 0;
+
+        foreach($main_affiliations as $key => $main) {
+          $affiliations .= "$main_affiliations[$key]";
+
+          if (isset($faculty_affiliations[$key])) {
+            $affiliations .= ", $faculty_affiliations[$key]";
+          }
+
+          if ($key != $main_last_key) {
+            $affiliations .= ", ";
+          }
+
+          $faculty_count++;
+        }
+
+        if (count($faculty_affiliations) > $faculty_count) {
+          for ($x = $faculty_count; $x <= count($faculty_affiliations); $x++) {
+            $affiliations += ", $faculty_affiliations[$x]";
+          }
+        }
+      }
 
       $titles = [];
 
@@ -233,16 +280,16 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         'title' => $node->title->value,
         'body' => $node->body->value,
         'field_email' => $node->field_email->value ,
-        'field_faculty_unit' => $faculty,
         'field_other_affiliations' => $node->field_other_affiliations->value,
         'field_research_group_name' => $node->field_research_group_name->value,
         'field_firstname' => $node->field_firstname->value,
         'field_lastname' => $node->field_lastname->value,
         'field_links' => $links,
         'field_keywords' => $keywords_list,
-        'field_main_affiliation' => $affiliations,
+        'field_affiliations' => $affiliations,
         'field_industrial_collaboration' => $node->field_industrial_collaboration->value,
-        'field_title' => $titles
+        'field_title' => $titles,
+        'field_unit' => $units
       ];
     }
 

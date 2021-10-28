@@ -31,7 +31,7 @@ class CsvCreator
 
     $organisations_by_tid = [];
     foreach($organisations as $organisation){
-      $organisations_by_tid[$organisation->tid] = $organisation;
+      $organisations_by_tid[$organisation->depth][$organisation->tid] = $organisation;
     }
 
     foreach ($nodes as $node) {
@@ -63,7 +63,7 @@ class CsvCreator
             $facultys[] = $organisations_by_tid[$faculty['target_id']]->name;
           }
           $facultys = implode(', ', $facultys);
-          
+
           $row[] = $facultys;
         }
         else if($heading === 'Title') {
