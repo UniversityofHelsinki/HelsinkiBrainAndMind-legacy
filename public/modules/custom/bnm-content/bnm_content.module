@@ -93,7 +93,7 @@ function bnm_content_entity_presave(EntityInterface $entity) {
         $parent = reset($parent);
 
         // Check that term has level value and get term level.
-        if (!$parent->get('depth_level')->isEmpty()) {
+        if ($parent && !$parent->get('depth_level')->isEmpty()) {
           $level = $parent->depth_level->first()->getValue()['value'];
 
           // Check if term affiliations value is level 3 term.
@@ -112,6 +112,8 @@ function bnm_content_entity_presave(EntityInterface $entity) {
             // Term is levell 2 term and this affiliations don't have level 2 terms.
             $faculty_units[] = $term;
           }
+        } else {
+          $mains[] = $term;
         }
       }
 
