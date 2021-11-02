@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.research_group.body
+    - field.field.node.research_group.field_affiliations
     - field.field.node.research_group.field_email
     - field.field.node.research_group.field_faculty_unit
     - field.field.node.research_group.field_firstname
@@ -15,10 +16,12 @@ dependencies:
     - field.field.node.research_group.field_other_affiliations
     - field.field.node.research_group.field_research_group_name
     - field.field.node.research_group.field_title
+    - field.field.node.research_group.field_unit
     - node.type.research_group
   module:
     - link
     - path
+    - shs
     - text
 id: node.research_group.default
 targetEntityType: node
@@ -41,6 +44,16 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_affiliations:
+    weight: 12
+    settings:
+      display_node_count: false
+      create_new_items: false
+      create_new_levels: false
+      force_deepest: false
+    third_party_settings: {  }
+    type: options_shs
+    region: content
   field_email:
     weight: 10
     settings:
@@ -50,15 +63,15 @@ content:
     type: email_default
     region: content
   field_faculty_unit:
-    weight: 13
+    type: entity_reference_autocomplete
+    weight: 14
+    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_firstname:
     weight: 8
     settings:
@@ -68,13 +81,13 @@ content:
     type: string_textfield
     region: content
   field_industrial_collaboration:
-    weight: 18
+    weight: 20
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_keywords:
-    weight: 16
+    weight: 18
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -92,7 +105,7 @@ content:
     type: string_textfield
     region: content
   field_links:
-    weight: 17
+    weight: 19
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -100,17 +113,17 @@ content:
     type: link_default
     region: content
   field_main_affiliation:
-    weight: 12
+    type: entity_reference_autocomplete
+    weight: 13
+    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_other_affiliations:
-    weight: 15
+    weight: 17
     settings:
       size: 60
       placeholder: ''
@@ -118,7 +131,7 @@ content:
     type: string_textfield
     region: content
   field_research_group_name:
-    weight: 14
+    weight: 16
     settings:
       size: 60
       placeholder: ''
@@ -133,6 +146,16 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_unit:
+    type: entity_reference_autocomplete
+    weight: 15
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   path:
     type: path
     weight: 5

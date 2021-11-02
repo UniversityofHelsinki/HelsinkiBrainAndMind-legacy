@@ -1,16 +1,16 @@
-uuid: 4007fe1c-cf55-4f55-848d-c0ac0e36b9ca
+uuid: 4466354b-a5d4-43e6-95b0-a9359bf64983
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_faculty_unit
+    - field.storage.node.field_affiliations
     - node.type.research_group
     - taxonomy.vocabulary.affiliations
-id: node.research_group.field_faculty_unit
-field_name: field_faculty_unit
+id: node.research_group.field_affiliations
+field_name: field_affiliations
 entity_type: node
 bundle: research_group
-label: Faculty
+label: Affiliations
 description: ''
 required: false
 translatable: false

@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.research_group.body
+    - field.field.node.research_group.field_affiliations
     - field.field.node.research_group.field_email
     - field.field.node.research_group.field_faculty_unit
     - field.field.node.research_group.field_firstname
@@ -16,6 +17,7 @@ dependencies:
     - field.field.node.research_group.field_other_affiliations
     - field.field.node.research_group.field_research_group_name
     - field.field.node.research_group.field_title
+    - field.field.node.research_group.field_unit
     - node.type.research_group
   module:
     - text
@@ -39,6 +41,7 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_affiliations: true
   field_email: true
   field_faculty_unit: true
   field_firstname: true
@@ -50,4 +53,5 @@ hidden:
   field_other_affiliations: true
   field_research_group_name: true
   field_title: true
+  field_unit: true
   search_api_excerpt: true
