@@ -1,0 +1,12 @@
+diff --git a/src/Plugin/Field/FieldWidget/OptionsShsWidget.php b/src/Plugin/Field/FieldWidget/OptionsShsWidget.php
+index e1f530e..78c1c08 100644
+--- a/src/Plugin/Field/FieldWidget/OptionsShsWidget.php
++++ b/src/Plugin/Field/FieldWidget/OptionsShsWidget.php
+@@ -240,6 +240,7 @@ class OptionsShsWidget extends OptionsSelectWidget implements ContainerFactoryPl
+     $element['#attached'] = array_merge($element['#attached'], [
+       'library' => ['shs/shs.form'],
+     ]);
++    $element['#default_value'] = implode(',', $default_value);
+     return $element;
+   }
+ 
