@@ -67,11 +67,12 @@
             "public/themes/contrib/{$name}": ["type:drupal-theme"],
             "public/themes/custom/{$name}": ["type:drupal-custom-theme"],
             "drush/{$name}": ["type:drupal-drush"]
-        }
-    },
-    "patches": {
-        "drupal/shs": {
-            "https://www.drupal.org/project/shs/issues/3242736": "https://www.drupal.org/files/issues/2021-10-11/3242736-1.patch"
+        },
+        "patches": {
+            "drupal/shs": {
+                "https://www.drupal.org/project/shs/issues/3242736": "https://www.drupal.org/files/issues/2021-10-11/3242736-1.patch",
+                "Custom implode default values": "patches/implode_default_value.patch"
+            }
         }
     },
     "repositories": [
