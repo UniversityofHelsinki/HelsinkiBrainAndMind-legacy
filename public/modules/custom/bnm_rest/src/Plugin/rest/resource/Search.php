@@ -136,6 +136,8 @@ final class Search extends ResourceBase {
           $parent = reset($parent);
           // Parent term name.
           $parent_name = $parent->getName();
+          // Set empty unit.
+          $unit_name = NULL;
 
           // Check if term third level term.
           if ($parent->depth_level->first()->getValue()['value'] == '2' ) {
