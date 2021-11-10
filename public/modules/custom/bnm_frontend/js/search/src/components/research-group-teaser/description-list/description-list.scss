@@ -48,6 +48,11 @@
   &.description-list__list--keywords {
     flex-direction: row;
   }
+
+  &.description-list__list--affiliations {
+    list-style: square;
+    padding-left: 1.2rem;
+  }
 }
 
 .description-list__list-item {

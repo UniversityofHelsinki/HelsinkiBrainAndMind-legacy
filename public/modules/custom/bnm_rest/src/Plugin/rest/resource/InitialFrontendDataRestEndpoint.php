@@ -185,7 +185,6 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       $links = $this->getLinks($node->field_links);
       $keywords_list = $this->getKeywords($node->field_keywords);
       $affiliationstemp = [];
-      $units = [];
 
       foreach($node->field_affiliations as $key => $affiliation) {
         // Get term object.
@@ -199,6 +198,8 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
           $parent = reset($parent);
           // Parent term name.
           $parent_name = $parent->getName();
+          // Set empty unit.
+          $unit_name = NULL;
 
           // Check if term third level term.
           if ($parent->depth_level->first()->getValue()['value'] == '2' ) {
@@ -208,19 +209,22 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
             // Root term name.
             $parent_name = $rootparent->getName();
             // Deepest term is level third so set unit value.
-            $units[$key] = $term->getName();
+            $unit_name = $term->getName();
             // Deepest term is level third so term name is parent value.
             $term_name = $parent->getName();
           }
 
-          $affiliationstemp[$key] = "$parent_name, $term_name";
+          if (!empty($unit_name)) {
+            $affiliationstemp[$key] = "$parent_name, $term_name, $unit_name";
+          }
+          else {
+            $affiliationstemp[$key] = "$parent_name, $term_name";
+          }
         }
       }
 
       // Convert affiliations array to string.
-      $affiliations = implode(', ', $affiliationstemp);
-      // Convert units array to string.
-      $units = implode(', ', $units);
+      $affiliations = $affiliationstemp;
 
       // "Old way" to map affiliations values if shs field is empty.
       if (empty($affiliations)) {
@@ -234,27 +238,15 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
           $main_affiliations[] = Term::load($main_affiliation->target_id)->getName();
         }
 
-        $affiliations = '';
+        $affiliations = [];
         $main_last_key = is_array($main_affiliations) ? end(array_keys($main_affiliations)) : 0;
-        $faculty_count = 0;
 
         foreach($main_affiliations as $key => $main) {
-          $affiliations .= "$main_affiliations[$key]";
-
           if (isset($faculty_affiliations[$key])) {
-            $affiliations .= ", $faculty_affiliations[$key]";
+            $affiliations[] = "$main_affiliations[$key], $faculty_affiliations[$key]";
           }
-
-          if ($key != $main_last_key) {
-            $affiliations .= ", ";
-          }
-
-          $faculty_count++;
-        }
-
-        if (count($faculty_affiliations) > $faculty_count) {
-          for ($x = $faculty_count; $x <= count($faculty_affiliations); $x++) {
-            $affiliations += ", $faculty_affiliations[$x]";
+          else {
+            $affiliations[] = "$main_affiliations[$key]";
           }
         }
       }
@@ -289,7 +281,6 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         'field_affiliations' => $affiliations,
         'field_industrial_collaboration' => $node->field_industrial_collaboration->value,
         'field_title' => $titles,
-        'field_unit' => $units
       ];
     }
 

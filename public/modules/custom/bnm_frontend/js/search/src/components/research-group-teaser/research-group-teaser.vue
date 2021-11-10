@@ -19,10 +19,14 @@
         {{ field_research_group_name }}
       </DescriptionListItem>
       <DescriptionListItem label="Main affiliation" v-if="field_affiliations">
-        {{ field_affiliations }}
-      </DescriptionListItem>
-      <DescriptionListItem label="Unit" v-if="field_unit">
-        {{ field_unit }}
+        <ul class="description-list__list description-list__list--affiliations" aria-label="Keywords" aria-live="polite">
+          <li
+                  v-for="(keyword) in field_affiliations"
+                  :key="keyword" class="description-list__list-item"
+          >
+            <span>{{ keyword }}</span>
+          </li>
+        </ul>
       </DescriptionListItem>
       <DescriptionListItem label="Other affiliations" v-if="field_other_affiliations">
         {{ field_other_affiliations }}
@@ -94,11 +98,10 @@ export default {
     field_keywords: Array,
     field_lastname: String,
     field_links: Array,
-    field_affiliations: String,
+    field_affiliations: Array,
     field_other_affiliations: String,
     field_research_group_name: String,
-    field_title: String,
-    field_unit: String
+    field_title: String
   },
   data: function () {
     return {
