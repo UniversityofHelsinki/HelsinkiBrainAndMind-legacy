@@ -1,0 +1,8 @@
+name: Migrate Units
+type: module
+package: Custom
+core_version_requirement: ^8 || ^9
+
+dependencies:
+  - migrate_plus
+  - migrate_tools

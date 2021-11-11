@@ -6,6 +6,7 @@ module:
   bnm_content: 0
   bnm_frontend: 0
   bnm_import: 0
+  bnm_migrate_units: 0
   bnm_rest: 0
   bnm_searchapi: 0
   breakpoint: 0
@@ -35,6 +36,10 @@ module:
   metatag: 0
   metatag_open_graph: 0
   metatag_twitter_cards: 0
+  migrate: 0
+  migrate_plus: 0
+  migrate_source_csv: 0
+  migrate_tools: 0
   node: 0
   options: 0
   page_cache: 0
@@ -50,12 +55,10 @@ module:
   search_api_db: 0
   serialization: 0
   shortcut: 0
-  shs: 0
   simple_sitemap: 0
   system: 0
   system_status: 0
   taxonomy: 0
-  taxonomy_term_depth: 0
   taxonomy_unique: 0
   text: 0
   token: 0
