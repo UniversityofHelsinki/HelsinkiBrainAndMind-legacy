@@ -1,0 +1,50 @@
+id: affiliations
+label: Affiliations migration
+source:
+  plugin: 'csv'
+  # Full path to the file.
+  path: '/app/public/units.csv'
+  # Column delimiter. Comma (,) by default.
+  delimiter: ','
+  # Field enclosure. Double quotation marks (") by default.
+  enclosure: '"'
+  # The row to be used as the CSV header (indexed from 0),
+  # or null if there is no header row.
+  header_offset: 0
+  # The column(s) to use as a key. Each column specified will
+  # create an index in the migration table and too many columns
+  # may throw an index size error.
+  ids:
+    - unit
+
+  fields:
+    0:
+      name: organisation
+      label: 'Organisation'
+    1:
+      name: faculty
+      label: 'Faculty'
+    2:
+      name: unit
+      label: 'Unit'
+    3:
+      name: id
+      Label: 'id'
+
+process:
+  name:
+    plugin: skip_on_empty
+    source: unit
+    method: row
+  parent:
+    plugin: entity_lookup
+    source: faculty
+    value_key: name
+    bundle_key: vid
+    bundle: affiliations
+    entity_type: taxonomy_term
+    ignore_case: true
+
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: affiliations
