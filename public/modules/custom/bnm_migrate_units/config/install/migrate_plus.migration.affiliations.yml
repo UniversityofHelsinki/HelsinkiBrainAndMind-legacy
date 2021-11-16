@@ -3,9 +3,9 @@ label: Affiliations migration
 source:
   plugin: 'csv'
   # Full path to the file.
-  path: '/app/public/units.csv'
+  path: '/var/www/hbm/public/units.csv'
   # Column delimiter. Comma (,) by default.
-  delimiter: ','
+  delimiter: ';'
   # Field enclosure. Double quotation marks (") by default.
   enclosure: '"'
   # The row to be used as the CSV header (indexed from 0),

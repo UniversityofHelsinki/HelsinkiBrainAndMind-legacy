@@ -13,8 +13,8 @@ migration_group: null
 label: 'Affiliations migration'
 source:
   plugin: csv
-  path: /app/public/units.csv
-  delimiter: ','
+  path: /var/www/hbm/public/units.csv
+  delimiter: ';'
   enclosure: '"'
   header_offset: 0
   ids:
