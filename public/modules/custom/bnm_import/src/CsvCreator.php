@@ -42,7 +42,9 @@ class CsvCreator
       foreach ($csv_headers as $heading => $header) {
         if($heading === 'Key words'){
           foreach($node->{$header['field']}->getValue() as $keyword_tid) {
-            $keyword_string .= "{$keywords_by_tid[(int)$keyword_tid['target_id']]->name}, ";
+            if (isset($keywords_by_tid[(int)$keyword_tid['target_id']])) {
+              $keyword_string .= "{$keywords_by_tid[(int)$keyword_tid['target_id']]->name}, ";
+            }
           }
           $row[] = rtrim($keyword_string, ', ');
         }
@@ -50,7 +52,7 @@ class CsvCreator
           $organisations = [];
 
           foreach($node->{$header['field']}->getValue() as $organisation) {
-            $organisations[] = $organisations_by_tid[$organisation['target_id']]->name;
+            $organisations[] = $organisations_by_tid[0][$organisation['target_id']]->name;
           }
           $organisations = implode(', ', $organisations);
 
@@ -60,7 +62,17 @@ class CsvCreator
           $facultys = [];
 
           foreach($node->{$header['field']}->getValue() as $faculty) {
-            $facultys[] = $organisations_by_tid[$faculty['target_id']]->name;
+            $facultys[] = $organisations_by_tid[1][$faculty['target_id']]->name;
+          }
+          $facultys = implode(', ', $facultys);
+
+          $row[] = $facultys;
+        }
+        else if($heading === 'Unit') {
+          $facultys = [];
+
+          foreach($node->{$header['field']}->getValue() as $unit) {
+            $facultys[] = $organisations_by_tid[2][$unit['target_id']]->name;
           }
           $facultys = implode(', ', $facultys);
 
@@ -102,7 +114,7 @@ class CsvCreator
           $links_set = true;
         }
         else {
-          if(isset($node->{$header['field']}->getValue()[0])){
+          if(isset($node->{$header['field']}->getValue()[0]['value'])){
             $row[] = $node->{$header['field']}->getValue()[0]['value'];
           } else {
             $row[] = null;
