@@ -18,7 +18,7 @@
         "cweagans/composer-patches": "^1.7",
         "druidfi/omen": "^0.3.2",
         "drupal/core-composer-scaffold": "^9.2",
-        "drupal/core-recommended": "9.2.6",
+        "drupal/core-recommended": "9.2.9",
         "drupal/gin": "^3.0@alpha",
         "drupal/gin_login": "^1.0",
         "drupal/gin_toolbar": "^1.0@beta",
