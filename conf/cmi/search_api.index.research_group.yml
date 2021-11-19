@@ -91,8 +91,10 @@ processor_settings:
       - field_research_group_name
       - keyword
       - title
-    ignorable: '[''¿¡!?,.:;]'
-    ignorable_classes: {  }
+    ignorable: '[¿¡!?,.:;]'
+    ignorable_classes:
+      - Pc
+      - Pd
     weights:
       preprocess_index: -10
       preprocess_query: -10
@@ -105,7 +107,7 @@ processor_settings:
       - name
       - title
     weights:
-      preprocess_index: -50
+      preprocess_index: -20
       preprocess_query: -20
   language_with_fallback: {  }
   rendered_item: {  }
