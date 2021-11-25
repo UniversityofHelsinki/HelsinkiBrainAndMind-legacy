@@ -92,6 +92,20 @@ class CsvCreator
             $row[] = '';
           }
         }
+        else if($heading === 'Industrial_collaboration') {
+          $values = [];
+
+          foreach($node->{$header['field']}->getValue() as $collaborations => $collaboration) {
+            $values[] = $collaboration["value"];
+          }
+
+          if ($values) {
+            $row[] = implode('; ', $values);
+          }
+          else {
+            $row[] = '';
+          }
+        }
         else if( strpos($heading, 'Link') !== false) {
 
           if($links_set) {
