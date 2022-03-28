@@ -17,8 +17,8 @@
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
         "druidfi/omen": "^0.3.2",
-        "drupal/core-composer-scaffold": "9.2.13",
-        "drupal/core-recommended": "9.2.13",
+        "drupal/core-composer-scaffold": "^9.3",
+        "drupal/core-recommended": "^9.3",
         "drupal/gin": "^3.0@alpha",
         "drupal/gin_login": "^1.0",
         "drupal/gin_toolbar": "^1.0@beta",
@@ -38,14 +38,20 @@
         "drush/drush": "^10.6"
     },
     "require-dev": {
-        "drupal/core-dev": "9.2.13"
+        "drupal/core-dev": "^9.3"
     },
     "conflict": {
         "drupal/drupal": "*"
     },
     "config": {
         "optimize-autoloader": true,
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "drupal/core-composer-scaffold": true
+        }
     },
     "extra": {
         "composer-exit-on-patch-failure": true,
@@ -73,7 +79,6 @@
         },
         "patches": {
             "drupal/shs": {
-                "https://www.drupal.org/project/shs/issues/3242736": "https://www.drupal.org/files/issues/2021-10-11/3242736-1.patch",
                 "Custom implode default values": "patches/implode_default_value.patch"
             }
         }
