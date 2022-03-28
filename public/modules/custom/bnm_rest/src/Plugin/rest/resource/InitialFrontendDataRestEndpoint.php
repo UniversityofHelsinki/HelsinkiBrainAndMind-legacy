@@ -239,7 +239,6 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
         }
 
         $affiliations = [];
-        $main_last_key = is_array($main_affiliations) ? end(array_keys($main_affiliations)) : 0;
 
         foreach($main_affiliations as $key => $main) {
           if (isset($faculty_affiliations[$key])) {
