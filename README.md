@@ -4,12 +4,12 @@ HY Brain & Mind Drupal 9 project.
 
 ## Environments
 
-Env | Branch | Drush alias | URL
---- | ------ | ----------- | ---
-local | development | - | https://bnm.docker.so
-development | development | - | http://hbm-dev-20.it.helsinki.fi/
-production (alias) | master | - | https://hbm-prod-20.it.helsinki.fi/
-production | master | - | https://research.helsinkibrainandmind.fi/
+| Env                | Branch      | Drush alias | URL                                       |
+|--------------------|-------------|-------------|-------------------------------------------|
+| local              | development | -           | https://bnm.docker.so                     |
+| development        | development | -           | http://hbm-dev-20.it.helsinki.fi/         |
+| production (alias) | master      | -           | https://hbm-prod-20.it.helsinki.fi/       |
+| production         | master      | -           | https://research.helsinkibrainandmind.fi/ |
 
 ## Requirements
 
@@ -56,22 +56,16 @@ You need to have these applications installed to develop this application:
 
 #### Installing
 
-Navigate to the VueJS applications directory:
-
-```
-cd public/modules/custom/bnm_frontend/js/search/
-```
-
 Install node dependencies:
 
 ```
-npm i
+make js-install
 ```
 
 Start development:
 
 ```
-npm run serve
+make build-js-search-dev
 ```
 
 #### Ready with your modifications and want to create a releasable PR version of your code?
@@ -79,7 +73,7 @@ npm run serve
 Compile your application in production mode:
 
 ```
-npm run build
+make build-js-search-prod
 ```
 
 #### Compiled webpack bundles
@@ -91,12 +85,12 @@ You'll find your compiled application in the `/dist` directory in two different 
 
 #### Commands
 
-|`npm run <script>`|Description|
-|------------------|-----------|
-|`serve`|Starts to watch files and recompiles the application whenever they change.|
-|`serve:production`|Same as `serve`, but will run in production mode, meaning it will fetch production data for the search results.|
-|`build`|Compiles the application in production mode into the `/dist` directory.|
-|`build:development`|Same as `build`, but will run in development mode, meaning it will fetch localhost data for the search results.|
+| `npm run <script>`  | Description                                                                                                     |
+|---------------------|-----------------------------------------------------------------------------------------------------------------|
+| `serve`             | Starts to watch files and recompiles the application whenever they change.                                      |
+| `serve:production`  | Same as `serve`, but will run in production mode, meaning it will fetch production data for the search results. |
+| `build`             | Compiles the application in production mode into the `/dist` directory.                                         |
+| `build:development` | Same as `build`, but will run in development mode, meaning it will fetch localhost data for the search results. |
 
 #### Coding standards
 
