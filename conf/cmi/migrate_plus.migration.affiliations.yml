@@ -14,7 +14,7 @@ label: 'Affiliations migration'
 source:
   plugin: csv
   path: /var/www/hbm/public/units.csv
-  delimiter: ';'
+  delimiter: ;
   enclosure: '"'
   header_offset: 0
   ids:
