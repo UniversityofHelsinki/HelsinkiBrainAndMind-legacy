@@ -31,13 +31,13 @@ content:
   body:
     type: text_textarea_with_summary
     weight: 7
+    region: content
     settings:
       rows: 9
       summary_rows: 3
       placeholder: ''
       show_summary: false
     third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
     weight: 2
@@ -45,23 +45,23 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_affiliations:
+    type: options_shs
     weight: 12
+    region: content
     settings:
       display_node_count: false
       create_new_items: false
       create_new_levels: false
       force_deepest: false
     third_party_settings: {  }
-    type: options_shs
-    region: content
   field_email:
-    weight: 10
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
     type: email_default
+    weight: 10
     region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
   field_faculty_unit:
     type: entity_reference_autocomplete
     weight: 14
@@ -73,45 +73,45 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_firstname:
+    type: string_textfield
     weight: 8
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_industrial_collaboration:
+    type: options_select
     weight: 20
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_keywords:
+    type: entity_reference_autocomplete
     weight: 18
+    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_lastname:
+    type: string_textfield
     weight: 9
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_links:
+    type: link_default
     weight: 19
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
-    region: content
   field_main_affiliation:
     type: entity_reference_autocomplete
     weight: 13
@@ -123,29 +123,29 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_other_affiliations:
+    type: string_textfield
     weight: 17
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_research_group_name:
+    type: string_textfield
     weight: 16
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_title:
+    type: string_textfield
     weight: 11
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_unit:
     type: entity_reference_autocomplete
     weight: 15
@@ -164,24 +164,24 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 3
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 6
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 4
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -194,11 +194,11 @@ content:
   uid:
     type: entity_reference_autocomplete
     weight: 1
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
 hidden: {  }
