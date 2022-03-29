@@ -1,57 +1,57 @@
+_core:
+  default_config_hash: o4bYR9ZupWb3AsOIizTUG4g-nu1mdJqA59UB7QT-ifQ
 definitions:
   contact__site_page:
-    enabled: false
     menu_name: footer
     parent: ''
     weight: -48
     expanded: false
+    enabled: false
   system__admin_content:
+    menu_name: admin
+    parent: system.admin
     weight: -59
-    menu_name: admin
-    parent: system.admin
-    enabled: true
     expanded: false
+    enabled: true
   system__admin_structure:
-    weight: -58
     menu_name: admin
     parent: system.admin
+    weight: -58
     expanded: false
     enabled: true
   system__themes_page:
-    weight: -57
     menu_name: admin
     parent: system.admin
+    weight: -57
     expanded: false
     enabled: true
   system__modules_list:
-    weight: -56
     menu_name: admin
     parent: system.admin
+    weight: -56
     expanded: false
     enabled: true
   system__admin_config:
-    weight: -55
     menu_name: admin
     parent: system.admin
+    weight: -55
     expanded: false
     enabled: true
   entity__user__collection:
-    weight: -54
     menu_name: admin
     parent: system.admin
+    weight: -54
     expanded: false
     enabled: true
   system__admin_reports:
-    weight: -53
     menu_name: admin
     parent: system.admin
+    weight: -53
     expanded: false
     enabled: true
   help__main:
-    weight: -51
     menu_name: admin
     parent: system.admin
+    weight: -51
     expanded: false
     enabled: true
-_core:
-  default_config_hash: o4bYR9ZupWb3AsOIizTUG4g-nu1mdJqA59UB7QT-ifQ
