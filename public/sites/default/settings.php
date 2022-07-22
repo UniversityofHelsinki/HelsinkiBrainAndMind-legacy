@@ -6,14 +6,8 @@
 //
 // ENV.settings.php and ENV.services.yml
 // and
-// local.settings.php and local.service.yml
+// local.settings.php and local.services.yml
 //
 // These files are loaded automatically if found.
 //
-extract((new Druidfi\Omen\DrupalEnvDetector(__DIR__))->getConfiguration());
-
-$settings['config_sync_directory'] = '../conf/cmi';
-
-if (file_exists(__DIR__ . '/settings.local.php')) {
-  include __DIR__ . '/settings.local.php';
-}
+extract(Druidfi\Omen\Reader::get(get_defined_vars()));
