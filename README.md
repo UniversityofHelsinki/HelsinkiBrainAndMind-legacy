@@ -1,6 +1,6 @@
 # HY Brain & Mind
 
-HY Brain & Mind Drupal 9 project.
+HY Brain & Mind Drupal project.
 
 ## Environments
 
