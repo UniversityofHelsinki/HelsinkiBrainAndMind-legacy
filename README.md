@@ -8,8 +8,8 @@ HY Brain & Mind Drupal 9 project.
 |--------------------|--------|-------------|-------------------------------------------|
 | local              | *      | -           | https://bnm.docker.so                     |
 | development        | dev    | -           | http://hbm-dev-20.it.helsinki.fi/         |
-| production (alias) | master | -           | https://hbm-prod-20.it.helsinki.fi/       |
-| production         | master | -           | https://research.helsinkibrainandmind.fi/ |
+| production (alias) | main   | -           | https://hbm-prod-20.it.helsinki.fi/       |
+| production         | main   | -           | https://research.helsinkibrainandmind.fi/ |
 
 ## Requirements
 
