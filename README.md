@@ -4,12 +4,12 @@ HY Brain & Mind Drupal 9 project.
 
 ## Environments
 
-| Env                | Branch      | Drush alias | URL                                       |
-|--------------------|-------------|-------------|-------------------------------------------|
-| local              | development | -           | https://bnm.docker.so                     |
-| development        | development | -           | http://hbm-dev-20.it.helsinki.fi/         |
-| production (alias) | master      | -           | https://hbm-prod-20.it.helsinki.fi/       |
-| production         | master      | -           | https://research.helsinkibrainandmind.fi/ |
+| Env                | Branch | Drush alias | URL                                       |
+|--------------------|--------|-------------|-------------------------------------------|
+| local              | *      | -           | https://bnm.docker.so                     |
+| development        | dev    | -           | http://hbm-dev-20.it.helsinki.fi/         |
+| production (alias) | master | -           | https://hbm-prod-20.it.helsinki.fi/       |
+| production         | master | -           | https://research.helsinkibrainandmind.fi/ |
 
 ## Requirements
 
@@ -17,21 +17,18 @@ You need to have these applications installed to operate on all environments:
 
 - [Docker](https://github.com/druidfi/guidelines/blob/master/docs/docker.md)
 - [Stonehenge](https://github.com/druidfi/stonehenge)
-- For the new person: Your SSH public key needs to be added to servers
+- Github CLI
+- Optional: For the new person: Your SSH public key needs to be added to servers
 
 ## Create and start the environment
 
-For the first time (new project):
-
-```
-make new
-```
-
-And following times to create and start the environment:
+For the first time:
 
 ```
 make fresh
 ```
+
+Ready! Now go to https://bnm.docker.so/ to see your site.
 
 ## Login to Drupal container
 
