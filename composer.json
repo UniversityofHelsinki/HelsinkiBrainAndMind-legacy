@@ -2,6 +2,7 @@
     "name": "hbm/brain-and-mind",
     "description": "Helsinki University - Brain and Mind Drupal project",
     "type": "project",
+    "homepage": "https://version.helsinki.fi/hbm/brain-and-mind",
     "license": "proprietary",
     "authors": [
         {
