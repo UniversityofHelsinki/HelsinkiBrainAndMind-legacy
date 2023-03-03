@@ -1,19 +1,16 @@
-version: "3.7"
-
 services:
 
   app:
-    hostname: "${DRUPAL_HOSTNAME}"
-    container_name: "${COMPOSE_PROJECT_NAME}-app"
-    image: "druidfi/drupal-web:php-${PHP_VERSION}"
+    hostname: ${DRUPAL_HOSTNAME}
+    container_name: ${COMPOSE_PROJECT_NAME}-app
+    image: druidfi/drupal-web:php-${PHP_VERSION}
     volumes:
       - .:/app:delegated
       - ssh:/tmp/druid_ssh-agent:ro
     environment:
       APP_ENV: "${APP_ENV:-dev}"
-      DRUPAL_ROUTES: "https://varnish-${DRUPAL_HOSTNAME}"
       DRUSH_OPTIONS_URI: "https://${DRUPAL_HOSTNAME}"
-      PHP_SENDMAIL_PATH: "/usr/sbin/sendmail -S stonehenge-mailhog:1025"
+      PHP_SENDMAIL_PATH: "/usr/sbin/sendmail -S stonehenge:1025"
       SIMPLETEST_BASE_URL: "http://app:8080"
       SIMPLETEST_DB: "mysql://drupal:drupal@db:3306/drupal"
       #XDEBUG_ENABLE: "true"
@@ -25,27 +22,20 @@ services:
       - "traefik.http.services.${COMPOSE_PROJECT_NAME}-app.loadbalancer.server.port=8080"
       - "traefik.docker.network=stonehenge-network"
     networks:
-      - internal
+      - default
       - stonehenge-network
 
   db:
     container_name: "${COMPOSE_PROJECT_NAME}-db"
     image: druidfi/mariadb:10.5-drupal
-    volumes:
-      - db_data:/var/lib/mysql
     ports:
       - 3306
-    networks:
-      - internal
 
 networks:
-  internal:
-    external: false
   stonehenge-network:
     external: true
 
 volumes:
-  db_data:
   ssh:
     name: stonehenge-ssh
     external: true
