@@ -80,7 +80,7 @@ create_symlinks_settings() {
   echo "Creating symlink for settings.local.php & files."
   cd ${DOCROOT_DIR}/sites/default
   rm -f settings.local.php
-  ln -s ${SHARED_DIR}/settings.local.php local.settings.php
+  ln -s ${SHARED_DIR}/settings.local.php settings.local.php
   rm -f files
   ln -s ${SHARED_DIR}/files files
 }

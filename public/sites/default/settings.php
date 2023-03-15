@@ -11,3 +11,7 @@
 // These files are loaded automatically if found.
 //
 extract(Druidfi\Omen\Reader::get(get_defined_vars()));
+
+if (file_exists(__DIR__ . '/settings.local.php')) {
+  include __DIR__ . '/settings.local.php';
+}
