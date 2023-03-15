@@ -11,7 +11,7 @@ DATE=$(date +"%m-%d-%Y")
 run_deployment() {
   if [ -z "$1" ]
   then
-    echo "Enviroment variable is missing" >&2
+    echo "Environment variable is missing" >&2
     exit 1
   else
      GIT_BRANCH=$1
@@ -28,7 +28,7 @@ run_deployment() {
 run_backup() {
   if [ -z "$1" ]
   then
-    echo "Enviroment variable is missing" >&2
+    echo "Environment variable is missing" >&2
     exit 1
   else
      GIT_BRANCH=$1
@@ -51,7 +51,7 @@ backup_database() {
 run_git() {
   echo "Git commands"
   cd ${GIT_DIR}
-  echo "Git checkout enviroment branch"
+  echo "Git checkout environment branch"
   git checkout ${GIT_BRANCH} || { echo "Error with git checkout dev command."; exit 1; }
   echo "Git pull update latest changes"
   git pull || { echo "Error with git pull command."; exit 1; }
@@ -80,7 +80,7 @@ create_symlinks_settings() {
   echo "Creating symlink for settings.local.php & files."
   cd ${DOCROOT_DIR}/sites/default
   rm -f settings.local.php
-  ln -s ${SHARED_DIR}/settings.local.php settings.local.php
+  ln -s ${SHARED_DIR}/settings.local.php local.settings.php
   rm -f files
   ln -s ${SHARED_DIR}/files files
 }
