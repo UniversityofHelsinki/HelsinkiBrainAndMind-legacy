@@ -75,10 +75,11 @@ class UnderscoreProcessor extends FieldsProcessorPluginBase {
     /** @var \Drupal\search_api\Item\ItemInterface $item */
     foreach ($items as $item) {
       foreach ($item->getFields() as $name => $field) {
-        if ($this->testField($name, $field) && !empty($field->getValues())) {
+        $values = $field->getValues();
+        if ($this->testField($name, $field) && !empty($values)) {
           // Process words one by one if word contains whitespace.
-          if (count(explode(' ', reset($field->getValues()))) > 1) {
-            $values = explode(' ', reset($field->getValues()));
+          if (count(explode(' ', reset($values))) > 1) {
+            $values = explode(' ', reset($values));
             foreach ($values as $word) {
               $field->addValue($word);
             }

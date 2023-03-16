@@ -57,24 +57,24 @@ class CsvCreator {
           $row[] = $organisations;
         }
         elseif ($heading === 'Faculty') {
-          $facultys = [];
+          $faculties = [];
 
           foreach ($node->{$header['field']}->getValue() as $faculty) {
-            $facultys[] = $organisations_by_tid[1][$faculty['target_id']]->name;
+            $faculties[] = $organisations_by_tid[1][$faculty['target_id']]->name;
           }
-          $facultys = implode(', ', $facultys);
+          $faculties = implode(', ', $faculties);
 
-          $row[] = $facultys;
+          $row[] = $faculties;
         }
         elseif ($heading === 'Unit') {
-          $facultys = [];
+          $faculties = [];
 
           foreach ($node->{$header['field']}->getValue() as $unit) {
-            $facultys[] = $organisations_by_tid[2][$unit['target_id']]->name;
+            $faculties[] = $organisations_by_tid[2][$unit['target_id']]->name;
           }
-          $facultys = implode(', ', $facultys);
+          $faculties = implode(', ', $faculties);
 
-          $row[] = $facultys;
+          $row[] = $faculties;
         }
         elseif ($heading === 'Title') {
           $values = [];
@@ -153,7 +153,6 @@ class CsvCreator {
     $csv = fopen('php://temp/maxmemory:' . (5 * 1024 * 1024), 'r+');
     foreach ($input as $csv_row) {
       fputcsv($csv, $csv_row, ';', '"', '\\');
-      ;
     }
     rewind($csv);
     $output = stream_get_contents($csv);
@@ -181,15 +180,14 @@ class CsvCreator {
   /**
    *
    */
-  private function getLinkOrder() {
-    $links = [
-      'Research group website' => 1,
-      'Research portal' => 2,
-      'Clinical researcher website' => 3,
-      'Other website' => 4,
-      'ORCID' => 5,
-    ];
-    return $links;
+  private function getLinkOrder(): array {
+      return [
+        'Research group website' => 1,
+        'Research portal' => 2,
+        'Clinical researcher website' => 3,
+        'Other website' => 4,
+        'ORCID' => 5,
+      ];
   }
 
 }
