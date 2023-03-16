@@ -23,7 +23,7 @@
         "drupal/core-composer-scaffold": "^9.5",
         "drupal/core-recommended": "^9.5",
         "drupal/gin": "^3.0@RC",
-        "drupal/gin_login": "^1.4",
+        "drupal/gin_login": "^2.0",
         "drupal/gin_toolbar": "^1.0@RC",
         "drupal/menu_admin_per_menu": "^1.5",
         "drupal/metatag": "^1.15",
