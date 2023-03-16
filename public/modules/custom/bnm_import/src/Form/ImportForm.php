@@ -38,7 +38,7 @@ class ImportForm extends FormBase {
 
     $form['actions']['form_2_submit'] = [
       '#type' => 'submit',
-      '#value' => t('Export CSV'),
+      '#value' => $this->t('Export CSV'),
       '#name' => 'export_csv',
       '#submit' => ['::createCsv'],
     ];
