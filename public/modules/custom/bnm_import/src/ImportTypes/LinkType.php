@@ -37,13 +37,6 @@ class LinkType extends ImportType {
   /**
    *
    */
-  public function __toString() {
-    return parent::__toString();
-  }
-
-  /**
-   *
-   */
   private function isValidUrl($data) {
     return UrlHelper::isValid($data);
   }

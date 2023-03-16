@@ -29,13 +29,6 @@ class EmailType extends ImportType {
   /**
    *
    */
-  public function __toString() {
-    return parent::__toString();
-  }
-
-  /**
-   *
-   */
   private function isValidEmail($data) {
     return filter_var($data, FILTER_VALIDATE_EMAIL);
   }

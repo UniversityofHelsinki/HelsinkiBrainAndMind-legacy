@@ -2,7 +2,6 @@
 
 namespace Drupal\bnm_searchapi\Plugin\search_api\processor;
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\search_api\Item\FieldInterface;
 use Drupal\search_api\Plugin\PluginFormTrait;
 use Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface;
@@ -70,14 +69,6 @@ class UnderscoreProcessor extends FieldsProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function preIndexSave() {
-    parent::preIndexSave();
-
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function preprocessIndexItems(array $items) {
     // Annoyingly, this doc comment is needed for PHPStorm. See
     // http://youtrack.jetbrains.com/issue/WI-23586
@@ -96,21 +87,6 @@ class UnderscoreProcessor extends FieldsProcessorPluginBase {
         }
       }
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form = parent::buildConfigurationForm($form, $form_state);
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
-    parent::validateConfigurationForm($form, $form_state);
   }
 
   /**

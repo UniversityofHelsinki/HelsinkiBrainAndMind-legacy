@@ -34,12 +34,4 @@ class TaxonomyType extends ImportType {
     return $this->value;
   }
 
-  /**
-   *
-   */
-  public function __toString() {
-    return FALSE;
-    // Return parent::__toString();
-  }
-
 }

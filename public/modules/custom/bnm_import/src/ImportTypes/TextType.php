@@ -23,11 +23,4 @@ class TextType extends ImportType {
     return $this->value;
   }
 
-  /**
-   *
-   */
-  public function __toString() {
-    return parent::__toString();
-  }
-
 }
