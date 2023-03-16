@@ -85,8 +85,8 @@ class UnderscoreProcessor extends FieldsProcessorPluginBase {
     foreach ($items as $item) {
       foreach ($item->getFields() as $name => $field) {
         if ($this->testField($name, $field) && !empty($field->getValues())) {
-          // Process words one by one if word contains whitespace
-          if(count(explode(' ', reset($field->getValues())))>1){
+          // Process words one by one if word contains whitespace.
+          if (count(explode(' ', reset($field->getValues()))) > 1) {
             $values = explode(' ', reset($field->getValues()));
             foreach ($values as $word) {
               $field->addValue($word);
@@ -131,7 +131,7 @@ class UnderscoreProcessor extends FieldsProcessorPluginBase {
    * @param string $type
    */
   protected function processFieldValue(&$value, $type) {
-     $this->process($value);
+    $this->process($value);
   }
 
   /**

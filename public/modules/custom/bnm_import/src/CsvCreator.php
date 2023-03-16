@@ -5,14 +5,12 @@ namespace Drupal\bnm_import;
 /**
  * Class to handle csv creation logic.
  */
-class CsvCreator
-{
+class CsvCreator {
 
   /**
    * Constructor.
    */
-  public function __construct()
-  {
+  public function __construct() {
   }
 
   /**
@@ -25,63 +23,63 @@ class CsvCreator
     $data[] = $csv_header_names;
 
     $keywords_by_tid = [];
-    foreach($keywords as $keyword){
+    foreach ($keywords as $keyword) {
       $keywords_by_tid[$keyword->tid] = $keyword;
     }
 
     $organisations_by_tid = [];
-    foreach($organisations as $organisation){
+    foreach ($organisations as $organisation) {
       $organisations_by_tid[$organisation->depth][$organisation->tid] = $organisation;
     }
 
     foreach ($nodes as $node) {
       $row = [];
       $keyword_string = '';
-      $links_set = false;
+      $links_set = FALSE;
 
       foreach ($csv_headers as $heading => $header) {
-        if($heading === 'Key words'){
-          foreach($node->{$header['field']}->getValue() as $keyword_tid) {
-            if (isset($keywords_by_tid[(int)$keyword_tid['target_id']])) {
+        if ($heading === 'Key words') {
+          foreach ($node->{$header['field']}->getValue() as $keyword_tid) {
+            if (isset($keywords_by_tid[(int) $keyword_tid['target_id']])) {
               $keyword_string .= "{$keywords_by_tid[(int)$keyword_tid['target_id']]->name}, ";
             }
           }
           $row[] = rtrim($keyword_string, ', ');
         }
-        else if($heading === 'Organisation') {
+        elseif ($heading === 'Organisation') {
           $organisations = [];
 
-          foreach($node->{$header['field']}->getValue() as $organisation) {
+          foreach ($node->{$header['field']}->getValue() as $organisation) {
             $organisations[] = $organisations_by_tid[0][$organisation['target_id']]->name;
           }
           $organisations = implode(', ', $organisations);
 
           $row[] = $organisations;
         }
-        else if($heading === 'Faculty') {
+        elseif ($heading === 'Faculty') {
           $facultys = [];
 
-          foreach($node->{$header['field']}->getValue() as $faculty) {
+          foreach ($node->{$header['field']}->getValue() as $faculty) {
             $facultys[] = $organisations_by_tid[1][$faculty['target_id']]->name;
           }
           $facultys = implode(', ', $facultys);
 
           $row[] = $facultys;
         }
-        else if($heading === 'Unit') {
+        elseif ($heading === 'Unit') {
           $facultys = [];
 
-          foreach($node->{$header['field']}->getValue() as $unit) {
+          foreach ($node->{$header['field']}->getValue() as $unit) {
             $facultys[] = $organisations_by_tid[2][$unit['target_id']]->name;
           }
           $facultys = implode(', ', $facultys);
 
           $row[] = $facultys;
         }
-        else if($heading === 'Title') {
+        elseif ($heading === 'Title') {
           $values = [];
 
-          foreach($node->{$header['field']}->getValue() as $titles => $title) {
+          foreach ($node->{$header['field']}->getValue() as $titles => $title) {
             $values[] = $title["value"];
           }
 
@@ -92,10 +90,10 @@ class CsvCreator
             $row[] = '';
           }
         }
-        else if($heading === 'Industrial_collaboration') {
+        elseif ($heading === 'Industrial_collaboration') {
           $values = [];
 
-          foreach($node->{$header['field']}->getValue() as $collaborations => $collaboration) {
+          foreach ($node->{$header['field']}->getValue() as $collaborations => $collaboration) {
             $values[] = $collaboration["value"];
           }
 
@@ -106,32 +104,33 @@ class CsvCreator
             $row[] = '';
           }
         }
-        else if( strpos($heading, 'Link') !== false) {
+        elseif (strpos($heading, 'Link') !== FALSE) {
 
-          if($links_set) {
+          if ($links_set) {
             continue;
           }
 
           // We want the urls in specific order.
           foreach ($this->getLinkOrder() as $title => $order) {
-            $set = false;
+            $set = FALSE;
             foreach ($node->{$header['field']}->getValue() as $url) {
               if ($url['title'] == $title) {
                 $row[] = $url['uri'];
-                $set = true;
+                $set = TRUE;
               }
             }
-            if(!$set){
-              $row[] = null;
+            if (!$set) {
+              $row[] = NULL;
             }
           }
-          $links_set = true;
+          $links_set = TRUE;
         }
         else {
-          if(isset($node->{$header['field']}->getValue()[0]['value'])){
+          if (isset($node->{$header['field']}->getValue()[0]['value'])) {
             $row[] = $node->{$header['field']}->getValue()[0]['value'];
-          } else {
-            $row[] = null;
+          }
+          else {
+            $row[] = NULL;
           }
         }
       }
@@ -146,13 +145,15 @@ class CsvCreator
    * Create a payload for a response.
    *
    * @param array $input
+   *
    * @return bool|string
    */
   public function createCsvFile(array $input) {
     // Write the file.
     $csv = fopen('php://temp/maxmemory:' . (5 * 1024 * 1024), 'r+');
     foreach ($input as $csv_row) {
-      fputcsv($csv, $csv_row, ';', '"', '\\');;
+      fputcsv($csv, $csv_row, ';', '"', '\\');
+      ;
     }
     rewind($csv);
     $output = stream_get_contents($csv);
@@ -165,24 +166,28 @@ class CsvCreator
    *
    * @param $field_name
    * @param $mappings
+   *
    * @return bool|int|string
    */
-  private function findFieldMapping($field_name, $mappings){
-    foreach($mappings as $heading => $mapping){
-      if($mapping['field'] === $field_name){
+  private function findFieldMapping($field_name, $mappings) {
+    foreach ($mappings as $heading => $mapping) {
+      if ($mapping['field'] === $field_name) {
         return $heading;
       }
     }
-    return false;
+    return FALSE;
   }
 
+  /**
+   *
+   */
   private function getLinkOrder() {
     $links = [
       'Research group website' => 1,
       'Research portal' => 2,
       'Clinical researcher website' => 3,
       'Other website' => 4,
-      'ORCID' => 5
+      'ORCID' => 5,
     ];
     return $links;
   }

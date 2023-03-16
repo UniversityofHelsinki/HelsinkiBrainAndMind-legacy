@@ -2,6 +2,7 @@
 
 namespace Drupal\bnm_rest\Plugin\rest\resource;
 
+use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\node\Entity\Node;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\search_api\Entity\Index;
@@ -29,7 +30,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
   /**
    * Term storage.
    *
-   * @var TermStorageInterface
+   * @var \Drupal\taxonomy\Entity\TermStorageInterface
    */
   private $manager;
 
@@ -46,10 +47,9 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
    *   The available serialization formats.
    * @param \Psr\Log\LoggerInterface $logger
    *   A logger instance.
-   * @param TermStorageInterface $manager
+   * @param \Drupal\taxonomy\Entity\TermStorageInterface $manager
    *   The term manager.
    */
-
   public function __construct(array $configuration, $plugin_id, $plugin_definition, array $serializer_formats, LoggerInterface $logger, TermStorageInterface $manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     $this->manager = $manager;
@@ -88,15 +88,20 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     return new JsonResponse($items);
   }
 
+  /**
+   *
+   */
   private function getAffialites() {
     $affiliates = $this->manager->loadTree('Affiliations', 0, NULL, TRUE);
 
-    if (!$affiliates) return [];
+    if (!$affiliates) {
+      return [];
+    }
 
     $stack = [];
 
-    /** @var Term $term */
-    foreach($affiliates as $term) {
+    /** @var \Drupal\taxonomy\Entity\Term $term */
+    foreach ($affiliates as $term) {
       $children = $this->manager->loadChildren($term->id());
       $depth = taxonomy_term_depth_get_by_tid($term->id());
       $name = $term->getName();
@@ -104,24 +109,29 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       if ($depth === '2') {
         $name = "-- $name";
       }
-      else if ($depth === '3') {
+      elseif ($depth === '3') {
         $name = "---- $name";
       }
 
       $item = [
         'id' => $term->id(),
         'name' => $name,
-        //'depth' => $depth,
+        // 'depth' => $depth,
       ];
-      $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
+      $item['children'] = empty($children) ? NULL : array_values(array_map(function ($term) {
+        return $term->id();
+      }, $children));
       $stack[] = $item;
     }
 
     return $stack;
   }
 
+  /**
+   *
+   */
   private function getMenuTreeLinks($menu) {
-    $tree = \Drupal::menuTree()->load($menu, new \Drupal\Core\Menu\MenuTreeParameters());
+    $tree = \Drupal::menuTree()->load($menu, new MenuTreeParameters());
     $links = [];
 
     $host = \Drupal::request()->getSchemeAndHttpHost();
@@ -155,6 +165,9 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     return $links;
   }
 
+  /**
+   *
+   */
   private function getInitialSearchResults($request, $amount = NULL) {
     $q = $request->get('q');
     $affiliate = $request->get('affiliate');
@@ -163,7 +176,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     /** @var \Drupal\search_api\Query\Query $query */
     $query = $index->query();
 
-    $query->keys(str_replace(',',' ', $q));
+    $query->keys(str_replace(',', ' ', $q));
 
     $query->getParseMode()->setConjunction('AND');
 
@@ -178,7 +191,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       $data = explode('/', $data[1]);
       $node = Node::load($data[1]);
 
-      if ($affiliate != 0 && isset($node->field_main_affiliation) && ($node->field_main_affiliation->target_id != (string)$affiliate)) {
+      if ($affiliate != 0 && isset($node->field_main_affiliation) && ($node->field_main_affiliation->target_id != (string) $affiliate)) {
         continue;
       }
 
@@ -186,7 +199,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       $keywords_list = $this->getKeywords($node->field_keywords);
       $affiliationstemp = [];
 
-      foreach($node->field_affiliations as $key => $affiliation) {
+      foreach ($node->field_affiliations as $key => $affiliation) {
         // Get term object.
         $term = Term::load($affiliation->target_id);
         // Term name.
@@ -202,7 +215,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
           $unit_name = NULL;
 
           // Check if term third level term.
-          if ($parent->depth_level->first()->getValue()['value'] == '2' ) {
+          if ($parent->depth_level->first()->getValue()['value'] == '2') {
             // Get root term.
             $rootparent = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadParents($parent->id());
             $rootparent = reset($rootparent);
@@ -229,18 +242,18 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       // "Old way" to map affiliations values if shs field is empty.
       if (empty($affiliations)) {
         $faculty_affiliations = [];
-        foreach($node->field_faculty_unit as $faculty_affiliation) {
+        foreach ($node->field_faculty_unit as $faculty_affiliation) {
           $faculty_affiliations[] = Term::load($faculty_affiliation->target_id)->getName();
         }
 
         $main_affiliations = [];
-        foreach($node->field_main_affiliation as $main_affiliation) {
+        foreach ($node->field_main_affiliation as $main_affiliation) {
           $main_affiliations[] = Term::load($main_affiliation->target_id)->getName();
         }
 
         $affiliations = [];
 
-        foreach($main_affiliations as $key => $main) {
+        foreach ($main_affiliations as $key => $main) {
           if (isset($faculty_affiliations[$key])) {
             $affiliations[] = "$main_affiliations[$key], $faculty_affiliations[$key]";
           }
@@ -283,10 +296,12 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       ];
     }
 
-    usort($stack, function($a, $b) {
+    usort($stack, function ($a, $b) {
       // Sort by lastname.
       $sorted = strnatcmp($a['field_lastname'], $b['field_lastname']);
-      if ($sorted) return $sorted;
+      if ($sorted) {
+        return $sorted;
+      }
 
       // If last names are identical, sort by firstname.
       return strnatcmp($a['field_firstname'], $b['field_firstname']);
@@ -295,6 +310,9 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     return $stack;
   }
 
+  /**
+   *
+   */
   private function getLinks($field) {
     $links = [];
     foreach ($field as $link) {
@@ -307,14 +325,20 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     return $links;
   }
 
-  private function getKeywords($keywords){
+  /**
+   *
+   */
+  private function getKeywords($keywords) {
     $keywords_list = [];
 
     foreach ($keywords as $keyword) {
       $target_id = $keyword->target_id;
-      if (Term::load($target_id)) $keywords_list[] = Term::load($target_id)->getName();
+      if (Term::load($target_id)) {
+        $keywords_list[] = Term::load($target_id)->getName();
+      }
     }
 
     return $keywords_list;
   }
+
 }

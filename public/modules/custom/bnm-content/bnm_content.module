@@ -13,10 +13,10 @@ const FORMS_TO_HIDE_TITLE_FROM = [
 ];
 
 /**
-* Implements hook_form_BASE_FORM_ID_alter().
-*
-* {@inheritdoc}
-*/
+ * Implements hook_form_BASE_FORM_ID_alter().
+ *
+ * {@inheritdoc}
+ */
 function bnm_content_form_alter(&$form, $form_state) {
   bnm_content_hide_node_title($form, $form_state);
 
@@ -45,10 +45,10 @@ function bnm_content_form_alter(&$form, $form_state) {
 }
 
 /**
-* Hide node title from specified node forms.
-*
-* {@inheritDoc}
-*/
+ * Hide node title from specified node forms.
+ *
+ * {@inheritDoc}
+ */
 function bnm_content_hide_node_title(&$form, $form_state) {
   if (!in_array($form['#form_id'], FORMS_TO_HIDE_TITLE_FROM)) {
     return;
@@ -62,10 +62,9 @@ function bnm_content_hide_node_title(&$form, $form_state) {
 /**
  * Implements hook_entity_presave().
  *
- * Replace title with firstname and lastname fields from the form
- * 
+ * Replace title with firstname and lastname fields from the form.
+ *
  * Use affiliations field to populate term references used in search
- * 
  */
 function bnm_content_entity_presave(EntityInterface $entity) {
   if (
@@ -78,7 +77,6 @@ function bnm_content_entity_presave(EntityInterface $entity) {
       $lastname = $entity->field_lastname->first()->getValue();
       $title = reset($firstname) . ' ' . reset($lastname);
       $entity->setTitle($title);
-
 
       $terms = $entity->get('field_affiliations')->referencedEntities();
       $faculty_units = [];
@@ -106,13 +104,15 @@ function bnm_content_entity_presave(EntityInterface $entity) {
             $faculty_units[] = $parent;
             // Term is level 3.
             $units[] = $term;
-          } else {
+          }
+          else {
             // Parent is level 1 term.
             $mains[] = $parent;
             // Term is levell 2 term and this affiliations don't have level 2 terms.
             $faculty_units[] = $term;
           }
-        } else {
+        }
+        else {
           $mains[] = $term;
         }
       }

@@ -2,7 +2,6 @@
 
 namespace Drupal\bnm_import;
 
-use Drupal;
 use Drupal\bnm_import\ImportTypes\EmailType;
 use Drupal\bnm_import\ImportTypes\LinkType;
 use Drupal\bnm_import\ImportTypes\TextType;
@@ -25,7 +24,7 @@ class CsvFileHandler {
   /**
    * Validate data entered to csv file.
    *
-   * @param Drupal\file\Entity\File $file
+   * @param \Drupal\file\Entity\File $file
    *   Csv file.
    *
    * @return array
@@ -38,7 +37,7 @@ class CsvFileHandler {
       $i = 0;
       $header = [];
 
-      $config = Drupal::config('bnm_import.group_field_map')->get('field_map');
+      $config = \Drupal::config('bnm_import.group_field_map')->get('field_map');
       $required_fields = $config['required'];
       $optional_fields = $config['optional'];
       // Each row represents old or new apartment node.
@@ -50,15 +49,15 @@ class CsvFileHandler {
         }
         $i++;
 
-        foreach(array_merge($required_fields, $optional_fields) as $key => $field) {
-          if($this->isRequiredField($key, $required_fields) && !$row[array_search($key, $header)]){
+        foreach (array_merge($required_fields, $optional_fields) as $key => $field) {
+          if ($this->isRequiredField($key, $required_fields) && !$row[array_search($key, $header)]) {
             $errors[] = "Value for $key on line $i is required and therefore may not be empty";
             continue;
           }
 
           $validity = $this->validateFieldValue($key, $field, $row, $header, $i);
-          if($validity !== TRUE ){
-            $errors[] = $validity.' '.$row[array_search(strtolower($key), array_map('strtolower',$header))];
+          if ($validity !== TRUE) {
+            $errors[] = $validity . ' ' . $row[array_search(strtolower($key), array_map('strtolower', $header))];
           }
         }
 
@@ -71,7 +70,7 @@ class CsvFileHandler {
   /**
    * Create array of nodes to create or update.
    *
-   * @param Drupal\file\Entity\File $file
+   * @param \Drupal\file\Entity\File $file
    *   Csv file.
    * @param string $langcode
    *   Language code from the form state.
@@ -79,12 +78,11 @@ class CsvFileHandler {
    * @return array
    *   Array of nodes to update or create.
    */
-  public function createContent($handle)
-  {
+  public function createContent($handle) {
     if ($handle) {
       $i = 0;
 
-      $config = Drupal::config('bnm_import.group_field_map')->get('field_map');
+      $config = \Drupal::config('bnm_import.group_field_map')->get('field_map');
       $fields = array_merge($config['required'], $config['optional']);
 
       $nodes = [];
@@ -105,23 +103,25 @@ class CsvFileHandler {
 
         foreach ($fields as $key => $field) {
           $data_object = $this->createValue($this->getFieldValueByHeaderTitleIndex($row, $key, $header), $field);
-          $is_child = false;
+          $is_child = FALSE;
           if ($field['type'] == 'taxonomy') {
 
-            if(isset($field['child'])){
-              $is_child = true;
+            if (isset($field['child'])) {
+              $is_child = TRUE;
               $parent = $row[$this->getCsvHeaderIndexByName('Organisation', $header)];
             }
 
             foreach ($data_object->getValue() as $term) {
-              if($existing_terms = taxonomy_term_load_multiple_by_name(ucfirst($term), $field['taxonomy_type'])){
-                if($is_child){
-                  $node_terms[$field['taxonomy_type'].'_child'][] = reset($existing_terms);
-                } else {
+              if ($existing_terms = taxonomy_term_load_multiple_by_name(ucfirst($term), $field['taxonomy_type'])) {
+                if ($is_child) {
+                  $node_terms[$field['taxonomy_type'] . '_child'][] = reset($existing_terms);
+                }
+                else {
                   $node_terms[$field['taxonomy_type']][] = reset($existing_terms);
                 }
-              } else {
-                if(!$term){
+              }
+              else {
+                if (!$term) {
                   continue;
                 }
                 $name = trim($term);
@@ -130,17 +130,18 @@ class CsvFileHandler {
                   'vid' => $field['taxonomy_type'],
                 ]);
 
-                if($is_child){
+                if ($is_child) {
                   $pt = taxonomy_term_load_multiple_by_name(ucfirst($parent), $field['taxonomy_type']);
-                  if($pt){
+                  if ($pt) {
                     $term->set('parent', ['target_id' => reset($pt)->id()]);
                   }
                 }
 
                 $term->save();
-                if($is_child){
-                  $node_terms[$field['taxonomy_type'].'_child'][] = $term;
-                } else {
+                if ($is_child) {
+                  $node_terms[$field['taxonomy_type'] . '_child'][] = $term;
+                }
+                else {
                   $node_terms[$field['taxonomy_type']][] = $term;
                 }
 
@@ -149,8 +150,9 @@ class CsvFileHandler {
 
             }
 
-          } else if($field['type'] == 'link'){
-            if($data_object->getValue() && isset($data_object->getValue()['uri'])){
+          }
+          elseif ($field['type'] == 'link') {
+            if ($data_object->getValue() && isset($data_object->getValue()['uri'])) {
               $node_fields[$field['field']][] = $data_object->getValue();
             }
           }
@@ -162,18 +164,20 @@ class CsvFileHandler {
         $node = Node::create($node_fields);
 
         if (isset($node_terms['affiliations'])) {
-          // Term exists or newly created
-          if(reset($node_terms['affiliations']) instanceof Term){
+          // Term exists or newly created.
+          if (reset($node_terms['affiliations']) instanceof Term) {
             $node->set('field_main_affiliation', ['target_id' => reset($node_terms['affiliations'])->tid->value]);
-          } else {
+          }
+          else {
             $node->set('field_main_affiliation', ['target_id' => reset($node_terms['affiliations'])]);
           }
         }
 
-        if(isset($node_terms['affiliations_child'])){
-          if(reset($node_terms['affiliations_child']) instanceof Term){
+        if (isset($node_terms['affiliations_child'])) {
+          if (reset($node_terms['affiliations_child']) instanceof Term) {
             $node->set('field_faculty_unit', reset($node_terms['affiliations_child'])->tid->value);
-          } else {
+          }
+          else {
             $node->set('field_faculty_unit', ['target_id' => reset($node_terms['affiliations_child'])]);
           }
         }
@@ -182,7 +186,8 @@ class CsvFileHandler {
           foreach ($node_terms['keywords'] as $tid => $keyword) {
             if ($tid == 0) {
               $node->set('field_keywords', $keyword->tid->value);
-            } else {
+            }
+            else {
               $node->get('field_keywords')->appendItem([
                 'target_id' => $keyword->tid->value,
               ]);
@@ -201,7 +206,7 @@ class CsvFileHandler {
 
     return [
       'nodes' => $nodes,
-      'terms' => $terms
+      'terms' => $terms,
     ];
 
   }
@@ -214,7 +219,7 @@ class CsvFileHandler {
    * @param string $type
    *   Field type.
    *
-   * @return ImportTypes\ImportType
+   * @return \Drupal\bnm_import\ImportTypes\ImportTypes\ImportType
    *   Object containing value.
    *
    * @throws \Exception
@@ -223,23 +228,30 @@ class CsvFileHandler {
     switch ($field['type']) {
       case 'string':
       case 'string_long':
-        return new TextType($data,$field);
+        return new TextType($data, $field);
+
       break;
       case 'link':
-        return new LinkType($data,$field);
+        return new LinkType($data, $field);
+
       break;
       case 'email':
-        return new EmailType($data,$field);
+        return new EmailType($data, $field);
+
       break;
       case 'taxonomy':
-        return new TaxonomyType($data,$field);
-        break;
+        return new TaxonomyType($data, $field);
+
+      break;
       default:
         return FALSE;
     }
   }
 
-  private function getNodeConstantValues(){
+  /**
+   *
+   */
+  private function getNodeConstantValues() {
     $user_id = \Drupal::currentUser()->id();
     return [
       'type' => 'research_group',
@@ -254,7 +266,7 @@ class CsvFileHandler {
    * @param $required_field_names
    * @return bool
    */
-  private function isRequiredField($field_name, $required_field_names){
+  private function isRequiredField($field_name, $required_field_names) {
     return array_key_exists($field_name, $required_field_names);
   }
 
@@ -264,7 +276,7 @@ class CsvFileHandler {
    * @param $header
    * @return string
    */
-  private function getFieldValueByHeaderTitleIndex($row, $header_title, $header){
+  private function getFieldValueByHeaderTitleIndex($row, $header_title, $header) {
     $index = $this->getCsvHeaderIndexByName($header_title, $header);
     return trim($row[$index]);
   }
@@ -273,17 +285,20 @@ class CsvFileHandler {
    * @param $header
    * @param $name
    */
-  private function getCsvHeaderIndexByName($header_title, $header){
-    return array_search(strtolower($header_title), array_map('strtolower',$header));
+  private function getCsvHeaderIndexByName($header_title, $header) {
+    return array_search(strtolower($header_title), array_map('strtolower', $header));
   }
 
-  private function validateFieldValue($key, $field, $row, $header, $i){
+  /**
+   *
+   */
+  private function validateFieldValue($key, $field, $row, $header, $i) {
     try {
-      if(!$this->createValue($this->getFieldValueByHeaderTitleIndex($row, $key, $header), $field) instanceof ImportType){
+      if (!$this->createValue($this->getFieldValueByHeaderTitleIndex($row, $key, $header), $field) instanceof ImportType) {
         return "Something unexpected happened while creating $key on line $i";
       }
     }
-    catch(\Exception $exception){
+    catch (\Exception $exception) {
       return "Invalid value on line $i, on column $key.";
     }
     return TRUE;
