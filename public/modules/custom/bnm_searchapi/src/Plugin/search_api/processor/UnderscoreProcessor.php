@@ -70,8 +70,6 @@ class UnderscoreProcessor extends FieldsProcessorPluginBase {
    * {@inheritdoc}
    */
   public function preprocessIndexItems(array $items) {
-    // Annoyingly, this doc comment is needed for PHPStorm. See
-    // http://youtrack.jetbrains.com/issue/WI-23586
     /** @var \Drupal\search_api\Item\ItemInterface $item */
     foreach ($items as $item) {
       foreach ($item->getFields() as $name => $field) {
