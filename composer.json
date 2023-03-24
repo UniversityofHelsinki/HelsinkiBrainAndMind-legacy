@@ -13,7 +13,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "composer-runtime-api": "^2",
         "composer/installers": "^2.1",
         "cweagans/composer-patches": "^1.7",
@@ -83,6 +83,9 @@
         "patches": {
             "drupal/shs": {
                 "Custom implode default values": "patches/implode_default_value.patch"
+            },
+            "drupal/taxonomy_term_depth": {
+                "https://www.drupal.org/i/3283096": "https://git.drupalcode.org/project/taxonomy_term_depth/-/merge_requests/4.diff"
             }
         }
     },
