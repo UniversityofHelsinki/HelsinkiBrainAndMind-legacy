@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "22b91499345755686d75b1a200eb80a9",
+    "content-hash": "d77586d9cef9fb8f6cd4dccb5d216d1b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2557,20 +2557,20 @@
         },
         {
             "name": "drupal/taxonomy_unique",
-            "version": "2.3.0",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/taxonomy_unique.git",
-                "reference": "8.x-2.3"
+                "reference": "8.x-2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/taxonomy_unique-8.x-2.3.zip",
-                "reference": "8.x-2.3",
-                "shasum": "550d06d5b9c670538b93e0aa31b43b4eb1a76f7e"
+                "url": "https://ftp.drupal.org/files/projects/taxonomy_unique-8.x-2.5.zip",
+                "reference": "8.x-2.5",
+                "shasum": "95d964d629f84c8da9d2f1d08b2d5c93acdfb9a2"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8.9 || ^9 || ^10"
             },
             "require-dev": {
                 "drupal/coder": "^8.3.6",
@@ -2579,8 +2579,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.3",
-                    "datestamp": "1591087096",
+                    "version": "8.x-2.5",
+                    "datestamp": "1675954511",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2610,8 +2610,16 @@
             "authors": [
                 {
                     "name": "Rafael Schally",
-                    "homepage": "https://www.drupal.org/user/856550",
+                    "homepage": "https://www.drupal.org/user/291091",
                     "email": "rafael.schally@gmail.com"
+                },
+                {
+                    "name": "Grevil",
+                    "homepage": "https://www.drupal.org/user/3668491"
+                },
+                {
+                    "name": "sch4lly",
+                    "homepage": "https://www.drupal.org/user/856550"
                 }
             ],
             "description": "Checks for duplicate occurrences of term names.",
