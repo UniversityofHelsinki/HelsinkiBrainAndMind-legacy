@@ -168,7 +168,7 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
   /**
    *
    */
-  private function getInitialSearchResults($request, $amount = NULL) {
+  private function getInitialSearchResults($request, $amount = NULL): array {
     $q = $request->get('q');
     $affiliate = $request->get('affiliate');
     $index = Index::load('research_group');
@@ -176,7 +176,9 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
     /** @var \Drupal\search_api\Query\Query $query */
     $query = $index->query();
 
-    $query->keys(str_replace(',', ' ', $q));
+    if ($q) {
+      $query->keys(str_replace(',', ' ', $q));
+    }
 
     $query->getParseMode()->setConjunction('AND');
 
