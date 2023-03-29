@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ebe4a6693eff7b312d1d45d03869527",
+    "content-hash": "da9ceb9729390cf14e90fbf9a87cd9e6",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2390,7 +2390,7 @@
             "extra": {
                 "drupal": {
                     "version": "8.x-3.11",
-                    "datestamp": "1634344305",
+                    "datestamp": "1658781789",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2414,8 +2414,8 @@
                     "role": "Maintainer"
                 },
                 {
-                    "name": "gbyte",
-                    "homepage": "https://www.drupal.org/user/2381352"
+                    "name": "WalkingDexter",
+                    "homepage": "https://www.drupal.org/user/3251330"
                 }
             ],
             "description": "Creates a standard conform hreflang XML sitemap of the site content and provides a framework for developing other sitemap types.",
@@ -2529,8 +2529,16 @@
             "authors": [
                 {
                     "name": "Rafael Schally",
-                    "homepage": "https://www.drupal.org/user/856550",
+                    "homepage": "https://www.drupal.org/user/291091",
                     "email": "rafael.schally@gmail.com"
+                },
+                {
+                    "name": "Grevil",
+                    "homepage": "https://www.drupal.org/user/3668491"
+                },
+                {
+                    "name": "sch4lly",
+                    "homepage": "https://www.drupal.org/user/856550"
                 }
             ],
             "description": "Checks for duplicate occurrences of term names.",
