@@ -24,7 +24,7 @@ You need to have these applications installed to operate on all environments:
 
 For the first time:
 
-```
+```shell
 make fresh
 ```
 
@@ -34,7 +34,7 @@ Ready! Now go to https://bnm.docker.so/ to see your site.
 
 This will log you inside the app container:
 
-```
+```shell
 make shell
 ```
 
@@ -55,13 +55,13 @@ You need to have these applications installed to develop this application:
 
 Install node dependencies:
 
-```
+```shell
 make js-install
 ```
 
 Start development:
 
-```
+```shell
 make build-js-search-dev
 ```
 
@@ -69,7 +69,7 @@ make build-js-search-dev
 
 Compile your application in production mode:
 
-```
+```shell
 make build-js-search-prod
 ```
 

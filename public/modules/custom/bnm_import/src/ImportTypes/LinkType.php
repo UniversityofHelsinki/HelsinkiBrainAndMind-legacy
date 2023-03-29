@@ -4,35 +4,40 @@ namespace Drupal\bnm_import\ImportTypes;
 
 use Drupal\Component\Utility\UrlHelper;
 
+/**
+ *
+ */
 class LinkType extends ImportType {
 
   protected $value;
 
-  public function __construct($data, $field = [])
-  {
-    if($data == ''){
-      return false;
+  /**
+   *
+   */
+  public function __construct($data, $field = []) {
+    if ($data == '') {
+      return FALSE;
     }
-    if($data != '' && !$this->isValidUrl($data)){
+    if ($data != '' && !$this->isValidUrl($data)) {
       throw new \Exception('Not a valid url');
     }
     $this->value = [
       'uri' => $data,
-      'title' => $field['title']
+      'title' => $field['title'],
     ];
   }
 
-  public function getValue()
-  {
+  /**
+   *
+   */
+  public function getValue() {
     return $this->value;
   }
 
-  public function __toString()
-  {
-    return parent::__toString();
-  }
-
-  private function isValidUrl($data){
+  /**
+   *
+   */
+  private function isValidUrl($data) {
     return UrlHelper::isValid($data);
   }
 

@@ -2,7 +2,6 @@
 
 namespace Drupal\bnm_rest\Plugin\rest\resource;
 
-use Drupal\taxonomy\Entity\Term;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\taxonomy\TermStorageInterface;
 use Psr\Log\LoggerInterface;
@@ -27,7 +26,7 @@ final class Filters extends ResourceBase {
   /**
    * Term storage.
    *
-   * @var TermStorageInterface
+   * @var \Drupal\taxonomy\Entity\TermStorageInterface
    */
   private $manager;
 
@@ -44,10 +43,9 @@ final class Filters extends ResourceBase {
    *   The available serialization formats.
    * @param \Psr\Log\LoggerInterface $logger
    *   A logger instance.
-   * @param TermStorageInterface $manager
+   * @param \Drupal\taxonomy\Entity\TermStorageInterface $manager
    *   The term manager.
    */
-
   public function __construct(array $configuration, $plugin_id, $plugin_definition, array $serializer_formats, LoggerInterface $logger, TermStorageInterface $manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     $this->manager = $manager;
@@ -84,19 +82,20 @@ final class Filters extends ResourceBase {
 
     $items = [];
 
-    /** @var Term $term */
-    foreach($affiliates as $term) {
+    /** @var \Drupal\taxonomy\Entity\Term $term */
+    foreach ($affiliates as $term) {
       $children = $this->manager->loadChildren($term->id());
       $item = [
         'id' => $term->id(),
-        'name' => $term->getName()
+        'name' => $term->getName(),
       ];
-      $item['children'] = empty($children) ? NULL : array_values(array_map(function($term) { return $term->id(); }, $children));
+      $item['children'] = empty($children) ? NULL : array_values(array_map(function ($term) {
+        return $term->id();
+      }, $children));
       $items[] = $item;
     }
 
     return new JsonResponse($items);
   }
-
 
 }

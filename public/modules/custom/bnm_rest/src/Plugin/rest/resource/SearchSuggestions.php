@@ -5,7 +5,6 @@ namespace Drupal\bnm_rest\Plugin\rest\resource;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api_autocomplete\Entity\Search;
 use Drupal\rest\Plugin\ResourceBase;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,24 +22,6 @@ use Symfony\Component\HttpFoundation\Request;
  * )
  */
 final class SearchSuggestions extends ResourceBase {
-
-  /**
-   * Constructor.
-   *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param array $serializer_formats
-   *   The available serialization formats.
-   * @param \Psr\Log\LoggerInterface $logger
-   *   A logger instance.
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, array $serializer_formats, LoggerInterface $logger) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
-  }
 
   /**
    * Create.
@@ -67,7 +48,7 @@ final class SearchSuggestions extends ResourceBase {
   public function get(Request $request) {
     $q = $request->get('q');
 
-    if(!$q){
+    if (!$q) {
       return new JsonResponse([]);
     }
 
@@ -86,7 +67,8 @@ final class SearchSuggestions extends ResourceBase {
     if ($handle_underscore) {
       $incomplete_key = str_replace(' ', 'qq', $q);
       $user_input = str_replace(' ', 'qq', $q);
-    } else {
+    }
+    else {
       $incomplete_key = $q;
       $user_input = $q;
     }
@@ -94,21 +76,22 @@ final class SearchSuggestions extends ResourceBase {
     $suggestions = $suggester->getAutocompleteSuggestions($query, $incomplete_key, $user_input);
 
     $suggest = [];
-    foreach($suggestions as $suggestion) {
+    foreach ($suggestions as $suggestion) {
       if ($handle_underscore) {
         $suggest[] = $this->underscoreProcessorHandler($suggestion);
-      } else {
+      }
+      else {
         $suggest[] = $suggestion;
       }
 
       $suggest = array_unique($suggest, SORT_STRING);
 
-      if(count($suggest) === 5){
+      if (count($suggest) === 5) {
         break;
       }
     }
 
-    if(empty($suggest)){
+    if (empty($suggest)) {
       return new JsonResponse([]);
     }
 
@@ -119,16 +102,18 @@ final class SearchSuggestions extends ResourceBase {
 
   /**
    * Check if custom underscore processor used.
+   *
    * @param $processors
+   *
    * @return bool
    */
-  private function underscoreProcessorIsUsed($processors){
-    foreach($processors as $processor){
-      if($processor->getPluginId() === 'bnm_underscore_processor'){
-        return true;
+  private function underscoreProcessorIsUsed($processors) {
+    foreach ($processors as $processor) {
+      if ($processor->getPluginId() === 'bnm_underscore_processor') {
+        return TRUE;
       }
     }
-    return false;
+    return FALSE;
   }
 
   /**
@@ -137,13 +122,16 @@ final class SearchSuggestions extends ResourceBase {
    * @param $suggestion
    * @param $processors
    */
-  private function underscoreProcessorHandler($suggestion){
-    // TODO: on underscore processor, search api automatically gets rid of underscore.
-    // qq should be just a temporary workaround
+  private function underscoreProcessorHandler($suggestion) {
+    // @todo on underscore processor, search api automatically gets rid of underscore.
+    // qq should be just a temporary workaround.
     $string = str_replace('qq', ' ', "{$suggestion->getUserInput()}{$suggestion->getSuggestionSuffix()}");
     return rtrim($string, 'q');
   }
 
+  /**
+   *
+   */
   private function suggestionSorting($a, $b) {
     return strlen($a) - strlen($b);
   }
