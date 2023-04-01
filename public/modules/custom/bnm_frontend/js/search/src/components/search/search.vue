@@ -5,6 +5,9 @@
       <SearchField @handleKeywordSubmit="handleAddKeyword" @handleUpdate="handleInputValueChange" class="search__item" :currentKeyword="currentKeyword" ref="suggestionReset"></SearchField>
       <SearchFieldKeywords :keywords="selectedKeywords" v-if="selectedKeywords.length > 0" @handleRemoveKeyword="handleRemoveKeyword"></SearchFieldKeywords>
     </div>
+    <div>
+    <CollaborationFilter @handleChange="handleCollaborationCheckbox"/>
+    </div>
     <ButtonGroup class="search__item" :isReversed="true">
       <Button @handleClick="handleSearchButtonClick" @handleMouseClick="handleMouseClick" :isPrimary="true" :isSubmit="true">Search</Button>
       <Button @handleClick="handleResetButtonClick" :isSecondary="true">Reset</Button>
@@ -21,10 +24,12 @@ import ButtonGroup from '../button/button.group.vue';
 import Button from '../button/button.vue';
 import useInitialData from '../../stores/data';
 import './search.scss';
+import CollaborationFilter from "@/components/collaboration-filter/collaboration.filter.vue";
 
 export default {
   name: 'Search',
   components: {
+    CollaborationFilter,
     Container,
     SearchField,
     SearchDropdown,
@@ -37,6 +42,7 @@ export default {
       currentKeyword: '',
       selectedOption: 0,
       selectedKeywords: [],
+      industrialCollaborationOnly: false,
     }
   },
   methods: {
@@ -50,6 +56,9 @@ export default {
       const { fetchResults, setResultsLoadingStatus } = useInitialData();
       setResultsLoadingStatus();
       fetchResults(apiEndpoint, queryString, this.$environment);
+    },
+    handleCollaborationCheckbox() {
+      console.log('checkbox ticked')
     },
     handleResetButtonClick() {
       this.selectedKeywords = [];
