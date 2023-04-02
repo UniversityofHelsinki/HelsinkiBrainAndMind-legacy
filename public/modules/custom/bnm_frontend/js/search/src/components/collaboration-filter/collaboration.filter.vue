@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     handleCollaborationCheckbox(event){
-      this.$emit('handleChange', event.target.value)
+      this.$emit('handleChange', event.target.checked)
     },
   }
 }

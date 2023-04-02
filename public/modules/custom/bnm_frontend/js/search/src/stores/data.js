@@ -30,13 +30,15 @@ export default function useInitialData(environment){
     });
   };
 
-  const fetchResults = async (endpoint, query, environment) => {
+  const fetchResults = async (endpoint, query, environment, industrialCollaboration) => {
     searchResultRequest(endpoint, query, environment)
     .then((response) => {
       setResultsLoadingStatus();
+      const filteredData = industrialCollaboration ? response.data.filter(person => person.field_industrial_collaboration === 'yes')
+      : response.data;
       state.currentPage = 0;
-      state.pageCount = chunkArray(response.data, 21).length - 1;
-      state.results = chunkArray(response.data, 21);
+      state.pageCount = chunkArray(filteredData, 21).length - 1;
+      state.results = chunkArray(filteredData, 21);
     })
     .catch((error) => {
       // eslint-disable-next-line

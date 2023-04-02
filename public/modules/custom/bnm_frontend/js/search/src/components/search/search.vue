@@ -42,7 +42,7 @@ export default {
       currentKeyword: '',
       selectedOption: 0,
       selectedKeywords: [],
-      industrialCollaborationOnly: false,
+      industrialCollaboration: false,
     }
   },
   methods: {
@@ -55,10 +55,7 @@ export default {
       this.$refs.suggestionReset.suggestionsReset();
       const { fetchResults, setResultsLoadingStatus } = useInitialData();
       setResultsLoadingStatus();
-      fetchResults(apiEndpoint, queryString, this.$environment);
-    },
-    handleCollaborationCheckbox() {
-      console.log('checkbox ticked')
+      fetchResults(apiEndpoint, queryString, this.$environment, this.industrialCollaboration);
     },
     handleResetButtonClick() {
       this.selectedKeywords = [];
@@ -87,7 +84,10 @@ export default {
     },
     handleRemoveKeyword(keyword) {
       this.selectedKeywords = this.selectedKeywords.filter(selectedKeyword => selectedKeyword !== keyword);
-    }
+    },
+    handleCollaborationCheckbox(checked) {
+      this.industrialCollaboration = checked;
+    },
   }
 }
 </script>
