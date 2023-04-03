@@ -1,10 +1,8 @@
 <template>
-  <label for="industrial collaboration checkbox">
-    Industrial Collaboration Only
-    <input type="checkbox" @change="handleCollaborationCheckbox" />
-<!--           @input="(event) => $emit('update:checked', event.target.checked)"/>-->
-<!--           @change="$emit('update:checked', $event.target.checked)" label="Only Industrial Collaboration"/>-->
-  </label>
+  <div class="industrial-collaboration-container">
+    <input id="only industrial collaboration" class="industrial-collaboration-checkbox" type="checkbox" @change="handleCollaborationCheckbox" />
+    <label class="search-field__label" for="only industrial collaboration"> Only Industrial Collaboration </label>
+  </div>
 </template>
 
 <script>
