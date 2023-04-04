@@ -9,6 +9,7 @@
     align-self: self-start;
     margin: 0;
   }
+
   input[type=checkbox] {
     accent-color: $color-green-3;
     margin: 10px;
@@ -19,7 +20,6 @@
   label {
     display: inline;
   }
-
 
   input[type=checkbox]:hover {
     accent-color: $color-violet-1;
