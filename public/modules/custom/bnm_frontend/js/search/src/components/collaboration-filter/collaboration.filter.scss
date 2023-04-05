@@ -1,6 +1,8 @@
 .industrial-collaboration-container {
   color: $color-violet-1;
   margin: $spacing;
+  display:flex;
+  align-content: flex-start;
 
   @media screen and (min-width: $large) {
     padding-top: 19px;
@@ -15,13 +17,14 @@
     margin: 10px;
     min-width: 46px;
     min-height: 46px;
+
+    &:hover {
+      accent-color: $color-violet-1;
+    }
   }
 
   label {
     display: inline;
-  }
-
-  input[type=checkbox]:hover {
-    accent-color: $color-violet-1;
+    align-self: center;
   }
 }
