@@ -1,5 +1,5 @@
 <template>
-    <Hero :title="'Helsinki Brain & Mind Research Portal'">
+    <Hero v-if="!isEmbedded" :title="'Helsinki Brain & Mind Research Portal'">
       This portal lists PI-level neuroscience researchers and clinicians at the University of Helsinki, Aalto University and the Hospital District of Helsinki and Uusimaa. For any comments and feedback regarding the portal, please email helsinkibrainandmind@helsinki.fi.
     </Hero>
     <Search @searchCompleted="getSearchResults"></Search>
@@ -9,7 +9,7 @@
     <Loader v-if="this.isLoading"></Loader>
     <SearchResults :results="results" v-if="!this.isLoading"></SearchResults>
     <Pagination v-if="isPaginationVisible && results.length !== 0 && !this.isLoading"></Pagination>
-    <Footer></Footer>
+    <Footer v-if="!isEmbedded"></Footer>
 </template>
 
 <script>
@@ -39,6 +39,7 @@ export default {
       results: [],
       isLoading: false,
       isPaginationVisible: false,
+      isEmbedded: false,
     }
   },
   methods: {
@@ -74,6 +75,13 @@ export default {
     if (results._object.pageCount === 0) {
       this.isPaginationVisible = false;
     }
+
+    if (document.location.search.includes('?embed=true')) {
+      this.isEmbedded = true;
+      console.log('is embedded is true')
+    }
+
+    console.log(window.location);
 
     setResultsLoadingStatus();
 
