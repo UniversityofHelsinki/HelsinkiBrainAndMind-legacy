@@ -78,10 +78,7 @@ export default {
 
     if (document.location.search.includes('?embed=true')) {
       this.isEmbedded = true;
-      console.log('is embedded is true')
     }
-
-    console.log(window.location);
 
     setResultsLoadingStatus();
 
