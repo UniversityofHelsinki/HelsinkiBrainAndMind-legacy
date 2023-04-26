@@ -1,0 +1,6 @@
+services:
+  bnm_remove_xframe_options.event_subscriber:
+    class: Drupal\bnm_remove_xframe_options\EventSubscriber\BnmRemoveXframeOptionsSubscriber
+    arguments: ['@messenger']
+    tags:
+      - { name: event_subscriber }

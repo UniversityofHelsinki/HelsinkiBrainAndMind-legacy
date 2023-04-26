@@ -1,0 +1,5 @@
+name: bnm_remove_xframe_options
+type: module
+description: Removes X-Frame-Options header when embedded on a website.
+package: Custom
+core_version_requirement: ^9 || ^10
