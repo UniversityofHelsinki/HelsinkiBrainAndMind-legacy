@@ -6,6 +6,7 @@ module:
   big_pipe: 0
   block: 0
   block_content: 0
+  bnm_add_csp_header: 0
   bnm_content: 0
   bnm_frontend: 0
   bnm_import: 0
