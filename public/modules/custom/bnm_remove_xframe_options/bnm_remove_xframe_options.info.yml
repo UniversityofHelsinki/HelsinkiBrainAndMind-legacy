@@ -1,5 +1,5 @@
 name: 'BNM - Remove X-Frame Options'
 type: module
-description: Removes X-Frame-Options header when embedded on a website.
+description: Adds Content-Security-Policy header with frame ancestors for embedding the page in an iframe.
 package: 'BNM'
 core_version_requirement: ^9 || ^10
