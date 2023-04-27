@@ -31,6 +31,23 @@ services:
     ports:
       - 3306
 
+  iframe-test:
+    container_name: "${COMPOSE_PROJECT_NAME}-iframe-test"
+    image: nginx
+    restart: unless-stopped
+    volumes:
+      - ./iframe-test.html:/usr/share/nginx/html/index.html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-iframe-test.entrypoints=https"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-iframe-test.rule=Host(`iframe-test-${DRUPAL_HOSTNAME}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-iframe-test.tls=true"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}-iframe-test.loadbalancer.server.port=80"
+      - "traefik.docker.network=stonehenge-network"
+    networks:
+      - default
+      - stonehenge-network
+
 networks:
   stonehenge-network:
     external: true
