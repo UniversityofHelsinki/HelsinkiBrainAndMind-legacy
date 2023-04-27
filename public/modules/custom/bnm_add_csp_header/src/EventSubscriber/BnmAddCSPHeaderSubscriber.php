@@ -11,28 +11,40 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class BnmAddCSPHeaderSubscriber implements EventSubscriberInterface {
 
-  public function BnmAddCSPHeader(ResponseEvent $event)
-  {
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-      $url = 'https://';
-      // Append the host(domain name) to the URL.
-      $url .= $_SERVER['HTTP_HOST'];
-      $url .= $_SERVER['REQUEST_URI'];
-      if (str_contains($url,'?embed=true')) {
-        $response = $event->getResponse();
-        // Only allow https://helsinkibrainandmind.fi to embed this page
-        $response->headers->set('Content-Security-Policy', "frame-ancestors https://helsinkibrainandmind.fi");
-      }
+  private string $allowedUrl = 'https://helsinkibrainandmind.fi';
+
+// BELOW CODE IS FOR TESTING PURPOSES
+
+//  public function addCSPHeader(ResponseEvent $event): void {
+//    $embed = $event->getRequest()->get('embed', FALSE);
+//
+//    if ($embed) {
+//      if (getenv('APP_ENV') === 'dev') {
+//        $this->allowedUrl = 'https://iframe-test-bnm.docker.so';
+//      }
+//
+//      $event->getResponse()->headers->set('Content-Security-Policy', 'frame-ancestors '. $this->allowedUrl);
+//    }
+
+
+  // Only allow https://helsinkibrainandmind.fi to embed this page.
+
+  public function addCSPHeader(ResponseEvent $event): void {
+    $embed = $event->getRequest()->get('embed', FALSE);
+
+    if ($embed) {
+      $event->getResponse()->headers->set('Content-Security-Policy', 'frame-ancestors '. $this->allowedUrl);
     }
   }
+
 
   /**
    * {@inheritdoc}
    */
-
-  public static function getSubscribedEvents()
-  {
-    $events[KernelEvents::RESPONSE][] = array('BnmAddCSPHeader', -10);
-    return $events;
+  public static function getSubscribedEvents(): array {
+    return [
+      KernelEvents::RESPONSE => ['addCSPHeader', -10],
+    ];
   }
+
 }
