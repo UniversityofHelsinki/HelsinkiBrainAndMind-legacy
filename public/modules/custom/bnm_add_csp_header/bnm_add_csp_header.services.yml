@@ -1,0 +1,6 @@
+services:
+  bnm_add_csp_header.event_subscriber:
+    class: Drupal\bnm_add_csp_header\EventSubscriber\BnmAddCSPHeaderSubscriber
+    arguments: ['@messenger']
+    tags:
+      - { name: event_subscriber }

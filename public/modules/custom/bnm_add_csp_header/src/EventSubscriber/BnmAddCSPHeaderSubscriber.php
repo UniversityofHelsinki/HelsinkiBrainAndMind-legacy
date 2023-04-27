@@ -1,17 +1,17 @@
 <?php
 
-namespace Drupal\bnm_remove_xframe_options\EventSubscriber;
+namespace Drupal\bnm_add_csp_header\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
- * bnm_remove_xframe_options event subscriber.
+ * BNM - Add CSP Header event subscriber.
  */
-class BnmRemoveXframeOptionsSubscriber implements EventSubscriberInterface {
+class BnmAddCSPHeaderSubscriber implements EventSubscriberInterface {
 
-  public function BnmRemoveXframeOptions(ResponseEvent $event)
+  public function BnmAddCSPHeader(ResponseEvent $event)
   {
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
       $url = 'https://';
@@ -32,7 +32,7 @@ class BnmRemoveXframeOptionsSubscriber implements EventSubscriberInterface {
 
   public static function getSubscribedEvents()
   {
-    $events[KernelEvents::RESPONSE][] = array('BnmRemoveXframeOptions', -10);
+    $events[KernelEvents::RESPONSE][] = array('BnmAddCSPHeader', -10);
     return $events;
   }
 }

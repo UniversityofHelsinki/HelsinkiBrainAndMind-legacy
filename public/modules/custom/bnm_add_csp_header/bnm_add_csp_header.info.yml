@@ -1,5 +1,5 @@
-name: 'BNM - Remove X-Frame Options'
+name: BNM - Add CSP Header
 type: module
 description: Adds Content-Security-Policy header with frame ancestors for embedding the page in an iframe.
-package: 'BNM'
+package: BNM
 core_version_requirement: ^9 || ^10
