@@ -11,11 +11,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class BnmAddCSPHeaderSubscriber implements EventSubscriberInterface
 {
-
+  // Only allow https://helsinkibrainandmind.fi to embed this page.
   private string $allowedUrl = 'https://helsinkibrainandmind.fi';
 
   // Function for test iframe
-  public function addCSPHeaderTest(ResponseEvent $event): void
+  public function addCSPHeader(ResponseEvent $event): void
   {
     $embed = $event->getRequest()->get('embed', FALSE);
 
@@ -28,23 +28,13 @@ class BnmAddCSPHeaderSubscriber implements EventSubscriberInterface
     }
   }
 
-  public function addCSPHeader(ResponseEvent $event): void
-  {
-    $embed = $event->getRequest()->get('embed', FALSE);
-// Only allow https://helsinkibrainandmind.fi to embed this page.
-    if ($embed) {
-      $event->getResponse()->headers->set('Content-Security-Policy', 'frame-ancestors ' . $this->allowedUrl);
-    }
-  }
-
-
   /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array
   {
     return [
-      KernelEvents::RESPONSE => [['addCSPHeader', -10], ['addCSPHeaderTest', -11]],
+      KernelEvents::RESPONSE => ['addCSPHeader', -10]
     ];
   }
 }
