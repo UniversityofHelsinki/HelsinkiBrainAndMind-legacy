@@ -9,31 +9,31 @@ use Symfony\Component\HttpKernel\KernelEvents;
 /**
  * BNM - Add CSP Header event subscriber.
  */
-class BnmAddCSPHeaderSubscriber implements EventSubscriberInterface {
+class BnmAddCSPHeaderSubscriber implements EventSubscriberInterface
+{
 
   private string $allowedUrl = 'https://helsinkibrainandmind.fi';
 
-// BELOW CODE IS FOR TESTING PURPOSES
-
-//  public function addCSPHeader(ResponseEvent $event): void {
-//    $embed = $event->getRequest()->get('embed', FALSE);
-//
-//    if ($embed) {
-//      if (getenv('APP_ENV') === 'dev') {
-//        $this->allowedUrl = 'https://iframe-test-bnm.docker.so';
-//      }
-//
-//      $event->getResponse()->headers->set('Content-Security-Policy', 'frame-ancestors '. $this->allowedUrl);
-//    }
-
-
-  // Only allow https://helsinkibrainandmind.fi to embed this page.
-
-  public function addCSPHeader(ResponseEvent $event): void {
+  // Function for test iframe
+  public function addCSPHeaderTest(ResponseEvent $event): void
+  {
     $embed = $event->getRequest()->get('embed', FALSE);
 
     if ($embed) {
-      $event->getResponse()->headers->set('Content-Security-Policy', 'frame-ancestors '. $this->allowedUrl);
+      if (getenv('APP_ENV') === 'dev') {
+        $this->allowedUrl = 'https://iframe-test-bnm.docker.so';
+      }
+
+      $event->getResponse()->headers->set('Content-Security-Policy', 'frame-ancestors ' . $this->allowedUrl);
+    }
+  }
+
+  public function addCSPHeader(ResponseEvent $event): void
+  {
+    $embed = $event->getRequest()->get('embed', FALSE);
+// Only allow https://helsinkibrainandmind.fi to embed this page.
+    if ($embed) {
+      $event->getResponse()->headers->set('Content-Security-Policy', 'frame-ancestors ' . $this->allowedUrl);
     }
   }
 
@@ -41,10 +41,12 @@ class BnmAddCSPHeaderSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents(): array {
+  public static function getSubscribedEvents(): array
+  {
     return [
       KernelEvents::RESPONSE => ['addCSPHeader', -10],
     ];
   }
-
 }
+
+
