@@ -44,7 +44,7 @@ class BnmAddCSPHeaderSubscriber implements EventSubscriberInterface
   public static function getSubscribedEvents(): array
   {
     return [
-      KernelEvents::RESPONSE => [['addCSPHeader'], ['addCSPHeaderTest', -10]],
+      KernelEvents::RESPONSE => [['addCSPHeader', -10], ['addCSPHeaderTest', -11]],
     ];
   }
 }
