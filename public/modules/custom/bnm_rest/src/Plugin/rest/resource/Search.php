@@ -80,7 +80,12 @@ final class Search extends ResourceBase {
       }
       else {
         if ($children && $affiliate_depth == '1') {
-          $is_child = in_array($node->field_faculty_unit->target_id, $children_ids, FALSE) ? TRUE : FALSE;
+          $node_faculty_ids = array_map(function ($item) {
+            return $item->id();
+          }, $node->field_faculty_unit->referencedEntities());
+
+
+          $is_child = array_intersect($node_faculty_ids, $children_ids);
           if (!$is_child) {
             continue;
           }
