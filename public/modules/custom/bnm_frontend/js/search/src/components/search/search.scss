@@ -33,8 +33,9 @@
   }
 
   &.button-group {
-    align-self: center;
+    align-self: flex-start;
     margin-left: $spacing;
+    padding-top: $spacing;
     &:nth-child(3) {
       @media screen and (min-width: $large) {
         margin-top: 20px + $spacing-tiny; // Label height + margin.
