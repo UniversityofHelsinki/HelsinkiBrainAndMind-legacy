@@ -5,11 +5,10 @@
   align-content: flex-start;
 
   @media screen and (min-width: $large) {
-    padding-top: 19px;
+    margin-top: $spacing;
     display: flex;
     flex-direction: row;
     align-self: self-start;
-    margin: 0;
   }
 
   input[type=checkbox] {
