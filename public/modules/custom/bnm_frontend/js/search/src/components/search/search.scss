@@ -7,6 +7,7 @@
 
   @media screen and (min-width: $large) {
     display: flex;
+    gap: $spacing;
     justify-content: space-between;
     margin-bottom: $spacing-extra-large;
   }
@@ -15,7 +16,6 @@
 .search__item {
   &:not(.button-group) {
     @media screen and (min-width: $large) {
-      margin-right: $spacing;
       width: 100%;
     }
   }
@@ -33,8 +33,8 @@
   }
 
   &.button-group {
-    align-self: center;
-    margin-left: $spacing;
+    align-self: flex-start;
+    padding-top: $spacing-small;
     &:nth-child(3) {
       @media screen and (min-width: $large) {
         margin-top: 20px + $spacing-tiny; // Label height + margin.

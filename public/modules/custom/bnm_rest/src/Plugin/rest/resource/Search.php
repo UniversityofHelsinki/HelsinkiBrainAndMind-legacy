@@ -76,12 +76,17 @@ final class Search extends ResourceBase {
       $data = explode('/', $data[1]);
       $node = Node::load($data[1]);
 
+      // Get the faculty ids
+      $node_faculty_ids = array_map(function ($item) {
+        return $item->id();
+      }, $node->field_faculty_unit->referencedEntities());
       if (!$affiliate || $affiliate == 0) {
       }
       else {
         if ($children && $affiliate_depth == '1') {
-          $is_child = in_array($node->field_faculty_unit->target_id, $children_ids, FALSE) ? TRUE : FALSE;
-          if (!$is_child) {
+          // Compare faculty id with children of the selected affiliation and check if there is an intersection
+          $matched_faculty = array_intersect($node_faculty_ids, $children_ids);
+          if (!$matched_faculty) {
             continue;
           }
         }
@@ -93,7 +98,7 @@ final class Search extends ResourceBase {
             }
           }
           else {
-            if ($node->field_faculty_unit->target_id != $affiliate) {
+            if (!in_array($affiliate, $node_faculty_ids)) {
               continue;
             }
           }
