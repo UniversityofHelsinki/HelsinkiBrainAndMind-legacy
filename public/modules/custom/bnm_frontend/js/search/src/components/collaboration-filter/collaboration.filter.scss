@@ -6,13 +6,16 @@
 
   @media screen and (min-width: $large) {
     align-self: self-start;
-    display: flex;
     flex-direction: row;
     margin-top: $spacing;
   }
 
   @media screen and (max-width: $small) {
     margin-top: $spacing-medium;
+
+    label {
+      margin-top: 10px;
+    }
   }
 
   input[type=checkbox] {
@@ -27,7 +30,6 @@
   }
 
   label {
-    display: inline;
     align-self: center;
   }
 }
