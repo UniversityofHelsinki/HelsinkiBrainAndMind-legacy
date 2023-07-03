@@ -4,18 +4,21 @@
   display:flex;
   margin-top: $spacing-medium;
 
+
   @media screen and (min-width: $large) {
     align-self: self-start;
     flex-direction: row;
     margin-top: $spacing;
   }
 
+  @media screen and (max-width: $large) {
+    label {
+      margin-top: $spacing-tiny;
+    }
+  }
+
   @media screen and (max-width: $small) {
     margin-top: $spacing-medium;
-
-    label {
-      margin-top: 10px;
-    }
   }
 
   input[type=checkbox] {
