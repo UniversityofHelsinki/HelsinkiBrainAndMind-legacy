@@ -8,12 +8,12 @@ services:
       - .:/app:delegated
       - ssh:/tmp/druid_ssh-agent:ro
     environment:
-      APP_ENV: "${APP_ENV:-dev}"
-      DRUSH_OPTIONS_URI: "https://${DRUPAL_HOSTNAME}"
-      PHP_SENDMAIL_PATH: "/usr/sbin/sendmail -S stonehenge:1025"
-      SIMPLETEST_BASE_URL: "http://app:8080"
-      SIMPLETEST_DB: "mysql://drupal:drupal@db:3306/drupal"
-      #XDEBUG_ENABLE: "true"
+      APP_ENV: ${APP_ENV:-dev}
+      DRUSH_OPTIONS_URI: https://${DRUPAL_HOSTNAME}
+      PHP_SENDMAIL_PATH: /usr/sbin/sendmail -S stonehenge:1025
+      SIMPLETEST_BASE_URL: http://app:8080
+      SIMPLETEST_DB: mysql://drupal:drupal@db:3306/drupal
+      XDEBUG_ENABLE: ${XDEBUG_ENABLE:-false}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-app.entrypoints=https"
@@ -26,13 +26,13 @@ services:
       - stonehenge-network
 
   db:
-    container_name: "${COMPOSE_PROJECT_NAME}-db"
-    image: druidfi/mariadb:10.6-drupal
+    container_name: ${COMPOSE_PROJECT_NAME}-db
+    image: druidfi/mariadb:10.11-drupal-lts
     ports:
       - 3306
 
   iframe-test:
-    container_name: "${COMPOSE_PROJECT_NAME}-iframe-test"
+    container_name: ${COMPOSE_PROJECT_NAME}-iframe-test
     image: nginx
     restart: unless-stopped
     volumes:
