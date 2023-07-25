@@ -1,8 +1,8 @@
 name: HBM
 type: theme
-description: 'A custom built Drupal 9 theme for HBM.'
+description: 'A custom built Drupal theme for HBM.'
 package: HBM
-core_version_requirement: 9.x
+core_version_requirement: ^9 || ^10
 base theme: stable
 
 libraries-override:
