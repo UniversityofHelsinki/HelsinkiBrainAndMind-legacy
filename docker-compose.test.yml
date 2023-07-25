@@ -59,7 +59,6 @@ services:
       options:
         tag: "HBM-DB"
     networks:
-      - hbm-network
       - default
 
 volumes:
