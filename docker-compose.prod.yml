@@ -3,7 +3,10 @@ services:
   app:
     hostname: research.helsinkibrainandmind.fi
     container_name: brain-and-mind-app
-    image: druidfi/drupal-web:php-8.1
+    image: brain-and-mind-app
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - .:/app:delegated
       - drupal_public_files:/app/public/sites/default/files
