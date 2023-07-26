@@ -46,7 +46,7 @@
 
 .pagination-triggers__item {
   & + & {
-    margin-left: $spacing-tiny / 2;
+    margin-left: calc($spacing-tiny / 2);
   }
 }
 

@@ -45,10 +45,10 @@ $default-font-family: 'Open Sans', sans-serif;
 @mixin font-size($font-size, $desired-mobile-size: '') {
   @media screen and (max-width: $medium) {
     @if $desired-mobile-size != '' {
-      font-size: ($desired-mobile-size / $base-font-size) * 1rem;
+      font-size: calc($desired-mobile-size / $base-font-size) * 1rem;
     }
   }
-  font-size: ($font-size / $base-font-size) * 1rem;
+  font-size: calc($font-size / $base-font-size) * 1rem;
 }
 
 @mixin shadow() {
