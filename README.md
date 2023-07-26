@@ -46,8 +46,7 @@ We have a VueJS application that is attached to the Drupal site. It can be acces
 
 You need to have these applications installed to develop this application:
 
-- [NodeJS](https://nodejs.org/en/)
-- Node version that is newer than 14.0.0.
+- Node 18
 
 ### Development
 

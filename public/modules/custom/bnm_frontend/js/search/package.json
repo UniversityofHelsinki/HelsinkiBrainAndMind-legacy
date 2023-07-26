@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "serve:production": "vue-cli-service serve --mode production",
-    "build": "vue-cli-service build",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "build:development": "vue-cli-service build --mode development",
     "lint": "vue-cli-service lint"
   },
@@ -25,5 +25,8 @@
     "eslint-plugin-vue": "^7.2.0",
     "sass": "^1.64.1",
     "sass-loader": "^8.0.2"
+  },
+  "resolutions": {
+    "@achrinza/node-ipc": "v10.1.9"
   }
 }
