@@ -37,7 +37,7 @@
         "drupal/simple_sitemap": "^4.1",
         "drupal/taxonomy_term_depth": "^2.6",
         "drupal/taxonomy_unique": "^2.5",
-        "drupal/token": "^1.11",
+        "drupal/token": "^1.12",
         "drush/drush": "^11.5"
     },
     "require-dev": {
