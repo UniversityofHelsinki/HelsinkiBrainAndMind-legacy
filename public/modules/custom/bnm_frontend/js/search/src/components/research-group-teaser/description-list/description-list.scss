@@ -14,7 +14,7 @@
   @include font-size(14px);
   color: $color-green-3;
   line-height: 16px;
-  margin-bottom: $spacing-tiny / 2;
+  margin-bottom: calc($spacing-tiny / 2);
   margin-top: 0;
 
   + .description-list__list {
