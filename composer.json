@@ -35,7 +35,7 @@
         "drupal/search_api_autocomplete": "^1.7",
         "drupal/shs": "^2.0@RC",
         "drupal/simple_sitemap": "^4.1",
-        "drupal/taxonomy_term_depth": "^2.5",
+        "drupal/taxonomy_term_depth": "^2.6",
         "drupal/taxonomy_unique": "^2.5",
         "drupal/token": "^1.11",
         "drush/drush": "^11.5"
@@ -83,9 +83,6 @@
         "patches": {
             "drupal/shs": {
                 "Custom implode default values": "patches/implode_default_value.patch"
-            },
-            "drupal/taxonomy_term_depth": {
-                "https://www.drupal.org/i/3283096": "https://git.drupalcode.org/project/taxonomy_term_depth/-/merge_requests/4.diff"
             }
         }
     },
