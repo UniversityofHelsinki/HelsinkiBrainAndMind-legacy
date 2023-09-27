@@ -1,7 +1,7 @@
 name: Migrate Units
 type: module
 package: 'BNM'
-core_version_requirement: ^9
+core_version_requirement: ^9 || ^10
 
 dependencies:
   - migrate_plus
