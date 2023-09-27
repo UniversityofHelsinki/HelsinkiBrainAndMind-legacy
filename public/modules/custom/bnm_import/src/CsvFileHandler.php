@@ -104,7 +104,10 @@ class CsvFileHandler {
         foreach ($fields as $key => $field) {
           $data_object = $this->createValue($this->getFieldValueByHeaderTitleIndex($row, $key, $header), $field);
           $is_child = FALSE;
-          if ($field['type'] == 'taxonomy') {
+          if (!isset($field['type'])) {
+            $node_fields[$field['field']] = $data_object->getValue();
+          }
+          elseif ($field['type'] == 'taxonomy') {
 
             if (isset($field['child'])) {
               $is_child = TRUE;
@@ -182,7 +185,7 @@ class CsvFileHandler {
           }
         }
 
-        if ($node_terms['keywords']) {
+        if (isset($node_terms['keywords'])) {
           foreach ($node_terms['keywords'] as $tid => $keyword) {
             if ($tid == 0) {
               $node->set('field_keywords', $keyword->tid->value);
@@ -225,6 +228,10 @@ class CsvFileHandler {
    * @throws \Exception
    */
   public function createValue($data, $field) {
+    if ($field['field'] == 'body') {
+      return new TextType($data, $field);
+    }
+    
     switch ($field['type']) {
       case 'string':
       case 'string_long':
