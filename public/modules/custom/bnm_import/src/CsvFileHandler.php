@@ -114,8 +114,14 @@ class CsvFileHandler {
               $parent = $row[$this->getCsvHeaderIndexByName('Organisation', $header)];
             }
 
+            $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+
             foreach ($data_object->getValue() as $term) {
-              if ($existing_terms = taxonomy_term_load_multiple_by_name(ucfirst($term), $field['taxonomy_type'])) {
+              $existing_terms = $storage->loadByProperties([ 
+                'name' => ucfirst(trim($term)),
+                'vid' => $field['taxonomy_type'],
+              ]);
+              if ($existing_terms) {
                 if ($is_child) {
                   $node_terms[$field['taxonomy_type'] . '_child'][] = reset($existing_terms);
                 }
@@ -134,7 +140,7 @@ class CsvFileHandler {
                 ]);
 
                 if ($is_child) {
-                  $pt = taxonomy_term_load_multiple_by_name(ucfirst($parent), $field['taxonomy_type']);
+                  $pt = $storage->loadByProperties(['name' => ucfirst(trim($parent)), 'vid' => $field['taxonomy_type']]);
                   if ($pt) {
                     $term->set('parent', ['target_id' => reset($pt)->id()]);
                   }
