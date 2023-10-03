@@ -15,7 +15,6 @@ permissions:
   - 'restful get initial_frontend_data_rest_resource'
   - 'restful get researchgroup_search_rest_resource'
   - 'restful get search_suggestions_rest_resource'
-  - 'restful get suggestion_rest_resource'
   - 'search content'
   - 'use text format restricted_html'
   - 'view media'
