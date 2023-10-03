@@ -84,6 +84,9 @@
         "patches": {
             "drupal/shs": {
                 "Custom implode default values": "patches/implode_default_value.patch"
+            },
+            "drupal/core": {
+                "expand textfield": "https://www.drupal.org/files/issues/2023-02-02/3241295-d9.5-101.patch"
             }
         }
     },

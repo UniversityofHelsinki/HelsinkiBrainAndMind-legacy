@@ -1,7 +1,25 @@
 uuid: a8661d9d-0f12-418d-8834-9055de422d53
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.full_html
+    - filter.format.restricted_html
+    - media.type.document
+    - node.type.research_group
+    - taxonomy.vocabulary.affiliations
+    - taxonomy.vocabulary.keywords
+  module:
+    - bnm_import
+    - field_ui
+    - file
+    - filter
+    - media
+    - menu_admin_per_menu
+    - node
+    - system
+    - taxonomy
+    - toolbar
 id: content_administrator
 label: 'Content administrator'
 weight: -8
