@@ -1,7 +1,22 @@
 uuid: 22b22bbb-d7d5-45bd-aa03-bbe8937bd675
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.basic_html
+    - rest.resource.filter_rest_resource
+    - rest.resource.initial_frontend_data_rest_resource
+    - rest.resource.researchgroup_search_rest_resource
+    - rest.resource.search_suggestions_rest_resource
+  module:
+    - comment
+    - contact
+    - filter
+    - media
+    - rest
+    - search
+    - shortcut
+    - system
 _core:
   default_config_hash: btW6TFHajhy7Eo6YUvdFiPh4TcPggo8GBXYctjV6zag
 id: authenticated
