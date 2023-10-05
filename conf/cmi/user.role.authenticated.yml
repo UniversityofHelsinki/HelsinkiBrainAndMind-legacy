@@ -11,6 +11,7 @@ dependencies:
   module:
     - comment
     - contact
+    - file
     - filter
     - media
     - rest
@@ -27,6 +28,7 @@ permissions:
   - 'access content'
   - 'access shortcuts'
   - 'access site-wide contact form'
+  - 'delete own files'
   - 'post comments'
   - 'restful get filter_rest_resource'
   - 'restful get initial_frontend_data_rest_resource'
