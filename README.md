@@ -7,7 +7,7 @@ HY Brain & Mind Drupal project.
 | Env                | Branch | Drush alias | URL                                       |
 |--------------------|--------|-------------|-------------------------------------------|
 | local              | *      | -           | https://bnm.docker.so                     |
-| development        | dev    | -           | http://hbm-dev-20.it.helsinki.fi/         |
+| development        | dev    | -           | https://hbm-dev-20.it.helsinki.fi/        |
 | production (alias) | main   | -           | https://hbm-prod-20.it.helsinki.fi/       |
 | production         | main   | -           | https://research.helsinkibrainandmind.fi/ |
 
@@ -24,7 +24,7 @@ You need to have these applications installed to operate on all environments:
 
 For the first time:
 
-```shell
+```console
 make fresh
 ```
 
@@ -34,7 +34,7 @@ Ready! Now go to https://bnm.docker.so/ to see your site.
 
 This will log you inside the app container:
 
-```shell
+```console
 make shell
 ```
 
@@ -54,13 +54,13 @@ You need to have these applications installed to develop this application:
 
 Install node dependencies:
 
-```shell
+```console
 make js-install
 ```
 
 Start development:
 
-```shell
+```console
 make build-js-search-dev
 ```
 
@@ -68,7 +68,7 @@ make build-js-search-dev
 
 Compile your application in production mode:
 
-```shell
+```console
 make build-js-search-prod
 ```
 
