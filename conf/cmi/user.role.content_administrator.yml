@@ -53,6 +53,7 @@ permissions:
   - 'delete any research_group content'
   - 'delete media'
   - 'delete own document media'
+  - 'delete own files'
   - 'delete own research_group content'
   - 'delete research_group revisions'
   - 'delete terms in affiliations'
