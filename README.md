@@ -4,19 +4,17 @@ HY Brain & Mind Drupal project.
 
 ## Environments
 
-| Env                | Branch | Drush alias | URL                                       |
-|--------------------|--------|-------------|-------------------------------------------|
-| local              | *      | -           | https://bnm.docker.so                     |
-| development        | dev    | -           | https://hbm-dev-20.it.helsinki.fi/        |
-| production (alias) | main   | -           | https://hbm-prod-20.it.helsinki.fi/       |
-| production         | main   | -           | https://research.helsinkibrainandmind.fi/ |
+| Env                | Branch | APP_ENV | URL                                       |
+|--------------------|--------|---------|-------------------------------------------|
+| local              | *      | dev     | https://bnm.docker.so                     |
+| development        | dev    | test    | https://hbm-dev-20.it.helsinki.fi/        |
+| production         | main   | prod    | https://research.helsinkibrainandmind.fi/ |
 
 ## Requirements
 
 You need to have these applications installed to operate on all environments:
 
-- [Docker](https://github.com/druidfi/guidelines/blob/master/docs/docker.md)
-- [Stonehenge](https://github.com/druidfi/stonehenge)
+- [Docker and Stonehenge](https://github.com/druidfi/stonehenge)
 - Github CLI
 - Optional: For the new person: Your SSH public key needs to be added to servers
 
