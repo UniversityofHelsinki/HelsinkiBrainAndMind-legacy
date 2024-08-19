@@ -9,7 +9,6 @@ dependencies:
     - rest.resource.researchgroup_search_rest_resource
     - rest.resource.search_suggestions_rest_resource
   module:
-    - contact
     - filter
     - media
     - rest
@@ -23,7 +22,6 @@ weight: -10
 is_admin: false
 permissions:
   - 'access content'
-  - 'access site-wide contact form'
   - 'restful get filter_rest_resource'
   - 'restful get initial_frontend_data_rest_resource'
   - 'restful get researchgroup_search_rest_resource'
