@@ -3,6 +3,8 @@
 namespace Drupal\bnm_frontend\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * An bnm_frontend controller.
@@ -10,10 +12,30 @@ use Drupal\Core\Controller\ControllerBase;
 class ResearchgroupSearchController extends ControllerBase {
 
   /**
+   * Constructor.
+   *
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   The http request stack.
+   */
+  public function __construct(
+    private readonly RequestStack $requestStack
+  ) {
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container): static {
+    return new static(
+      $container->get('request_stack'),
+    );
+  }
+
+  /**
    * Render Vue application.
    */
   public function content() {
-    $host = \Drupal::request()->getSchemeAndHttpHost();
+    $host = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
     $production_url = 'https://research.helsinkibrainandmind.fi/';
     $host = $host === 'https://hbm-prod-20.it.helsinki.fi/initial-frontend-data' ? $production_url : $host;
 
