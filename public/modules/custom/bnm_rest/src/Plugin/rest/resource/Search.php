@@ -63,12 +63,9 @@ final class Search extends ResourceBase {
     /** @var \Drupal\search_api\Query\Query $query */
     $query = $index->query();
 
-    $keys = NULL;
-    if (!empty($q)) {
-      str_replace(',', ' ', $q);
+    if ($q) {
+      $query->keys(str_replace(',', ' ', $q));
     }
-
-    $query->keys($keys);
 
     $query->getParseMode()->setConjunction('AND');
 

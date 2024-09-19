@@ -10,5 +10,6 @@ third_party_settings:
     message: 'Term %term already exists in vocabulary %vocabulary.'
 name: Keywords
 vid: keywords
-description: ''
+description: null
 weight: 0
+new_revision: false
