@@ -7,11 +7,6 @@
 
 use Drupal\Core\Entity\EntityInterface;
 
-const FORMS_TO_HIDE_TITLE_FROM = [
-  'node_research_group_edit_form',
-  'node_research_group_form',
-];
-
 /**
  * Implements hook_form_BASE_FORM_ID_alter().
  *
@@ -50,7 +45,12 @@ function bnm_content_form_alter(&$form, $form_state) {
  * {@inheritDoc}
  */
 function bnm_content_hide_node_title(&$form, $form_state) {
-  if (!in_array($form['#form_id'], FORMS_TO_HIDE_TITLE_FROM)) {
+  $form_to_hide_title_from = [
+    'node_research_group_edit_form',
+    'node_research_group_form',
+  ];
+
+  if (!in_array($form['#form_id'], $form_to_hide_title_from)) {
     return;
   }
 
@@ -108,7 +108,7 @@ function bnm_content_entity_presave(EntityInterface $entity) {
           else {
             // Parent is level 1 term.
             $mains[] = $parent;
-            // Term is levell 2 term and this affiliations don't have level 2 terms.
+            // Term is level 2 term and affiliations don't have level 2 terms.
             $faculty_units[] = $term;
           }
         }
