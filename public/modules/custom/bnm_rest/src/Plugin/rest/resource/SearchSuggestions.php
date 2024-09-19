@@ -2,9 +2,9 @@
 
 namespace Drupal\bnm_rest\Plugin\rest\resource;
 
+use Drupal\rest\Plugin\ResourceBase;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api_autocomplete\Entity\Search;
-use Drupal\rest\Plugin\ResourceBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

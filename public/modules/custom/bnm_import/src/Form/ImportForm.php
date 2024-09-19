@@ -2,9 +2,9 @@
 
 namespace Drupal\bnm_import\Form;
 
-use Drupal\node\Entity\Node;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

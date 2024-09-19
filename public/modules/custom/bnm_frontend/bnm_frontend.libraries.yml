@@ -6,4 +6,3 @@ researchgroup-search:
   css:
     theme:
       js/search/dist/css/app.css: { }
-

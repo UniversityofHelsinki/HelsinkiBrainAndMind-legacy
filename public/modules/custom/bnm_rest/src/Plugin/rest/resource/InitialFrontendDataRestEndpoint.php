@@ -150,7 +150,13 @@ final class InitialFrontendDataRestEndpoint extends ResourceBase {
       $link = !$isExternal ? ($host . $link) : $link;
 
       if ($item->link->isEnabled()) {
-        $links[] = ['title' => $title, 'link' => $link, 'weight' => $weight, 'external' => $isExternal, 'downloadable' => $isFile];
+        $links[] = [
+          'title' => $title,
+          'link' => $link,
+          'weight' => $weight,
+          'external' => $isExternal,
+          'downloadable' => $isFile
+        ];
       }
     }
 

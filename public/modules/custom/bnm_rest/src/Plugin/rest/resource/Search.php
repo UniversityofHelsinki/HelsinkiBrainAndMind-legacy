@@ -2,10 +2,10 @@
 
 namespace Drupal\bnm_rest\Plugin\rest\resource;
 
-use Drupal\search_api\Entity\Index;
 use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
 use Drupal\rest\Plugin\ResourceBase;
+use Drupal\search_api\Entity\Index;
+use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,7 +50,6 @@ final class Search extends ResourceBase {
     $q = $request->get('q');
     $affiliate = $request->get('affiliate');
     $index = Index::load('research_group');
-    $parentid = NULL;
     $affiliate_depth = 1;
 
     if ($affiliate && $affiliate != 0) {
@@ -64,7 +63,12 @@ final class Search extends ResourceBase {
     /** @var \Drupal\search_api\Query\Query $query */
     $query = $index->query();
 
-    $query->keys(str_replace(',', ' ', $q));
+    $keys = NULL;
+    if (!empty($q)) {
+      str_replace(',', ' ', $q);
+    }
+
+    $query->keys($keys);
 
     $query->getParseMode()->setConjunction('AND');
 
@@ -76,7 +80,7 @@ final class Search extends ResourceBase {
       $data = explode('/', $data[1]);
       $node = Node::load($data[1]);
 
-      // Get the faculty ids
+      // Get the faculty ids.
       $node_faculty_ids = array_map(function ($item) {
         return $item->id();
       }, $node->field_faculty_unit->referencedEntities());
@@ -84,14 +88,16 @@ final class Search extends ResourceBase {
       }
       else {
         if ($children && $affiliate_depth == '1') {
-          // Compare faculty id with children of the selected affiliation and check if there is an intersection
+          // Compare faculty id with children of the selected affiliation
+          // and check if there is an intersection.
           $matched_faculty = array_intersect($node_faculty_ids, $children_ids);
           if (!$matched_faculty) {
             continue;
           }
         }
         else {
-          // Is a child affiliation, show only if get parameter id == node field_faculty_unit value.
+          // Is a child affiliation,
+          // show only if get parameter id == node field_faculty_unit value.
           if ($affiliate_depth == '3') {
             if ($node->field_unit->target_id != $affiliate) {
               continue;

@@ -11,7 +11,7 @@
  */
 function hbm_preprocess_html(&$variables) {
   global $base_secure_url;
-  $path =  \Drupal::service('extension.list.theme')->getPath('hbm');
+  $path = \Drupal::service('extension.list.theme')->getPath('hbm');
   $url = \Drupal::service('file_url_generator')->generateAbsoluteString($base_secure_url . '/' . $path);
   $variables['theme_path'] = $url;
 }

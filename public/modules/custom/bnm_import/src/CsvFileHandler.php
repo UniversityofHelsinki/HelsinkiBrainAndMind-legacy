@@ -3,10 +3,10 @@
 namespace Drupal\bnm_import;
 
 use Drupal\bnm_import\ImportTypes\EmailType;
-use Drupal\bnm_import\ImportTypes\LinkType;
-use Drupal\bnm_import\ImportTypes\TextType;
-use Drupal\bnm_import\ImportTypes\TaxonomyType;
 use Drupal\bnm_import\ImportTypes\ImportType;
+use Drupal\bnm_import\ImportTypes\LinkType;
+use Drupal\bnm_import\ImportTypes\TaxonomyType;
+use Drupal\bnm_import\ImportTypes\TextType;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 
@@ -117,7 +117,7 @@ class CsvFileHandler {
             $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
 
             foreach ($data_object->getValue() as $term) {
-              $existing_terms = $storage->loadByProperties([ 
+              $existing_terms = $storage->loadByProperties([
                 'name' => ucfirst(trim($term)),
                 'vid' => $field['taxonomy_type'],
               ]);
@@ -237,7 +237,7 @@ class CsvFileHandler {
     if ($field['field'] == 'body') {
       return new TextType($data, $field);
     }
-    
+
     switch ($field['type']) {
       case 'string':
       case 'string_long':

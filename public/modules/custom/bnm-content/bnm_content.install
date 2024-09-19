@@ -6,7 +6,8 @@
  */
 
 /**
- * Mismatched entity and/or field definitions. The field_industrial_collaboration field needs to be updated.
+ * Mismatched entity and/or field definitions.
+ * The field_industrial_collaboration field needs to be updated.
  */
 function bnm_content_update_8201() {
   $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();

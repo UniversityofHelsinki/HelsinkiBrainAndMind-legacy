@@ -181,13 +181,13 @@ class CsvCreator {
    *
    */
   private function getLinkOrder(): array {
-      return [
-        'Research group website' => 1,
-        'Research portal' => 2,
-        'Clinical researcher website' => 3,
-        'Other website' => 4,
-        'ORCID' => 5,
-      ];
+    return [
+      'Research group website' => 1,
+      'Research portal' => 2,
+      'Clinical researcher website' => 3,
+      'Other website' => 4,
+      'ORCID' => 5,
+    ];
   }
 
 }
