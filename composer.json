@@ -18,7 +18,7 @@
         "composer/installers": "^2.3.0",
         "cweagans/composer-patches": "^1.7.3",
         "druidfi/omen": "^0.9.0",
-        "drupal/admin_toolbar": "^3.4",
+        "drupal/admin_toolbar": "^3.5",
         "drupal/color": "^1.0",
         "drupal/core-composer-scaffold": "^10.2",
         "drupal/core-recommended": "^10.2",
