@@ -2420,17 +2420,17 @@
         },
         {
             "name": "drupal/shs",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/shs.git",
-                "reference": "2.0.1"
+                "reference": "2.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/shs-2.0.1.zip",
-                "reference": "2.0.1",
-                "shasum": "2d3ec84c660f0d41ae8e2e429664e3470c5f2839"
+                "url": "https://ftp.drupal.org/files/projects/shs-2.0.2.zip",
+                "reference": "2.0.2",
+                "shasum": "43651ef23908fd83a33081ac4edbccdbb4d7ee79"
             },
             "require": {
                 "drupal/core": "^10.2 || ^11"
@@ -2441,8 +2441,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.1",
-                    "datestamp": "1734991248",
+                    "version": "2.0.2",
+                    "datestamp": "1738879209",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
