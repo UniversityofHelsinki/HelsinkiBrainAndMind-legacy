@@ -3,16 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_faculty_unit
+    - field.storage.node.field_keywords
     - field.storage.node.field_other_affiliations
     - field.storage.node.field_research_group_name
-    - field.storage.node.field_keywords
-    - field.storage.node.field_faculty_unit
     - search_api.server.default_server
   module:
-    - taxonomy
-    - node
-    - search_api
     - bnm_searchapi
+    - node
+    - taxonomy
 id: research_group
 name: 'Research group'
 description: ''
