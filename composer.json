@@ -16,7 +16,7 @@
         "php": "^8.3",
         "composer-runtime-api": "^2",
         "composer/installers": "^2.3",
-        "cweagans/composer-patches": "^1.7",
+        "cweagans/composer-patches": "^2.0",
         "druidfi/omen": "^0.9",
         "drupal/admin_toolbar": "^3.5",
         "drupal/color": "^1.0",
