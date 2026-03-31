@@ -1,0 +1,17 @@
+{
+    "_hash": "a53ab3493c43d9590ccf011607329d4b8222cf859d207bc321fb85a2d58615fe",
+    "patches": {
+        "drupal/shs": [
+            {
+                "package": "drupal/shs",
+                "description": "Custom implode default values",
+                "url": "patches/implode_default_value.patch",
+                "sha256": "5f0a7b958d3b04df46a42a9a60514a16ca42b09afa21fc3f3138db880ce3ef02",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ]
+    }
+}
