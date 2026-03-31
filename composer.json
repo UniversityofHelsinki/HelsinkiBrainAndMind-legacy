@@ -20,8 +20,8 @@
         "druidfi/omen": "^0.9",
         "drupal/admin_toolbar": "^3.5",
         "drupal/color": "^1.0",
-        "drupal/core-composer-scaffold": "^10.3",
-        "drupal/core-recommended": "^10.3",
+        "drupal/core-composer-scaffold": "^10.4",
+        "drupal/core-recommended": "^10.4",
         "drupal/gin": "^3.0@RC",
         "drupal/gin_login": "^2.1",
         "drupal/gin_toolbar": "^1.0@RC",
@@ -43,7 +43,7 @@
         "drush/drush": "^13.7"
     },
     "require-dev": {
-        "drupal/core-dev-pinned": "^10.3"
+        "drupal/core-dev-pinned": "^10.4"
     },
     "conflict": {
         "drupal/drupal": "*"
