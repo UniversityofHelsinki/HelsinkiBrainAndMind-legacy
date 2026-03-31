@@ -15,9 +15,9 @@
     "require": {
         "php": "^8.3",
         "composer-runtime-api": "^2",
-        "composer/installers": "^2.3.0",
-        "cweagans/composer-patches": "^1.7.3",
-        "druidfi/omen": "^0.9.0",
+        "composer/installers": "^2.3",
+        "cweagans/composer-patches": "^1.7",
+        "druidfi/omen": "^0.9",
         "drupal/admin_toolbar": "^3.5",
         "drupal/color": "^1.0",
         "drupal/core-composer-scaffold": "^10.3",
@@ -40,7 +40,7 @@
         "drupal/taxonomy_term_depth": "^2.6",
         "drupal/taxonomy_unique": "^2.6",
         "drupal/token": "^1.15",
-        "drush/drush": "^13.7.1"
+        "drush/drush": "^13.7"
     },
     "require-dev": {
         "drupal/core-dev-pinned": "^10.3"
