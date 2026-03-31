@@ -52,7 +52,6 @@ module:
   phpass: 0
   rest: 0
   restui: 0
-  search: 0
   search_api: 0
   search_api_autocomplete: 0
   search_api_db: 0

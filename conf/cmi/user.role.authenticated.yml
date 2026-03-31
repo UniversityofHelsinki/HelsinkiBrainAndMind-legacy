@@ -15,7 +15,6 @@ dependencies:
     - filter
     - media
     - rest
-    - search
     - shortcut
     - system
 _core:
@@ -34,7 +33,6 @@ permissions:
   - 'restful get initial_frontend_data_rest_resource'
   - 'restful get researchgroup_search_rest_resource'
   - 'restful get search_suggestions_rest_resource'
-  - 'search content'
   - 'use text format basic_html'
   - 'view media'
   - 'view the administration theme'
