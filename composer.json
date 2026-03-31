@@ -39,11 +39,10 @@
         "drupal/stable": "^2.0",
         "drupal/taxonomy_term_depth": "^2.6",
         "drupal/taxonomy_unique": "^2.6",
-        "drupal/token": "^1.15",
-        "drush/drush": "^13.7"
+        "drupal/token": "^1.15"
     },
     "require-dev": {
-        "drupal/core-dev-pinned": "^10.4"
+        "drupal/core-dev": "^10.4"
     },
     "conflict": {
         "drupal/drupal": "*"
