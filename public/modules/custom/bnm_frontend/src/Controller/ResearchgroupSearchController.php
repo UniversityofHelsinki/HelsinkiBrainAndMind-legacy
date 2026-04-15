@@ -25,8 +25,8 @@ class ResearchgroupSearchController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container): static {
-    return new static(
+  public static function create(ContainerInterface $container): self {
+    return new self(
       $container->get('request_stack'),
     );
   }

@@ -1,5 +1,5 @@
 name: 'BNM - REST'
 type: module
 description: 'BNM - REST provides functionalities related to rest api'
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11
 package: 'BNM'
