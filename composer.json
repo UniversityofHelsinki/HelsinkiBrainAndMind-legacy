@@ -19,7 +19,6 @@
         "cweagans/composer-patches": "^2.0",
         "druidfi/omen": "^0.9",
         "drupal/admin_toolbar": "^3.6",
-        "drupal/color": "^2.0@alpha",
         "drupal/core-composer-scaffold": "^11.3",
         "drupal/core-recommended": "^11.3",
         "drupal/gin": "^5.0",

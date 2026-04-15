@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0dc9bb09858fcb54b0d785004e242e96",
+    "content-hash": "7244d5652eeef5f3174718b7682820ac",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1220,57 +1220,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/admin_toolbar",
                 "issues": "https://www.drupal.org/project/issues/admin_toolbar"
-            }
-        },
-        {
-            "name": "drupal/color",
-            "version": "2.0.0-alpha1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/color.git",
-                "reference": "2.0.0-alpha1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/color-2.0.0-alpha1.zip",
-                "reference": "2.0.0-alpha1",
-                "shasum": "5e518124fe3e18f0104ecad7dd4d6d6dce441e83"
-            },
-            "require": {
-                "drupal/core": ">=10.1.3 || ^11"
-            },
-            "require-dev": {
-                "drupal/bartik": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.0.0-alpha1",
-                    "datestamp": "1751431548",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "andypost",
-                    "homepage": "https://www.drupal.org/user/118908"
-                },
-                {
-                    "name": "kostyashupenko",
-                    "homepage": "https://www.drupal.org/user/3281537"
-                }
-            ],
-            "description": "Allows users to change the color scheme of compatible themes",
-            "homepage": "https://www.drupal.org/project/color",
-            "support": {
-                "source": "https://git.drupalcode.org/project/color"
             }
         },
         {
@@ -13500,9 +13449,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "drupal/color": 15
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
