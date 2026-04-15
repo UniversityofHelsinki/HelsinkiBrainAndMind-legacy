@@ -1,5 +1,5 @@
 name: 'BNM - Content'
 type: module
 description: 'BNM - Content provides functionalities for creating, providing and altering content.'
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11
 package: 'BNM'

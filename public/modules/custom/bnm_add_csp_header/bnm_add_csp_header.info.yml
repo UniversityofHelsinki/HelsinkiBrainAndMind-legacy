@@ -2,4 +2,4 @@ name: BNM - Add CSP Header
 type: module
 description: Adds Content-Security-Policy header with frame ancestors for embedding the page in an iframe.
 package: BNM
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11

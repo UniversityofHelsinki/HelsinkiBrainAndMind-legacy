@@ -2,7 +2,7 @@ name: Migrate Units
 type: module
 description: 'BNM - Affiliations migration file'
 package: 'BNM'
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11
 
 dependencies:
   - drupal:migrate_plus
