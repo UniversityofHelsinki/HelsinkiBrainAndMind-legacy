@@ -2,7 +2,7 @@ name: HBM
 type: theme
 description: 'A custom built Drupal theme for HBM.'
 package: HBM
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^10 || ^11
 base theme: stable
 
 libraries-override:
