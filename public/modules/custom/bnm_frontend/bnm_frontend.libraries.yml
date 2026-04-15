@@ -2,7 +2,11 @@
 researchgroup-search:
   version: 1.0
   js:
-    js/search/dist/js/app.js: { }
+    js/search/dist/js/app.js:
+      minified: true
+      preprocess: false
   css:
     theme:
-      js/search/dist/css/app.css: { }
+      js/search/dist/css/app.css:
+        minified: true
+        preprocess: false
