@@ -25,7 +25,6 @@
         "drupal/gin": "^5.0",
         "drupal/gin_login": "^2.1",
         "drupal/gin_toolbar": "^3.0",
-        "drupal/hal": "^2.0",
         "drupal/menu_admin_per_menu": "^1.7",
         "drupal/metatag": "^2.2",
         "drupal/migrate_plus": "^6.0",
