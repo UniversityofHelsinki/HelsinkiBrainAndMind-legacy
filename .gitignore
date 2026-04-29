@@ -1,41 +1,5 @@
-# Ignore project files that should not be in version control
-/ansible/roles/druidfi.*
-/ansible/roles/geerlingguy.*
-cghooks.lock
-drush/contrib/
-files
-files_private
-node_modules
-public/robots.txt
-public/core
-public/modules/contrib
-public/themes/contrib
-public/profiles/config_installer
-public/profiles/contrib
-public/libraries
-public/sites/default/files
-public/sites/simpletest
-tools/init-tools-status
-vendor
-web/
-shared
-
-drush/sites/.checksums
-.phpunit.result.cache
-
-*.sql
-
-# Ingore files that are only for the current local environment
-public/sites/default/local.settings.php
-public/sites/default/local.services.yml
-public/sites/default/settings.php
-public/sites/default/services.yml
-public/sites/settings.php
-public/sites/default/settings.local.php
-
-# Ignore OSX generated files
-.DS_Store
-._*
-
-!*.gitkeep
-!*.keepme
+/public/core/
+/public/modules/contrib/
+/public/sites/default/files/
+/public/themes/contrib/
+/vendor/

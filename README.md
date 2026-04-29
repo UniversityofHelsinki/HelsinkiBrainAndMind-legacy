@@ -2,49 +2,39 @@
 
 HY Brain & Mind Drupal project.
 
-## Environments
-
-| Env                | Branch | APP_ENV | URL                                       |
-|--------------------|--------|---------|-------------------------------------------|
-| local              | *      | dev     | https://bnm.docker.so                     |
-| development        | dev    | test    | https://hbm-dev-20.it.helsinki.fi/        |
-| production         | main   | prod    | https://research.helsinkibrainandmind.fi/ |
-
 ## Requirements
 
-You need to have these applications installed to operate on all environments:
-
-- [Docker and Stonehenge](https://github.com/druidfi/stonehenge)
-- Github CLI
-- Optional: For the new person: Your SSH public key needs to be added to servers
+- Docker
+- DDEV - [Get started](https://ddev.com/get-started/)
+- Volta - [Get started](https://docs.volta.sh/guide/getting-started)
 
 ## Create and start the environment
 
 For the first time:
 
 ```console
-make fresh
+ddev start
+ddev import-db --file=dump.sql
+ddev composer install
+ddev drush sapi-rt research_group
+ddev drush sapi-i research_group
+ddev describe
 ```
 
-Ready! Now go to https://bnm.docker.so/ to see your site.
+Ready! Now go to http://hy-brain-and-mind.ddev.site/ to see your site.
 
 ## Login to Drupal container
 
 This will log you inside the app container:
 
 ```console
-make shell
+ddev ssh
 ```
 
 ## VueJS environment
 
-We have a VueJS application that is attached to the Drupal site. It can be accessed from `/search-app`. It is a simple search interface for Drupal's Search API with suggestions.
-
-### Requirements
-
-You need to have these applications installed to develop this application:
-
-- Node 18
+We have a VueJS application that is attached to the Drupal site. It can be accessed from `/search-app`. It is a simple
+search interface for Drupal's Search API with suggestions.
 
 ### Development
 
@@ -53,13 +43,13 @@ You need to have these applications installed to develop this application:
 Install node dependencies:
 
 ```console
-make js-install
+(cd public/modules/custom/bnm_frontend/js/search && pnpm install --frozen-lockfile)
 ```
 
 Start development:
 
 ```console
-make build-js-search-dev
+(cd public/modules/custom/bnm_frontend/js/search && pnpm run serve)
 ```
 
 #### Ready with your modifications and want to create a releasable PR version of your code?
@@ -67,7 +57,7 @@ make build-js-search-dev
 Compile your application in production mode:
 
 ```console
-make build-js-search-prod
+(cd public/modules/custom/bnm_frontend/js/search && pnpm run build)
 ```
 
 #### Compiled webpack bundles
@@ -88,4 +78,4 @@ You'll find your compiled application in the `/dist` directory in two different 
 
 #### Coding standards
 
-We follow Airbnb Javascript coding standards. More info: https://github.com/airbnb/javascript
+We follow Airbnb JavaScript coding standards. More info: https://github.com/airbnb/javascript
