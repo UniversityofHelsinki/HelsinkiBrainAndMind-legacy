@@ -1,8 +1,8 @@
 {
-    "name": "hbm/brain-and-mind",
+    "name": "universityofhelsinki/helsinkibrainandmind-legacy",
     "description": "Helsinki University - Brain and Mind Drupal project",
     "type": "project",
-    "homepage": "https://version.helsinki.fi/hbm/brain-and-mind",
+    "homepage": "https://github.com/UniversityofHelsinki/HelsinkiBrainAndMind-legacy",
     "license": "proprietary",
     "authors": [
         {
