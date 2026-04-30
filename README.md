@@ -12,6 +12,9 @@ HY Brain & Mind Drupal project.
 
 For the first time:
 
+1. Get database dump and place it to repo root as `dump.sql`.
+2. Then run following commands:
+
 ```console
 ddev start
 ddev import-db --file=dump.sql
