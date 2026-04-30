@@ -7,6 +7,7 @@ HY Brain & Mind Drupal project.
 - Docker
 - DDEV - [Get started](https://ddev.com/get-started/)
 - Volta - [Get started](https://docs.volta.sh/guide/getting-started)
+- Get database dump from [Anni Kinnari](https://www.helsinki.fi/en/about-us/people/people-finder?search=anni%20kinnari)
 
 ## Create and start the environment
 
